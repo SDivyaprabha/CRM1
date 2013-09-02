@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Mandrill.API</id>
+    <version>0.0.2</version>
+    <title>Mandrill.API</title>
+    <authors>Cory Taylor</authors>
+    <owners>Cory Taylor</owners>
+    <licenseUrl>http://opensource.org/licenses/Apache-2.0</licenseUrl>
+    <projectUrl>https://github.com/coryt/Mandrill-API</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A wrapper for the Mandrill API.</description>
+    <summary>A wrapper for the Mandrill API.</summary>
+    <releaseNotes>Initial Release</releaseNotes>
+    <copyright />
+    <language />
+    <tags>mailchimp mandrill</tags>
+    <dependencies>
+      <group targetFramework=".NETFramework4.0">
+        <dependency id="RestSharp" version="103.2" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>

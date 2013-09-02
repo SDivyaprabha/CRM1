@@ -126,26 +126,28 @@
   <metadata name="groupControl1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="txtCompAllotNo.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="textEdit3.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="barManager1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>339, 20</value>
   </metadata>
+  <metadata name="barAndDockingController1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>453, 22</value>
+  </metadata>
+  <metadata name="barDockControlTop.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="barDockControlBottom.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="barDockControlLeft.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="barDockControlRight.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="btnFinalCheck.Glyph" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAXlJREFUOE+lk7tL
-        w2AUxfMP1MnN1dHZrS4OgoOgFKFO4iRuuimigq46OIg6COJjcFM3FwcXKwhViwjFQrHWatv0QWraPHr8
-        zrWCn0IhNHBIbsj53XNvEgOA0YmM1ZPohpKt5AbUJhsbK8fj9mlsG2exnUBSPlcAi/ujLs3nN7uBpHzK
-        rwBLhxFfRUdQKd83YPkoglrdhGXnUf3MoVzLoGSlUaymkK8k8V5+Qq70iDfzAVnzDq/FuIg+AczvjaDW
-        MOXGj7LmvVYns5daTQB9ApjbGoLdqMgDF/EDObPr7zqVu9JqJqFPADPrA6g7ltahUH3W6vTHtVZzHPoE
-        MLXWD8e1YTsVtYui7KFkvYAQJuE4mcItCGESjsOd0CeAiYU+OF5d60BIu50QTJ8AxmZ74XqONiOTtNsJ
-        3w59Ahie7oHve1pHjvM7wd+d8BXTJ4DByW5eyNFs+vCbLjzfUWPZaLhWazf/v5OWzzDC0VAiHO1CcIUS
-        kqCTX5neLz834e8tTFVhAAAAAElFTkSuQmCC
-</value>
-  </data>
   <data name="btnSave.Glyph" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
@@ -177,19 +179,29 @@
         zoKtv6hzq59pYzXV+RbaKjMxU5OJxOkMJCosTOcB9wWq3PwX/gWihbIQeCdf8AAAAABJRU5ErkJggg==
 </value>
   </data>
-  <metadata name="barAndDockingController1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>453, 22</value>
-  </metadata>
-  <metadata name="barDockControlTop.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <data name="btnFinalCheck.Glyph" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAXlJREFUOE+lk7tL
+        w2AUxfMP1MnN1dHZrS4OgoOgFKFO4iRuuimigq46OIg6COJjcFM3FwcXKwhViwjFQrHWatv0QWraPHr8
+        zrWCn0IhNHBIbsj53XNvEgOA0YmM1ZPohpKt5AbUJhsbK8fj9mlsG2exnUBSPlcAi/ujLs3nN7uBpHzK
+        rwBLhxFfRUdQKd83YPkoglrdhGXnUf3MoVzLoGSlUaymkK8k8V5+Qq70iDfzAVnzDq/FuIg+AczvjaDW
+        MOXGj7LmvVYns5daTQB9ApjbGoLdqMgDF/EDObPr7zqVu9JqJqFPADPrA6g7ltahUH3W6vTHtVZzHPoE
+        MLXWD8e1YTsVtYui7KFkvYAQJuE4mcItCGESjsOd0CeAiYU+OF5d60BIu50QTJ8AxmZ74XqONiOTtNsJ
+        3w59Ahie7oHve1pHjvM7wd+d8BXTJ4DByW5eyNFs+vCbLjzfUWPZaLhWazf/v5OWzzDC0VAiHO1CcIUS
+        kqCTX5neLz834e8tTFVhAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <metadata name="textEdit2.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="barDockControlBottom.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="labelControl2.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="barDockControlLeft.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="labelControl1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="barDockControlRight.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="txtCompAllotNo.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="label12.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

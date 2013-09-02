@@ -30,10 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmBuyer));
-            DevExpress.Utils.SuperToolTip superToolTip1 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem1 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.SuperToolTip superToolTip2 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem2 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.SuperToolTip superToolTip3 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem3 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.SuperToolTip superToolTip4 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem4 = new DevExpress.Utils.ToolTipTitleItem();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.barManager1 = new DevExpress.XtraBars.BarManager(this.components);
             this.bar3 = new DevExpress.XtraBars.Bar();
@@ -89,6 +89,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.cboFlat = new DevExpress.XtraEditors.LookUpEdit();
             this.lblFlat = new System.Windows.Forms.Label();
+            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
+            this.textEdit2 = new DevExpress.XtraEditors.TextEdit();
+            this.textEdit3 = new DevExpress.XtraEditors.TextEdit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barAndDockingController1)).BeginInit();
@@ -119,6 +123,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtCommpercent.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboBroker.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboFlat.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEdit2.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEdit3.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // errorProvider1
@@ -183,9 +189,9 @@
             this.btnSave.Glyph = ((System.Drawing.Image)(resources.GetObject("btnSave.Glyph")));
             this.btnSave.Id = 1;
             this.btnSave.Name = "btnSave";
-            toolTipTitleItem1.Text = "Save";
-            superToolTip1.Items.Add(toolTipTitleItem1);
-            this.btnSave.SuperTip = superToolTip1;
+            toolTipTitleItem3.Text = "Save";
+            superToolTip3.Items.Add(toolTipTitleItem3);
+            this.btnSave.SuperTip = superToolTip3;
             this.btnSave.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnSave_ItemClick);
             // 
             // btnCancel
@@ -195,9 +201,9 @@
             this.btnCancel.Glyph = ((System.Drawing.Image)(resources.GetObject("btnCancel.Glyph")));
             this.btnCancel.Id = 2;
             this.btnCancel.Name = "btnCancel";
-            toolTipTitleItem2.Text = "Cancel";
-            superToolTip2.Items.Add(toolTipTitleItem2);
-            this.btnCancel.SuperTip = superToolTip2;
+            toolTipTitleItem4.Text = "Cancel";
+            superToolTip4.Items.Add(toolTipTitleItem4);
+            this.btnCancel.SuperTip = superToolTip4;
             this.btnCancel.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnCancel_ItemClick);
             // 
             // barAndDockingController1
@@ -221,7 +227,7 @@
             // 
             this.barDockControlBottom.CausesValidation = false;
             this.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.barDockControlBottom.Location = new System.Drawing.Point(0, 560);
+            this.barDockControlBottom.Location = new System.Drawing.Point(0, 508);
             this.barDockControlBottom.Size = new System.Drawing.Size(705, 26);
             // 
             // barDockControlLeft
@@ -229,14 +235,14 @@
             this.barDockControlLeft.CausesValidation = false;
             this.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left;
             this.barDockControlLeft.Location = new System.Drawing.Point(0, 0);
-            this.barDockControlLeft.Size = new System.Drawing.Size(0, 560);
+            this.barDockControlLeft.Size = new System.Drawing.Size(0, 508);
             // 
             // barDockControlRight
             // 
             this.barDockControlRight.CausesValidation = false;
             this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
             this.barDockControlRight.Location = new System.Drawing.Point(705, 0);
-            this.barDockControlRight.Size = new System.Drawing.Size(0, 560);
+            this.barDockControlRight.Size = new System.Drawing.Size(0, 508);
             // 
             // btnExit
             // 
@@ -254,6 +260,10 @@
             // groupControl1
             // 
             this.groupControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.groupControl1.Controls.Add(this.textEdit3);
+            this.groupControl1.Controls.Add(this.textEdit2);
+            this.groupControl1.Controls.Add(this.labelControl2);
+            this.groupControl1.Controls.Add(this.labelControl1);
             this.groupControl1.Controls.Add(this.txtCompAllotNo);
             this.groupControl1.Controls.Add(this.label12);
             this.groupControl1.Controls.Add(this.txtCCAllotNo);
@@ -299,34 +309,37 @@
             this.groupControl1.LookAndFeel.SkinName = "Money Twins";
             this.groupControl1.LookAndFeel.UseDefaultLookAndFeel = false;
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(705, 560);
+            this.groupControl1.Size = new System.Drawing.Size(705, 508);
             this.groupControl1.TabIndex = 14;
             this.groupControl1.Paint += new System.Windows.Forms.PaintEventHandler(this.groupControl1_Paint);
             // 
             // txtCompAllotNo
             // 
-            this.txtCompAllotNo.Location = new System.Drawing.Point(139, 68);
+            this.txtCompAllotNo.EnterMoveNextControl = true;
+            this.txtCompAllotNo.Location = new System.Drawing.Point(139, 53);
             this.txtCompAllotNo.MenuManager = this.barManager1;
             this.txtCompAllotNo.Name = "txtCompAllotNo";
             this.txtCompAllotNo.Properties.Appearance.BackColor = System.Drawing.Color.White;
             this.txtCompAllotNo.Properties.Appearance.ForeColor = System.Drawing.Color.Black;
             this.txtCompAllotNo.Properties.Appearance.Options.UseBackColor = true;
             this.txtCompAllotNo.Properties.Appearance.Options.UseForeColor = true;
-            this.txtCompAllotNo.Size = new System.Drawing.Size(212, 20);
+            this.txtCompAllotNo.Size = new System.Drawing.Size(214, 20);
             this.txtCompAllotNo.TabIndex = 279;
             // 
             // label12
             // 
+            this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(23, 69);
+            this.label12.Location = new System.Drawing.Point(24, 57);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(88, 18);
+            this.label12.Size = new System.Drawing.Size(88, 15);
             this.label12.TabIndex = 278;
             this.label12.Text = "Company Wise";
             // 
             // txtCCAllotNo
             // 
-            this.txtCCAllotNo.Location = new System.Drawing.Point(139, 41);
+            this.txtCCAllotNo.EnterMoveNextControl = true;
+            this.txtCCAllotNo.Location = new System.Drawing.Point(139, 30);
             this.txtCCAllotNo.MenuManager = this.barManager1;
             this.txtCCAllotNo.Name = "txtCCAllotNo";
             this.txtCCAllotNo.Properties.Appearance.BackColor = System.Drawing.Color.White;
@@ -338,16 +351,18 @@
             // 
             // label5
             // 
+            this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(22, 42);
+            this.label5.Location = new System.Drawing.Point(23, 33);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(103, 18);
+            this.label5.Size = new System.Drawing.Size(99, 15);
             this.label5.TabIndex = 276;
             this.label5.Text = "CostCentre Wise";
             // 
             // txtAllotNo
             // 
-            this.txtAllotNo.Location = new System.Drawing.Point(139, 12);
+            this.txtAllotNo.EnterMoveNextControl = true;
+            this.txtAllotNo.Location = new System.Drawing.Point(139, 7);
             this.txtAllotNo.MenuManager = this.barManager1;
             this.txtAllotNo.Name = "txtAllotNo";
             this.txtAllotNo.Properties.Appearance.BackColor = System.Drawing.Color.White;
@@ -359,17 +374,19 @@
             // 
             // label1
             // 
+            this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(22, 13);
+            this.label1.Location = new System.Drawing.Point(24, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(87, 18);
+            this.label1.Size = new System.Drawing.Size(82, 15);
             this.label1.TabIndex = 274;
             this.label1.Text = "Allotment No";
             // 
             // dEReg
             // 
             this.dEReg.EditValue = null;
-            this.dEReg.Location = new System.Drawing.Point(139, 183);
+            this.dEReg.EnterMoveNextControl = true;
+            this.dEReg.Location = new System.Drawing.Point(139, 149);
             this.dEReg.MenuManager = this.barManager1;
             this.dEReg.Name = "dEReg";
             this.dEReg.Properties.Appearance.BackColor = System.Drawing.Color.White;
@@ -385,17 +402,19 @@
             // 
             // label13
             // 
+            this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(23, 184);
+            this.label13.Location = new System.Drawing.Point(24, 153);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(104, 18);
+            this.label13.Size = new System.Drawing.Size(102, 15);
             this.label13.TabIndex = 272;
             this.label13.Text = "Registration Date";
             // 
             // cboFlatType
             // 
             this.cboFlatType.Enabled = false;
-            this.cboFlatType.Location = new System.Drawing.Point(139, 153);
+            this.cboFlatType.EnterMoveNextControl = true;
+            this.cboFlatType.Location = new System.Drawing.Point(139, 124);
             this.cboFlatType.Name = "cboFlatType";
             this.cboFlatType.Properties.Appearance.BackColor = System.Drawing.Color.White;
             this.cboFlatType.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -414,17 +433,20 @@
             // 
             // lblType
             // 
+            this.lblType.AutoSize = true;
             this.lblType.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblType.Location = new System.Drawing.Point(24, 155);
+            this.lblType.Location = new System.Drawing.Point(24, 129);
             this.lblType.Name = "lblType";
-            this.lblType.Size = new System.Drawing.Size(62, 18);
+            this.lblType.Size = new System.Drawing.Size(56, 15);
             this.lblType.TabIndex = 271;
             this.lblType.Text = "Flat Type";
             // 
             // txtRate
             // 
+            this.txtRate.EditValue = "0";
             this.txtRate.Enabled = false;
-            this.txtRate.Location = new System.Drawing.Point(139, 528);
+            this.txtRate.EnterMoveNextControl = true;
+            this.txtRate.Location = new System.Drawing.Point(139, 483);
             this.txtRate.MenuManager = this.barManager1;
             this.txtRate.Name = "txtRate";
             this.txtRate.Properties.Appearance.BackColor = System.Drawing.Color.White;
@@ -435,23 +457,28 @@
             this.txtRate.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.txtRate.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.txtRate.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.txtRate.Properties.Mask.EditMask = "n2";
             this.txtRate.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
-            this.txtRate.Size = new System.Drawing.Size(162, 20);
+            this.txtRate.Properties.Mask.UseMaskAsDisplayFormat = true;
+            this.txtRate.Properties.ValidateOnEnterKey = true;
+            this.txtRate.Size = new System.Drawing.Size(214, 20);
             this.txtRate.TabIndex = 269;
             this.txtRate.EditValueChanged += new System.EventHandler(this.txtRate_EditValueChanged);
             // 
             // label11
             // 
+            this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(22, 529);
+            this.label11.Location = new System.Drawing.Point(24, 485);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(49, 18);
+            this.label11.Size = new System.Drawing.Size(32, 15);
             this.label11.TabIndex = 268;
             this.label11.Text = "Rate";
             // 
             // cboExec
             // 
-            this.cboExec.Location = new System.Drawing.Point(139, 469);
+            this.cboExec.EnterMoveNextControl = true;
+            this.cboExec.Location = new System.Drawing.Point(139, 435);
             this.cboExec.Name = "cboExec";
             this.cboExec.Properties.Appearance.BackColor = System.Drawing.Color.White;
             this.cboExec.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -464,13 +491,15 @@
             this.cboExec.Properties.LookAndFeel.SkinName = "Money Twins";
             this.cboExec.Properties.LookAndFeel.UseDefaultLookAndFeel = false;
             this.cboExec.Properties.NullText = "";
-            this.cboExec.Size = new System.Drawing.Size(162, 22);
+            this.cboExec.Size = new System.Drawing.Size(214, 22);
             this.cboExec.TabIndex = 267;
             // 
             // txtAdv
             // 
+            this.txtAdv.EditValue = "0";
             this.txtAdv.Enabled = false;
-            this.txtAdv.Location = new System.Drawing.Point(139, 501);
+            this.txtAdv.EnterMoveNextControl = true;
+            this.txtAdv.Location = new System.Drawing.Point(139, 460);
             this.txtAdv.MenuManager = this.barManager1;
             this.txtAdv.Name = "txtAdv";
             this.txtAdv.Properties.Appearance.BackColor = System.Drawing.Color.White;
@@ -481,32 +510,38 @@
             this.txtAdv.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.txtAdv.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.txtAdv.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.txtAdv.Properties.Mask.EditMask = "n2";
             this.txtAdv.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
-            this.txtAdv.Size = new System.Drawing.Size(162, 20);
+            this.txtAdv.Properties.Mask.UseMaskAsDisplayFormat = true;
+            this.txtAdv.Properties.ValidateOnEnterKey = true;
+            this.txtAdv.Size = new System.Drawing.Size(214, 20);
             this.txtAdv.TabIndex = 266;
             // 
             // label10
             // 
+            this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(22, 502);
+            this.label10.Location = new System.Drawing.Point(24, 461);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(103, 18);
+            this.label10.Size = new System.Drawing.Size(107, 15);
             this.label10.TabIndex = 265;
-            this.label10.Text = "Advance";
+            this.label10.Text = "Advance Amount  ";
             // 
             // label9
             // 
+            this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(23, 471);
+            this.label9.Location = new System.Drawing.Point(23, 437);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(117, 18);
+            this.label9.Size = new System.Drawing.Size(111, 15);
             this.label9.TabIndex = 264;
             this.label9.Text = "Post Sale Executive";
             // 
             // dateFinal
             // 
             this.dateFinal.EditValue = null;
-            this.dateFinal.Location = new System.Drawing.Point(139, 441);
+            this.dateFinal.EnterMoveNextControl = true;
+            this.dateFinal.Location = new System.Drawing.Point(139, 412);
             this.dateFinal.MenuManager = this.barManager1;
             this.dateFinal.Name = "dateFinal";
             this.dateFinal.Properties.Appearance.BackColor = System.Drawing.Color.White;
@@ -517,22 +552,24 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.dateFinal.Properties.VistaTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.dateFinal.Size = new System.Drawing.Size(161, 20);
+            this.dateFinal.Size = new System.Drawing.Size(214, 20);
             this.dateFinal.TabIndex = 263;
             // 
             // label8
             // 
+            this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(23, 442);
+            this.label8.Location = new System.Drawing.Point(23, 413);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(103, 18);
+            this.label8.Size = new System.Drawing.Size(97, 15);
             this.label8.TabIndex = 262;
             this.label8.Text = "Finalization Date";
             // 
             // dtpValidUpto
             // 
             this.dtpValidUpto.EditValue = null;
-            this.dtpValidUpto.Location = new System.Drawing.Point(139, 413);
+            this.dtpValidUpto.EnterMoveNextControl = true;
+            this.dtpValidUpto.Location = new System.Drawing.Point(139, 389);
             this.dtpValidUpto.MenuManager = this.barManager1;
             this.dtpValidUpto.Name = "dtpValidUpto";
             this.dtpValidUpto.Properties.Appearance.BackColor = System.Drawing.Color.White;
@@ -543,12 +580,13 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.dtpValidUpto.Properties.VistaTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.dtpValidUpto.Size = new System.Drawing.Size(162, 20);
+            this.dtpValidUpto.Size = new System.Drawing.Size(214, 20);
             this.dtpValidUpto.TabIndex = 261;
             // 
             // cboPSch
             // 
-            this.cboPSch.Location = new System.Drawing.Point(139, 210);
+            this.cboPSch.EnterMoveNextControl = true;
+            this.cboPSch.Location = new System.Drawing.Point(139, 172);
             this.cboPSch.Name = "cboPSch";
             this.cboPSch.Properties.Appearance.BackColor = System.Drawing.Color.White;
             this.cboPSch.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -567,20 +605,23 @@
             // 
             // lblPaySch
             // 
+            this.lblPaySch.AutoSize = true;
             this.lblPaySch.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPaySch.Location = new System.Drawing.Point(23, 212);
+            this.lblPaySch.Location = new System.Drawing.Point(23, 177);
             this.lblPaySch.Name = "lblPaySch";
-            this.lblPaySch.Size = new System.Drawing.Size(88, 19);
+            this.lblPaySch.Size = new System.Drawing.Size(108, 15);
             this.lblPaySch.TabIndex = 259;
-            this.lblPaySch.Text = "PaySch Name";
+            this.lblPaySch.Text = "Payment Schedule";
             // 
             // btnBroker
             // 
-            this.btnBroker.Location = new System.Drawing.Point(305, 327);
+            this.btnBroker.Appearance.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBroker.Appearance.Options.UseFont = true;
+            this.btnBroker.Location = new System.Drawing.Point(358, 318);
             this.btnBroker.LookAndFeel.SkinName = "Money Twins";
             this.btnBroker.LookAndFeel.UseDefaultLookAndFeel = false;
             this.btnBroker.Name = "btnBroker";
-            this.btnBroker.Size = new System.Drawing.Size(25, 22);
+            this.btnBroker.Size = new System.Drawing.Size(26, 21);
             this.btnBroker.TabIndex = 71;
             this.btnBroker.Text = "...";
             this.btnBroker.ToolTip = "Add Broker";
@@ -589,7 +630,8 @@
             // textEdit1
             // 
             this.textEdit1.Enabled = false;
-            this.textEdit1.Location = new System.Drawing.Point(139, 97);
+            this.textEdit1.EnterMoveNextControl = true;
+            this.textEdit1.Location = new System.Drawing.Point(139, 76);
             this.textEdit1.MenuManager = this.barManager1;
             this.textEdit1.Name = "textEdit1";
             this.textEdit1.Properties.Appearance.BackColor = System.Drawing.Color.White;
@@ -601,35 +643,36 @@
             // 
             // label4
             // 
+            this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(23, 98);
+            this.label4.Location = new System.Drawing.Point(24, 81);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(87, 18);
+            this.label4.Size = new System.Drawing.Size(82, 15);
             this.label4.TabIndex = 68;
             this.label4.Text = "Project Name";
             // 
             // label3
             // 
+            this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(22, 240);
+            this.label3.Location = new System.Drawing.Point(24, 245);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(45, 18);
+            this.label3.Size = new System.Drawing.Size(41, 15);
             this.label3.TabIndex = 66;
             this.label3.Text = "Status";
             // 
             // radioGroup3
             // 
-            this.radioGroup3.Location = new System.Drawing.Point(139, 238);
+            this.radioGroup3.EnterMoveNextControl = true;
+            this.radioGroup3.Location = new System.Drawing.Point(139, 243);
             this.radioGroup3.MenuManager = this.barManager1;
             this.radioGroup3.Name = "radioGroup3";
-            this.radioGroup3.Properties.Appearance.BackColor = System.Drawing.Color.Transparent;
-            this.radioGroup3.Properties.Appearance.Options.UseBackColor = true;
             this.radioGroup3.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.RadioGroupItem[] {
             new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "Sold"),
             new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "Block")});
-            this.radioGroup3.Properties.LookAndFeel.SkinName = "Money Twins";
+            this.radioGroup3.Properties.LookAndFeel.SkinName = "Glass Oceans";
             this.radioGroup3.Properties.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.radioGroup3.Size = new System.Drawing.Size(162, 22);
+            this.radioGroup3.Size = new System.Drawing.Size(214, 22);
             this.radioGroup3.TabIndex = 65;
             this.radioGroup3.SelectedIndexChanged += new System.EventHandler(this.radioGroup3_SelectedIndexChanged);
             // 
@@ -639,7 +682,7 @@
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Right;
             this.panelControl1.Location = new System.Drawing.Point(436, 0);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(269, 560);
+            this.panelControl1.Size = new System.Drawing.Size(269, 508);
             this.panelControl1.TabIndex = 62;
             // 
             // vGridControl1
@@ -658,63 +701,65 @@
             this.vGridControl1.Name = "vGridControl1";
             this.vGridControl1.OptionsBehavior.Editable = false;
             this.vGridControl1.OptionsBehavior.UseEnterAsTab = true;
-            this.vGridControl1.Size = new System.Drawing.Size(263, 554);
+            this.vGridControl1.Size = new System.Drawing.Size(263, 502);
             this.vGridControl1.TabIndex = 0;
             // 
             // radioGroup2
             // 
-            this.radioGroup2.Location = new System.Drawing.Point(139, 298);
+            this.radioGroup2.EnterMoveNextControl = true;
+            this.radioGroup2.Location = new System.Drawing.Point(139, 293);
             this.radioGroup2.MenuManager = this.barManager1;
             this.radioGroup2.Name = "radioGroup2";
-            this.radioGroup2.Properties.Appearance.BackColor = System.Drawing.Color.Transparent;
-            this.radioGroup2.Properties.Appearance.Options.UseBackColor = true;
             this.radioGroup2.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.RadioGroupItem[] {
             new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "Loan"),
             new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "Own")});
-            this.radioGroup2.Properties.LookAndFeel.SkinName = "Money Twins";
+            this.radioGroup2.Properties.LookAndFeel.SkinName = "Glass Oceans";
             this.radioGroup2.Properties.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.radioGroup2.Size = new System.Drawing.Size(162, 22);
+            this.radioGroup2.Size = new System.Drawing.Size(214, 22);
             this.radioGroup2.TabIndex = 2;
             this.radioGroup2.SelectedIndexChanged += new System.EventHandler(this.radioGroup2_SelectedIndexChanged);
             // 
             // label6
             // 
+            this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(22, 270);
+            this.label6.Location = new System.Drawing.Point(24, 269);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(104, 18);
+            this.label6.Size = new System.Drawing.Size(90, 15);
             this.label6.TabIndex = 60;
             this.label6.Text = "Customer Type";
             // 
             // radioGroup1
             // 
+            this.radioGroup1.EnterMoveNextControl = true;
             this.radioGroup1.Location = new System.Drawing.Point(139, 268);
             this.radioGroup1.MenuManager = this.barManager1;
             this.radioGroup1.Name = "radioGroup1";
-            this.radioGroup1.Properties.Appearance.BackColor = System.Drawing.Color.Transparent;
-            this.radioGroup1.Properties.Appearance.Options.UseBackColor = true;
             this.radioGroup1.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.RadioGroupItem[] {
             new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "Buyer"),
             new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "Investor")});
-            this.radioGroup1.Properties.LookAndFeel.SkinName = "Money Twins";
+            this.radioGroup1.Properties.LookAndFeel.SkinName = "Glass Oceans";
             this.radioGroup1.Properties.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.radioGroup1.Size = new System.Drawing.Size(162, 22);
+            this.radioGroup1.Size = new System.Drawing.Size(214, 22);
             this.radioGroup1.TabIndex = 1;
             this.radioGroup1.SelectedIndexChanged += new System.EventHandler(this.radioGroup1_SelectedIndexChanged);
             // 
             // lblDays
             // 
+            this.lblDays.AutoSize = true;
             this.lblDays.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDays.Location = new System.Drawing.Point(22, 414);
+            this.lblDays.Location = new System.Drawing.Point(24, 389);
             this.lblDays.Name = "lblDays";
-            this.lblDays.Size = new System.Drawing.Size(64, 18);
+            this.lblDays.Size = new System.Drawing.Size(63, 15);
             this.lblDays.TabIndex = 57;
             this.lblDays.Text = "Valid Upto";
             // 
             // txtCAmt
             // 
+            this.txtCAmt.EditValue = "0";
             this.txtCAmt.Enabled = false;
-            this.txtCAmt.Location = new System.Drawing.Point(139, 385);
+            this.txtCAmt.EnterMoveNextControl = true;
+            this.txtCAmt.Location = new System.Drawing.Point(139, 366);
             this.txtCAmt.MenuManager = this.barManager1;
             this.txtCAmt.Name = "txtCAmt";
             this.txtCAmt.Properties.Appearance.BackColor = System.Drawing.Color.White;
@@ -725,24 +770,30 @@
             this.txtCAmt.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.txtCAmt.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.txtCAmt.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.txtCAmt.Properties.Mask.EditMask = "n2";
             this.txtCAmt.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
-            this.txtCAmt.Size = new System.Drawing.Size(162, 20);
+            this.txtCAmt.Properties.Mask.UseMaskAsDisplayFormat = true;
+            this.txtCAmt.Properties.ValidateOnEnterKey = true;
+            this.txtCAmt.Size = new System.Drawing.Size(214, 20);
             this.txtCAmt.TabIndex = 7;
             this.txtCAmt.EditValueChanged += new System.EventHandler(this.txtCAmt_EditValueChanged);
             // 
             // lblCAmt
             // 
+            this.lblCAmt.AutoSize = true;
             this.lblCAmt.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCAmt.Location = new System.Drawing.Point(22, 386);
+            this.lblCAmt.Location = new System.Drawing.Point(22, 365);
             this.lblCAmt.Name = "lblCAmt";
-            this.lblCAmt.Size = new System.Drawing.Size(87, 18);
+            this.lblCAmt.Size = new System.Drawing.Size(91, 15);
             this.lblCAmt.TabIndex = 55;
-            this.lblCAmt.Text = "Com Amount";
+            this.lblCAmt.Text = "Comm Amount";
             // 
             // txtCommpercent
             // 
+            this.txtCommpercent.EditValue = "0";
             this.txtCommpercent.Enabled = false;
-            this.txtCommpercent.Location = new System.Drawing.Point(139, 357);
+            this.txtCommpercent.EnterMoveNextControl = true;
+            this.txtCommpercent.Location = new System.Drawing.Point(139, 343);
             this.txtCommpercent.MenuManager = this.barManager1;
             this.txtCommpercent.Name = "txtCommpercent";
             this.txtCommpercent.Properties.Appearance.BackColor = System.Drawing.Color.White;
@@ -753,23 +804,27 @@
             this.txtCommpercent.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.txtCommpercent.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.txtCommpercent.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.txtCommpercent.Properties.Mask.EditMask = "n2";
             this.txtCommpercent.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
-            this.txtCommpercent.Size = new System.Drawing.Size(162, 20);
+            this.txtCommpercent.Properties.Mask.UseMaskAsDisplayFormat = true;
+            this.txtCommpercent.Size = new System.Drawing.Size(214, 20);
             this.txtCommpercent.TabIndex = 6;
             this.txtCommpercent.EditValueChanged += new System.EventHandler(this.txtCommpercent_EditValueChanged);
             // 
             // lblcomPercent
             // 
+            this.lblcomPercent.AutoSize = true;
             this.lblcomPercent.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblcomPercent.Location = new System.Drawing.Point(22, 358);
+            this.lblcomPercent.Location = new System.Drawing.Point(22, 341);
             this.lblcomPercent.Name = "lblcomPercent";
-            this.lblcomPercent.Size = new System.Drawing.Size(87, 18);
+            this.lblcomPercent.Size = new System.Drawing.Size(80, 15);
             this.lblcomPercent.TabIndex = 53;
             this.lblcomPercent.Text = "Commision %";
             // 
             // cboBroker
             // 
-            this.cboBroker.Location = new System.Drawing.Point(139, 327);
+            this.cboBroker.EnterMoveNextControl = true;
+            this.cboBroker.Location = new System.Drawing.Point(139, 318);
             this.cboBroker.Name = "cboBroker";
             this.cboBroker.Properties.Appearance.BackColor = System.Drawing.Color.White;
             this.cboBroker.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -782,31 +837,34 @@
             this.cboBroker.Properties.LookAndFeel.SkinName = "Money Twins";
             this.cboBroker.Properties.LookAndFeel.UseDefaultLookAndFeel = false;
             this.cboBroker.Properties.NullText = "";
-            this.cboBroker.Size = new System.Drawing.Size(162, 22);
+            this.cboBroker.Size = new System.Drawing.Size(214, 22);
             this.cboBroker.TabIndex = 5;
             this.cboBroker.EditValueChanged += new System.EventHandler(this.cboBroker_EditValueChanged);
             // 
             // label7
             // 
+            this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(22, 329);
+            this.label7.Location = new System.Drawing.Point(23, 317);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(49, 18);
+            this.label7.Size = new System.Drawing.Size(86, 15);
             this.label7.TabIndex = 51;
-            this.label7.Text = "Broker";
+            this.label7.Text = "Broker Name  ";
             // 
             // label2
             // 
+            this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(22, 300);
+            this.label2.Location = new System.Drawing.Point(24, 293);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(109, 18);
+            this.label2.Size = new System.Drawing.Size(100, 15);
             this.label2.TabIndex = 39;
             this.label2.Text = "Payment  Option";
             // 
             // cboFlat
             // 
-            this.cboFlat.Location = new System.Drawing.Point(139, 124);
+            this.cboFlat.EnterMoveNextControl = true;
+            this.cboFlat.Location = new System.Drawing.Point(139, 99);
             this.cboFlat.Name = "cboFlat";
             this.cboFlat.Properties.Appearance.BackColor = System.Drawing.Color.White;
             this.cboFlat.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -825,18 +883,78 @@
             // 
             // lblFlat
             // 
+            this.lblFlat.AutoSize = true;
             this.lblFlat.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFlat.Location = new System.Drawing.Point(24, 126);
+            this.lblFlat.Location = new System.Drawing.Point(23, 105);
             this.lblFlat.Name = "lblFlat";
-            this.lblFlat.Size = new System.Drawing.Size(62, 18);
+            this.lblFlat.Size = new System.Drawing.Size(46, 15);
             this.lblFlat.TabIndex = 35;
             this.lblFlat.Text = "Flat No";
+            // 
+            // labelControl1
+            // 
+            this.labelControl1.Appearance.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl1.Location = new System.Drawing.Point(26, 201);
+            this.labelControl1.Name = "labelControl1";
+            this.labelControl1.Size = new System.Drawing.Size(74, 13);
+            this.labelControl1.TabIndex = 280;
+            this.labelControl1.Text = "Total Months";
+            // 
+            // labelControl2
+            // 
+            this.labelControl2.Appearance.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl2.Location = new System.Drawing.Point(26, 223);
+            this.labelControl2.Name = "labelControl2";
+            this.labelControl2.Size = new System.Drawing.Size(81, 13);
+            this.labelControl2.TabIndex = 281;
+            this.labelControl2.Text = "Initial Amount";
+            // 
+            // textEdit2
+            // 
+            this.textEdit2.EditValue = "0";
+            this.textEdit2.Enabled = false;
+            this.textEdit2.EnterMoveNextControl = true;
+            this.textEdit2.Location = new System.Drawing.Point(139, 197);
+            this.textEdit2.MenuManager = this.barManager1;
+            this.textEdit2.Name = "textEdit2";
+            this.textEdit2.Properties.Appearance.Options.UseTextOptions = true;
+            this.textEdit2.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            this.textEdit2.Properties.AppearanceDisabled.Options.UseTextOptions = true;
+            this.textEdit2.Properties.AppearanceDisabled.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            this.textEdit2.Properties.LookAndFeel.SkinName = "Money Twins";
+            this.textEdit2.Properties.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.textEdit2.Properties.Mask.EditMask = "n0";
+            this.textEdit2.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
+            this.textEdit2.Properties.Mask.UseMaskAsDisplayFormat = true;
+            this.textEdit2.Size = new System.Drawing.Size(214, 20);
+            this.textEdit2.TabIndex = 282;
+            // 
+            // textEdit3
+            // 
+            this.textEdit3.EditValue = "0";
+            this.textEdit3.Enabled = false;
+            this.textEdit3.EnterMoveNextControl = true;
+            this.textEdit3.Location = new System.Drawing.Point(139, 220);
+            this.textEdit3.MenuManager = this.barManager1;
+            this.textEdit3.Name = "textEdit3";
+            this.textEdit3.Properties.Appearance.Options.UseTextOptions = true;
+            this.textEdit3.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            this.textEdit3.Properties.AppearanceDisabled.Options.UseTextOptions = true;
+            this.textEdit3.Properties.AppearanceDisabled.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            this.textEdit3.Properties.LookAndFeel.SkinName = "Money Twins";
+            this.textEdit3.Properties.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.textEdit3.Properties.Mask.EditMask = "n2";
+            this.textEdit3.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
+            this.textEdit3.Properties.Mask.UseMaskAsDisplayFormat = true;
+            this.textEdit3.Properties.ValidateOnEnterKey = true;
+            this.textEdit3.Size = new System.Drawing.Size(214, 20);
+            this.textEdit3.TabIndex = 283;
             // 
             // frmBuyer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(705, 586);
+            this.ClientSize = new System.Drawing.Size(705, 534);
             this.ControlBox = false;
             this.Controls.Add(this.groupControl1);
             this.Controls.Add(this.barDockControlLeft);
@@ -852,6 +970,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.barAndDockingController1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
+            this.groupControl1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtCompAllotNo.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtCCAllotNo.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtAllotNo.Properties)).EndInit();
@@ -877,6 +996,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtCommpercent.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboBroker.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboFlat.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEdit2.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEdit3.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -938,5 +1059,9 @@
         private System.Windows.Forms.Label label12;
         private DevExpress.XtraEditors.TextEdit txtCCAllotNo;
         private System.Windows.Forms.Label label5;
+        private DevExpress.XtraEditors.TextEdit textEdit2;
+        private DevExpress.XtraEditors.LabelControl labelControl2;
+        private DevExpress.XtraEditors.LabelControl labelControl1;
+        private DevExpress.XtraEditors.TextEdit textEdit3;
     }
 }

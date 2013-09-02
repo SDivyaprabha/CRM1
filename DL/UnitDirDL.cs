@@ -1507,7 +1507,7 @@ namespace CRM.DataLayer
 
             try
             {
-                sSql = "select TypeId,TypeName,Typewise,RoundValue from dbo.PaySchType ORDER BY TypeName";
+                sSql = "select TypeId,TypeName,Typewise,RoundValue,EMI,NoOfMonths from dbo.PaySchType ORDER BY TypeName";
                 sda = new SqlDataAdapter(sSql, BsfGlobal.g_CRMDB);
                 dt = new DataTable();
                 sda.Fill(dt);

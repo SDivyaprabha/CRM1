@@ -5836,6 +5836,8 @@ namespace CRM
             cboPaySchType.Properties.Columns["TypeId"].Visible = false;
             cboPaySchType.Properties.Columns["Typewise"].Visible = false;
             cboPaySchType.Properties.Columns["RoundValue"].Visible = false;
+            cboPaySchType.Properties.Columns["EMI"].Visible = false;
+            cboPaySchType.Properties.Columns["NoOfMonths"].Visible = false;
             cboPaySchType.Properties.ShowFooter = false;
             cboPaySchType.Properties.ShowHeader = false;
 
@@ -8363,6 +8365,18 @@ namespace CRM
                 PayTypeId = Convert.ToInt32(row["TypeId"]);
                 m_bPayTypewise = Convert.ToBoolean(row["Typewise"]);
                 txtPaymentSchRoundDigit.Text = Convert.ToDecimal(CommFun.IsNullCheck(row["RoundValue"], CommFun.datatypes.vartypenumeric)).ToString();
+                chkPaySchEMI.EditValue = Convert.ToBoolean(CommFun.IsNullCheck(row["EMI"], CommFun.datatypes.varTypeBoolean));                
+                txtPaySchNoOfMonths.Text = Convert.ToDecimal(CommFun.IsNullCheck(row["NoOfMonths"], CommFun.datatypes.vartypenumeric)).ToString();
+                if (chkPaySchEMI.Checked == true)
+                {
+                    chkPaySchEMI.Enabled = false;
+                    txtPaySchNoOfMonths.Enabled = true;
+                }
+                else
+                {
+                    chkPaySchEMI.Enabled = true;
+                    txtPaySchNoOfMonths.Enabled = false;
+                }
             }
 
             PopulatePaySchTemp(PayTypeId);
@@ -8401,8 +8415,11 @@ namespace CRM
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
 
-                sSql = "Update dbo.PaySchType Set RoundValue=" + Convert.ToDecimal(CommFun.IsNullCheck(txtPaymentSchRoundDigit.Text, CommFun.datatypes.vartypenumeric)) +
-                       " WHERE TypeId=" + iPaySchTypeId + "";
+                decimal dRoundValue = Convert.ToDecimal(CommFun.IsNullCheck(txtPaymentSchRoundDigit.Text, CommFun.datatypes.vartypenumeric));
+                bool bEMI = Convert.ToBoolean(CommFun.IsNullCheck(chkPaySchEMI.Checked, CommFun.datatypes.varTypeBoolean));
+                decimal dNoOfMonths = Convert.ToDecimal(CommFun.IsNullCheck(txtPaySchNoOfMonths.Text, CommFun.datatypes.vartypenumeric));
+
+                sSql = "Update dbo.PaySchType Set RoundValue=" + dRoundValue + ",EMI='" + bEMI + "',NoOfMonths=" + dNoOfMonths + " WHERE TypeId=" + iPaySchTypeId + "";
                 cmd = new SqlCommand(sSql, BsfGlobal.g_CRMDB);
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
@@ -9844,10 +9861,11 @@ namespace CRM
                 if (iPayTypeId == 0) { return; }
                 decimal dNoOfMonths = Convert.ToDecimal(CommFun.IsNullCheck(txtPaySchNoOfMonths.Text, CommFun.datatypes.vartypenumeric));
                 if (dNoOfMonths == 0)
-                {
-                    grdPaymentSch.DataSource = null;
-                    return;
-                }
+                    chkPaySchEMI.Enabled = true;
+                else
+                    chkPaySchEMI.Enabled = false;
+
+                if (grdPaymentSch.DataSource == null) return;
 
                 DataTable dt = new DataTable();
                 dt = grdPaymentSch.DataSource as DataTable;
@@ -9874,9 +9892,9 @@ namespace CRM
                     drow["SchPercent"] = 0;
 
                     dt.Rows.Add(drow);
-
-                    PaymentScheduleBL.InsertPayScheduleDes(dt, m_iCCId, iPayTypeId, i, "E");
                 }
+
+                PaymentScheduleBL.InsertPayScheduleDes(dt, m_iCCId, iPayTypeId, 0, "E");
 
                 grdPaymentSch.DataSource = dt;
             }

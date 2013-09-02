@@ -215,15 +215,21 @@ namespace CRM.DataLayer
                         {
                             string sShName = argDt.Rows[i]["Description"].ToString();
 
+                            sSql = "Delete dbo.SchDescription Where SchDescName='" + sShName + "' AND Type='" + argDescType + "'";
+                            cmd = new SqlCommand(sSql, conn, tran);
+                            cmd.ExecuteNonQuery();
+                            cmd.Dispose();
+
                             sSql = "Insert into dbo.SchDescription(SchDescName, Type) Values('" + sShName + "','E') SELECT SCOPE_IDENTITY();";
                             cmd = new SqlCommand(sSql, conn, tran);
                             int iSchDescId = Convert.ToInt32(CommFun.IsNullCheck(cmd.ExecuteScalar(), CommFun.datatypes.vartypenumeric));
                             cmd.Dispose();
 
-                            int iSortOrder = argRow + i + 1;
+                            int iSortOrder = i + 1;
 
-                            sSql = "Insert into dbo.PaymentSchedule(TypeId,CostCentreId,SchType,Description,SchDescId,SchDate,SortOrder) " +
-                                          "Values(" + argPayTypeId + "," + argCCId + ",'" + argDescType + "','" + sShName + "'," + iSchDescId + ",NULL," + iSortOrder + ")";
+                            sSql = "Insert into dbo.PaymentSchedule(TypeId,CostCentreId,SchType,Description,SchDescId,SchDate,SortOrder,FlatTypeId,BlockId) " +
+                                          "Values(" + argPayTypeId + "," + argCCId + ",'" + argDescType + "','" + sShName + "'," + iSchDescId + ",NULL," +
+                                          iSortOrder + ",'" + argDt.Rows[i]["FlatTypeId"].ToString() + "','" + argDt.Rows[i]["BlockId"].ToString() + "')";
                             cmd = new SqlCommand(sSql, conn, tran);
                             cmd.ExecuteNonQuery();
                             cmd.Dispose();

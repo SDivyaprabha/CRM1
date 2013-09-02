@@ -90,6 +90,9 @@ namespace CRM
             repositoryItemLookUpEdit1.ValueMember = "TypeId";
             repositoryItemLookUpEdit1.Columns["TypeId"].Visible = false;
             repositoryItemLookUpEdit1.Columns["Typewise"].Visible = false;
+            repositoryItemLookUpEdit1.Columns["RoundValue"].Visible = false;
+            repositoryItemLookUpEdit1.Columns["EMI"].Visible = false;
+            repositoryItemLookUpEdit1.Columns["NoOfMonths"].Visible = false;
             repositoryItemLookUpEdit1.ShowFooter = false;
             repositoryItemLookUpEdit1.ShowHeader = false;
 

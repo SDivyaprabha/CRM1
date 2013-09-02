@@ -9837,5 +9837,15 @@ namespace CRM
                 txtPaySchInitialAmt.Enabled = true;
             }
         }
+
+        private void txtPaySchNoOfMonths_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+            if ((Keys)e.KeyChar == Keys.Enter)
+            {
+
+            }
+            Cursor.Current = Cursors.Default;
+        }
     }
 }

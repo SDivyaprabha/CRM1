@@ -537,9 +537,11 @@ namespace CRM
             cboPSch.Properties.PopulateColumns();
             cboPSch.Properties.DisplayMember = "TypeName";
             cboPSch.Properties.ValueMember = "TypeId";
+            cboPSch.Properties.Columns["TypeId"].Visible = false;
+            cboPSch.Properties.Columns["EMI"].Visible = false;
             cboPSch.Properties.ShowHeader = false;
             cboPSch.Properties.ShowFooter = false;
-            cboPSch.Properties.Columns["TypeId"].Visible = false;
+
             cboPSch.EditValue = iPayTypeId;
         }
 

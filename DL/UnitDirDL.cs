@@ -1454,23 +1454,23 @@ namespace CRM.DataLayer
 
         public static DataTable PaySchType()
         {
-            DataTable dt = null;
-            SqlDataAdapter sda;
-            String sSql;
             BsfGlobal.OpenCRMDB();
-
+            DataTable dt = null;
             try
             {
-                sSql = "select TypeId,TypeName from dbo.PaySchType ORDER BY TypeName";
-                sda = new SqlDataAdapter(sSql, BsfGlobal.g_CRMDB);
+                String sSql = "select TypeId,TypeName,EMI from dbo.PaySchType ORDER BY TypeName";
+                SqlDataAdapter sda = new SqlDataAdapter(sSql, BsfGlobal.g_CRMDB);
                 dt = new DataTable();
                 sda.Fill(dt);
-                BsfGlobal.g_CRMDB.Close();
-
+                sda.Dispose();
             }
             catch (Exception ex)
             {
                 BsfGlobal.CustomException(ex.Message, ex.StackTrace);
+            }
+            finally
+            {
+                BsfGlobal.g_CRMDB.Close();
             }
             return dt;
         }
@@ -1484,7 +1484,7 @@ namespace CRM.DataLayer
 
             try
             {
-                sSql = "Select TypeId,TypeName From [" + BsfGlobal.g_sRateAnalDBName + "].dbo.PaySchType ORDER BY TypeName";
+                sSql = "Select TypeId,TypeName, 0 EMI From [" + BsfGlobal.g_sRateAnalDBName + "].dbo.PaySchType ORDER BY TypeName";
                 sda = new SqlDataAdapter(sSql, BsfGlobal.g_CRMDB);
                 dt = new DataTable();
                 sda.Fill(dt);

@@ -9843,7 +9843,35 @@ namespace CRM
             Cursor.Current = Cursors.WaitCursor;
             if ((Keys)e.KeyChar == Keys.Enter)
             {
+                decimal dNoOfMonths = Convert.ToDecimal(CommFun.IsNullCheck(txtPaySchNoOfMonths.Text, CommFun.datatypes.vartypenumeric));
+                if (dNoOfMonths == 0)
+                {
+                    grdPaymentSch.DataSource = null;
+                    return;
+                }
 
+                DataTable dt = new DataTable();
+                dt = grdPaymentSch.DataSource as DataTable;
+                dt.Rows.Clear();
+                for (int i = 0; i <= dNoOfMonths - 1; i++)
+                {
+                    string sInstallment = "";
+                    if (i == 0)
+                        sInstallment = i + "st Installment";
+                    else if(i==1)
+                        sInstallment = i + "nd Installment";
+                    else if (i == 2)
+                        sInstallment = i + "rd Installment";
+                    else
+                        sInstallment = i + "th Installment";
+
+                    DataRow drow = dt.NewRow();
+                    drow["Description"] = sInstallment;
+
+                    dt.Rows.Add(drow);
+                }
+
+                grdPaymentSch.DataSource = dt;
             }
             Cursor.Current = Cursors.Default;
         }

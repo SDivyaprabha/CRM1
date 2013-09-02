@@ -39,14 +39,14 @@ namespace CRM
         public int m_iPayId;
         public string frmWhere = "";
         public DataTable dtenq = new DataTable();
-        public string FlatNo,BranchName,BrokerName = "";
+        public string FlatNo, BranchName, BrokerName = "";
         DataTable dtPay;
-        DataTable dtPTemp=new DataTable();
+        DataTable dtPTemp = new DataTable();
         DataTable dtFinalReslt = new DataTable();
-        public DataTable dtFinalChk=new DataTable();
+        public DataTable dtFinalChk = new DataTable();
         public DataTable dtLandChk = new DataTable();
         public bool bChkSend = false;
-        decimal m_dRate=0;
+        decimal m_dRate = 0;
         decimal m_dVariant = 0;
         decimal m_VarCalRate = 0; string m_sBlock = "";
         string m_sBussinessType = "";
@@ -80,7 +80,7 @@ namespace CRM
         {
             InitializeComponent();
             oFlatDet = new FlatdetailsBL();
-            oBuyerDetBO = new List<BuyerDetailsBO>();            
+            oBuyerDetBO = new List<BuyerDetailsBO>();
         }
 
         protected override void OnSizeChanged(EventArgs e)
@@ -91,7 +91,7 @@ namespace CRM
                 base.OnSizeChanged(e);
         }
 
-        #endregion       
+        #endregion
 
         #region Form Event
 
@@ -107,20 +107,20 @@ namespace CRM
 
                 m_VarCalRate = m_dRate * (1 - m_dVariant / 100);
 
-                txtCAmt.Properties.Mask.EditMask = BsfGlobal.g_sDigitFormat;
+                txtCommAmt.Properties.Mask.EditMask = BsfGlobal.g_sDigitFormat;
                 txtCommpercent.Properties.Mask.EditMask = BsfGlobal.g_sDigitFormat;
 
-                txtCAmt.Properties.EditFormat.FormatString = BsfGlobal.g_sDigitFormat;
+                txtCommAmt.Properties.EditFormat.FormatString = BsfGlobal.g_sDigitFormat;
                 txtCommpercent.Properties.EditFormat.FormatString = BsfGlobal.g_sDigitFormat;
 
-                txtCAmt.Properties.DisplayFormat.FormatString = BsfGlobal.g_sDigitFormat;
+                txtCommAmt.Properties.DisplayFormat.FormatString = BsfGlobal.g_sDigitFormat;
                 txtCommpercent.Properties.DisplayFormat.FormatString = BsfGlobal.g_sDigitFormat;
 
                 dateFinal.EditValue = Convert.ToDateTime(Convert.ToDateTime(DateTime.Now.ToShortDateString()));
                 dtpValidUpto.EditValue = Convert.ToDateTime(Convert.ToDateTime(DateTime.Now.ToShortDateString()));
                 dEReg.EditValue = Convert.ToDateTime(DateTime.Now.ToShortDateString());
                 btnFinalCheck.Enabled = false;
-                radioGroup2.SelectedIndex = 1;
+                RGPaymentOpt.SelectedIndex = 1;
                 cboBroker.Enabled = false;
 
                 VoucherNo();
@@ -148,14 +148,14 @@ namespace CRM
                 {
                     if (m_sCallType == "Block")
                     {
-                        radioGroup3.SelectedIndex = 1;
+                        RGStatus.SelectedIndex = 1;
                         dtpValidUpto.Enabled = true;
-                        cboExec.Enabled = false;
+                        cboPostSaleExec.Enabled = false;
                     }
                     else
                     {
                         dtpValidUpto.Enabled = false;
-                        cboExec.Enabled = true;
+                        cboPostSaleExec.Enabled = true;
                     }
                 }
 
@@ -188,7 +188,7 @@ namespace CRM
                                 txtAllotNo.Text = dtRetn.Rows[0]["GAllotNo"].ToString();
                                 txtCCAllotNo.Text = dtRetn.Rows[0]["CCAllotNo"].ToString();
                                 txtCompAllotNo.Text = dtRetn.Rows[0]["COAllotNo"].ToString();
-                                textEdit1.Text = dtRetn.Rows[0]["ProjName"].ToString();
+                                txtProjName.Text = dtRetn.Rows[0]["ProjName"].ToString();
 
                                 if (m_sBussinessType == "B")
                                 {
@@ -202,37 +202,37 @@ namespace CRM
                                     dEReg.EditValue = Convert.ToDateTime(CommFun.IsNullCheck(dtRetn.Rows[0]["RegDate"], CommFun.datatypes.VarTypeDate));
                                     if (Convert.ToDateTime(dEReg.EditValue) == DateTime.MinValue) { dEReg.EditValue = DateTime.Now; }
                                 }
-                                cboPSch.EditValue = Convert.ToInt32(dtRetn.Rows[0]["PaySchId"]);
+                                cboPaymentSchedule.EditValue = Convert.ToInt32(dtRetn.Rows[0]["PaySchId"]);
                                 if (dtRetn.Rows[0]["Status"].ToString() == "S")
                                 {
-                                    radioGroup3.SelectedIndex = 0;
+                                    RGStatus.SelectedIndex = 0;
                                 }
                                 else
                                 {
-                                    radioGroup3.SelectedIndex = 1;
+                                    RGStatus.SelectedIndex = 1;
                                 }
                                 if (dtRetn.Rows[0]["CustomerType"].ToString() == "B")
                                 {
-                                    radioGroup1.SelectedIndex = 0;
+                                    RGCustomerType.SelectedIndex = 0;
                                 }
                                 else
                                 {
-                                    radioGroup1.SelectedIndex = 1;
+                                    RGCustomerType.SelectedIndex = 1;
                                 }
                                 if (dtRetn.Rows[0]["PaymentOption"].ToString() == "L")
                                 {
-                                    radioGroup2.SelectedIndex = 0;
+                                    RGPaymentOpt.SelectedIndex = 0;
                                 }
                                 else
                                 {
-                                    radioGroup2.SelectedIndex = 1;
+                                    RGPaymentOpt.SelectedIndex = 1;
                                 }
                                 cboBroker.EditValue = Convert.ToInt32(CommFun.IsNullCheck(dtRetn.Rows[0]["BrokerId"].ToString(), CommFun.datatypes.vartypenumeric));
                                 txtCommpercent.EditValue = Convert.ToDecimal(CommFun.IsNullCheck(dtRetn.Rows[0]["ComPer"].ToString(), CommFun.datatypes.vartypenumeric));
-                                txtCAmt.EditValue = Convert.ToDecimal(CommFun.IsNullCheck(dtRetn.Rows[0]["ComAmount"].ToString(), CommFun.datatypes.vartypenumeric));
+                                txtCommAmt.EditValue = Convert.ToDecimal(CommFun.IsNullCheck(dtRetn.Rows[0]["ComAmount"].ToString(), CommFun.datatypes.vartypenumeric));
                                 dtpValidUpto.EditValue = Convert.ToDateTime(CommFun.IsNullCheck(dtRetn.Rows[0]["ValidUpto"], CommFun.datatypes.VarTypeDate));
                                 dateFinal.EditValue = Convert.ToDateTime(CommFun.IsNullCheck(dtRetn.Rows[0]["FinaliseDate"], CommFun.datatypes.VarTypeDate));
-                                cboExec.EditValue = Convert.ToInt32(dtRetn.Rows[0]["PostSaleExecId"]);
+                                cboPostSaleExec.EditValue = Convert.ToInt32(dtRetn.Rows[0]["PostSaleExecId"]);
                                 txtAdv.EditValue = Convert.ToDecimal(dtRetn.Rows[0]["AdvAmt"]);
                                 txtRate.EditValue = Convert.ToDecimal(dtRetn.Rows[0]["Rate"]);
                             }
@@ -244,20 +244,20 @@ namespace CRM
                     }
                 }
 
-                if (radioGroup3.SelectedIndex == 0)
+                if (RGStatus.SelectedIndex == 0)
                 {
                     m_sFlatStatus = "S";
                 }
-                if (radioGroup1.SelectedIndex == 0)
+                if (RGCustomerType.SelectedIndex == 0)
                 {
                     m_sCustomerType = "B";
                 }
-                if (radioGroup2.SelectedIndex == 0)
+                if (RGPaymentOpt.SelectedIndex == 0)
                 {
                     m_sPaymntOpt = "L";
                 }
 
-                textEdit1.Text = sCCName;
+                txtProjName.Text = sCCName;
                 BindFlatDetails();
                 if (frmWhere == "") { cboPaySch(); }
                 BindExecDetails();
@@ -269,7 +269,7 @@ namespace CRM
                         txtAllotNo.Text = dtenq.Rows[0]["GAllotNo"].ToString();
                         txtCCAllotNo.Text = dtenq.Rows[0]["CCAllotNo"].ToString();
                         txtCompAllotNo.Text = dtenq.Rows[0]["COAllotNo"].ToString();
-                        textEdit1.Text = dtenq.Rows[0]["ProjName"].ToString();
+                        txtProjName.Text = dtenq.Rows[0]["ProjName"].ToString();
                         if (m_sBussinessType == "B")
                         {
                             cboFlat.EditValue = Convert.ToInt32(dtenq.Rows[0]["FlatId"]);
@@ -282,37 +282,37 @@ namespace CRM
                             dEReg.EditValue = Convert.ToDateTime(CommFun.IsNullCheck(dtenq.Rows[0]["RegDate"], CommFun.datatypes.VarTypeDate));
                             if (Convert.ToDateTime(dEReg.EditValue) == DateTime.MinValue) { dEReg.EditValue = DateTime.Now; }
                         }
-                        cboPSch.EditValue = Convert.ToInt32(dtenq.Rows[0]["PaySchId"]);
+                        cboPaymentSchedule.EditValue = Convert.ToInt32(dtenq.Rows[0]["PaySchId"]);
                         if (dtenq.Rows[0]["Status"].ToString() == "S")
                         {
-                            radioGroup3.SelectedIndex = 0;
+                            RGStatus.SelectedIndex = 0;
                         }
                         else
                         {
-                            radioGroup3.SelectedIndex = 1;
+                            RGStatus.SelectedIndex = 1;
                         }
                         if (dtenq.Rows[0]["CustomerType"].ToString() == "B")
                         {
-                            radioGroup1.SelectedIndex = 0;
+                            RGCustomerType.SelectedIndex = 0;
                         }
                         else
                         {
-                            radioGroup1.SelectedIndex = 1;
+                            RGCustomerType.SelectedIndex = 1;
                         }
                         if (dtenq.Rows[0]["PaymentOption"].ToString() == "L")
                         {
-                            radioGroup2.SelectedIndex = 0;
+                            RGPaymentOpt.SelectedIndex = 0;
                         }
                         else
                         {
-                            radioGroup2.SelectedIndex = 1;
+                            RGPaymentOpt.SelectedIndex = 1;
                         }
                         cboBroker.EditValue = Convert.ToInt32(dtenq.Rows[0]["BrokerId"].ToString());
                         txtCommpercent.Text = dtenq.Rows[0]["ComPer"].ToString();
-                        txtCAmt.Text = dtenq.Rows[0]["ComAmount"].ToString();
+                        txtCommAmt.Text = dtenq.Rows[0]["ComAmount"].ToString();
                         dtpValidUpto.EditValue = Convert.ToDateTime(CommFun.IsNullCheck(dtenq.Rows[0]["ValidUpto"], CommFun.datatypes.VarTypeDate));
                         dateFinal.EditValue = Convert.ToDateTime(CommFun.IsNullCheck(dtenq.Rows[0]["FinaliseDate"], CommFun.datatypes.VarTypeDate));
-                        cboExec.EditValue = Convert.ToInt32(dtenq.Rows[0]["PostSaleExecId"]);
+                        cboPostSaleExec.EditValue = Convert.ToInt32(dtenq.Rows[0]["PostSaleExecId"]);
                         txtAdv.EditValue = Convert.ToDecimal(dtenq.Rows[0]["AdvAmt"]);
                         txtRate.EditValue = Convert.ToDecimal(dtenq.Rows[0]["Rate"]);
                     }
@@ -329,14 +329,14 @@ namespace CRM
 
                     btnBroker.Enabled = false;
                     cboBroker.Enabled = false;
-                    cboExec.Enabled = false;
+                    cboPostSaleExec.Enabled = false;
                     cboFlat.Enabled = false;
                     cboFlatType.Enabled = false;
-                    cboPSch.Enabled = false;
-                 
-                    radioGroup1.Enabled = false;
+                    cboPaymentSchedule.Enabled = false;
+
+                    RGCustomerType.Enabled = false;
                     //radioGroup2.Enabled = false;
-                    radioGroup3.Enabled = false;
+                    RGStatus.Enabled = false;
 
                     dateFinal.Enabled = false;
                     dtpValidUpto.Enabled = false;
@@ -356,7 +356,7 @@ namespace CRM
         public void Execute(int argEntryId, int argLeedId, string argmode, string argCallType, int argFId, int argFTId, int argPId, int argCCId, string argBusType, int argLandId, DateTime argVocDate)
         {
             m_iEntryIdE = argEntryId;
-            m_iLeedId=argLeedId;
+            m_iLeedId = argLeedId;
             mode = argmode;
             m_sCallType = argCallType;
             argPId = m_iPayId;
@@ -378,21 +378,22 @@ namespace CRM
         {
             dt = new DataTable();
             dt1 = new DataTable();
-            string sSql;
 
+            string sSql;
             if (fromwhere == string.Empty)
             {
-                sSql = "SELECT R.LeadId,R.LeadName,C.Mobile,C.Email,F.Broker,CAST(1 as bit) Sel "+
-                        " FROM LeadRegister R INNER JOIN LeadCommAddressInfo C ON"+
-                        " C.LeadId=R.LeadId INNER JOIN LeadFinance F ON"+
-                        " F.LeadId=R.LeadId INNER JOIN LeadExecutiveInfo E ON"+
-                        " E.LeadId=R.LeadId WHERE E.ExecutiveId=" + frmCallsheetEntry.frm.ExecId + " "+
+                sSql = "SELECT R.LeadId,R.LeadName,C.Mobile,C.Email,F.Broker,CAST(1 as bit) Sel " +
+                        " FROM LeadRegister R INNER JOIN LeadCommAddressInfo C ON" +
+                        " C.LeadId=R.LeadId INNER JOIN LeadFinance F ON" +
+                        " F.LeadId=R.LeadId INNER JOIN LeadExecutiveInfo E ON" +
+                        " E.LeadId=R.LeadId WHERE E.ExecutiveId=" + frmCallsheetEntry.frm.ExecId + " " +
                         " AND Buyer=0 AND R.LeadId=" + EnqId + " ORDER BY LeadName";
 
                 sd = new SqlDataAdapter(sSql, BsfGlobal.OpenCRMDB());
                 sd.Fill(dt);
+                sd.Dispose();
 
-                sSql = "SELECT CostCentreId,CostCentreName FROM ["+BsfGlobal.g_sWorkFlowDBName+"].dbo.OperationalCostCentre ORDER BY CostCentreName";
+                sSql = "SELECT CostCentreId,CostCentreName FROM [" + BsfGlobal.g_sWorkFlowDBName + "].dbo.OperationalCostCentre ORDER BY CostCentreName";
                 sd = new SqlDataAdapter(sSql, BsfGlobal.OpenCRMDB()); sd.Fill(dt1);
             }
             else
@@ -406,7 +407,6 @@ namespace CRM
 
         private void PopulateEditData()
         {
-            
             m_iEntryId = m_iEntryIdE;
             DataTable dtEditDetails = new DataTable();
             dtEditDetails = FlatdetailsBL.getBuyFinalDetailsE(m_iEntryId);
@@ -414,27 +414,27 @@ namespace CRM
             {
                 if (dtEditDetails.Rows[0]["Status"].ToString() == "S")
                 {
-                    radioGroup3.SelectedIndex = 0;
+                    RGStatus.SelectedIndex = 0;
                 }
                 else
                 {
-                    radioGroup3.SelectedIndex = 1;
+                    RGStatus.SelectedIndex = 1;
                 }
                 if (dtEditDetails.Rows[0]["CustomerType"].ToString() == "B")
                 {
-                    radioGroup1.SelectedIndex = 0;
+                    RGCustomerType.SelectedIndex = 0;
                 }
                 else
                 {
-                    radioGroup1.SelectedIndex = 1;
+                    RGCustomerType.SelectedIndex = 1;
                 }
                 if (dtEditDetails.Rows[0]["PaymentOption"].ToString() == "L")
                 {
-                    radioGroup2.SelectedIndex = 0;
+                    RGPaymentOpt.SelectedIndex = 0;
                 }
                 else
                 {
-                    radioGroup2.SelectedIndex = 1;
+                    RGPaymentOpt.SelectedIndex = 1;
                 }
 
                 if (m_sBussinessType == "B")
@@ -446,16 +446,16 @@ namespace CRM
                     cboFlat.EditValue = Convert.ToInt32(dtEditDetails.Rows[0]["PlotId"].ToString());
                     dEReg.EditValue = Convert.ToDateTime(dtEditDetails.Rows[0]["RegDate"].ToString());
                 }
-                txtAllotNo.EditValue = dtEditDetails.Rows[0]["GAllotNo"].ToString(); 
+                txtAllotNo.EditValue = dtEditDetails.Rows[0]["GAllotNo"].ToString();
                 txtCCAllotNo.EditValue = dtEditDetails.Rows[0]["CCAllotNo"].ToString();
                 txtCompAllotNo.EditValue = dtEditDetails.Rows[0]["COAllotNo"].ToString();
-                cboPSch.EditValue = Convert.ToInt32(dtEditDetails.Rows[0]["PaySchId"].ToString());
+                cboPaymentSchedule.EditValue = Convert.ToInt32(dtEditDetails.Rows[0]["PaySchId"].ToString());
                 cboBroker.EditValue = Convert.ToInt32(dtEditDetails.Rows[0]["BrokerId"].ToString());
                 txtCommpercent.Text = dtEditDetails.Rows[0]["BrokerComm"].ToString();
-                txtCAmt.Text = dtEditDetails.Rows[0]["BrokerAmount"].ToString();
+                txtCommAmt.Text = dtEditDetails.Rows[0]["BrokerAmount"].ToString();
                 dtpValidUpto.EditValue = Convert.ToDateTime(dtEditDetails.Rows[0]["ValidUpto"].ToString());
                 dateFinal.EditValue = Convert.ToDateTime(dtEditDetails.Rows[0]["FinaliseDate"].ToString());
-                cboExec.EditValue = Convert.ToInt32(dtEditDetails.Rows[0]["PostSaleExecId"].ToString());
+                cboPostSaleExec.EditValue = Convert.ToInt32(dtEditDetails.Rows[0]["PostSaleExecId"].ToString());
                 txtAdv.EditValue = Convert.ToDecimal(dtEditDetails.Rows[0]["Advance"].ToString());
             }
 
@@ -506,13 +506,13 @@ namespace CRM
             DataTable dt = new DataTable();
             dt = CommFun.LoadExecutive();
 
-            cboExec.Properties.DataSource = dt;
-            cboExec.Properties.PopulateColumns();
-            cboExec.Properties.DisplayMember = "ExecName";
-            cboExec.Properties.ValueMember = "ExecId";
-            cboExec.Properties.ShowHeader = false;
-            cboExec.Properties.ShowFooter = false;
-            cboExec.Properties.Columns["ExecId"].Visible = false;
+            cboPostSaleExec.Properties.DataSource = dt;
+            cboPostSaleExec.Properties.PopulateColumns();
+            cboPostSaleExec.Properties.DisplayMember = "ExecName";
+            cboPostSaleExec.Properties.ValueMember = "ExecId";
+            cboPostSaleExec.Properties.ShowHeader = false;
+            cboPostSaleExec.Properties.ShowFooter = false;
+            cboPostSaleExec.Properties.Columns["ExecId"].Visible = false;
         }
 
         private void cboPaySch()
@@ -525,31 +525,31 @@ namespace CRM
 
             iPayTypeId = 0;
             if (dtPSch.Rows.Count > 0) { iPayTypeId = Convert.ToInt32(dtPSch.Rows[0]["TypeId"]); }
-            
+
 
             dtPay = new DataTable();
             if (m_sBussinessType == "B")
                 dtPay = UnitDirBL.PaySchType();
-            else 
+            else
                 dtPay = UnitDirBL.PlotPaySchType();
 
-            cboPSch.Properties.DataSource = dtPay;
-            cboPSch.Properties.PopulateColumns();
-            cboPSch.Properties.DisplayMember = "TypeName";
-            cboPSch.Properties.ValueMember = "TypeId";
-            cboPSch.Properties.Columns["TypeId"].Visible = false;
-            cboPSch.Properties.Columns["EMI"].Visible = false;
-            cboPSch.Properties.ShowHeader = false;
-            cboPSch.Properties.ShowFooter = false;
+            cboPaymentSchedule.Properties.DataSource = dtPay;
+            cboPaymentSchedule.Properties.PopulateColumns();
+            cboPaymentSchedule.Properties.DisplayMember = "TypeName";
+            cboPaymentSchedule.Properties.ValueMember = "TypeId";
+            cboPaymentSchedule.Properties.Columns["TypeId"].Visible = false;
+            cboPaymentSchedule.Properties.Columns["EMI"].Visible = false;
+            cboPaymentSchedule.Properties.ShowHeader = false;
+            cboPaymentSchedule.Properties.ShowFooter = false;
 
-            cboPSch.EditValue = iPayTypeId;
+            cboPaymentSchedule.EditValue = iPayTypeId;
         }
 
         private void PopulateVGrid()
         {
             dt1 = new DataTable();
 
-            if(m_iFlatId != 0) 
+            if (m_iFlatId != 0)
             {
                 dt1 = FlatdetailsBL.GetFlatDetailsD(m_iFlatId);
 
@@ -646,7 +646,7 @@ namespace CRM
                     editorRow1 = new EditorRow();
                     editorRow1.Name = "QualifierAmt";
                     editorRow1.Properties.Caption = "Qualifier Amount";
-                    editorRow1.Properties.Value = Convert.ToDecimal(UnitDirBL.GetQualiAmt(m_iFlatId,m_bPayTypewise));
+                    editorRow1.Properties.Value = Convert.ToDecimal(UnitDirBL.GetQualiAmt(m_iFlatId, m_bPayTypewise));
                     editorRow1.Properties.ReadOnly = true;
                     editorRow1.Enabled = true;
                     vGridControl1.Rows.Add(editorRow1);
@@ -654,12 +654,29 @@ namespace CRM
                     editorRow1 = new EditorRow();
                     editorRow1.Name = "NetAmt";
                     editorRow1.Properties.Caption = "Net Amount";
-                    editorRow1.Properties.Value = Convert.ToDecimal(dt1.Rows[0]["NetAmt"].ToString()) + Convert.ToDecimal(UnitDirBL.GetQualiAmt(m_iFlatId,m_bPayTypewise));
+                    editorRow1.Properties.Value = Convert.ToDecimal(dt1.Rows[0]["NetAmt"].ToString()) + Convert.ToDecimal(UnitDirBL.GetQualiAmt(m_iFlatId, m_bPayTypewise));
                     editorRow1.Properties.ReadOnly = true;
                     editorRow1.Enabled = true;
                     vGridControl1.Rows.Add(editorRow1);
 
-
+                    vGridControl1.Rows["Area"].Properties.Format.FormatType = DevExpress.Utils.FormatType.Numeric;
+                    vGridControl1.Rows["Area"].Properties.Format.FormatString = BsfGlobal.g_sDigitFormat;
+                    vGridControl1.Rows["Rate"].Properties.Format.FormatType = DevExpress.Utils.FormatType.Numeric;
+                    vGridControl1.Rows["Rate"].Properties.Format.FormatString = BsfGlobal.g_sDigitFormat;
+                    vGridControl1.Rows["BaseAmt"].Properties.Format.FormatType = DevExpress.Utils.FormatType.Numeric;
+                    vGridControl1.Rows["BaseAmt"].Properties.Format.FormatString = BsfGlobal.g_sDigitFormat;
+                    vGridControl1.Rows["AdvAmount"].Properties.Format.FormatType = DevExpress.Utils.FormatType.Numeric;
+                    vGridControl1.Rows["AdvAmount"].Properties.Format.FormatString = BsfGlobal.g_sDigitFormat;
+                    vGridControl1.Rows["USLandAmt"].Properties.Format.FormatType = DevExpress.Utils.FormatType.Numeric;
+                    vGridControl1.Rows["USLandAmt"].Properties.Format.FormatString = BsfGlobal.g_sDigitFormat;
+                    vGridControl1.Rows["OtherCostAmt"].Properties.Format.FormatType = DevExpress.Utils.FormatType.Numeric;
+                    vGridControl1.Rows["OtherCostAmt"].Properties.Format.FormatString = BsfGlobal.g_sDigitFormat;
+                    vGridControl1.Rows["GrossAmt"].Properties.Format.FormatType = DevExpress.Utils.FormatType.Numeric;
+                    vGridControl1.Rows["GrossAmt"].Properties.Format.FormatString = BsfGlobal.g_sDigitFormat;
+                    vGridControl1.Rows["QualifierAmt"].Properties.Format.FormatType = DevExpress.Utils.FormatType.Numeric;
+                    vGridControl1.Rows["QualifierAmt"].Properties.Format.FormatString = BsfGlobal.g_sDigitFormat;
+                    vGridControl1.Rows["NetAmt"].Properties.Format.FormatType = DevExpress.Utils.FormatType.Numeric;
+                    vGridControl1.Rows["NetAmt"].Properties.Format.FormatString = BsfGlobal.g_sDigitFormat;
                 }
                 else { vGridControl1.Rows.Clear(); }
 
@@ -678,7 +695,7 @@ namespace CRM
             if (m_iPlotId != 0)
             {
                 dt = FlatdetailsBL.GetPlotDetails(m_iPlotId);
-                
+
                 if (dt.Rows.Count > 0)
                 {
                     vGridControl1.Rows.Clear();
@@ -1009,10 +1026,10 @@ namespace CRM
                     m_iPlotId = Convert.ToInt32(cboFlat.EditValue);
                     PopulatePlotVGrid();
                     m_sPlotNo = dr["PlotNo"].ToString();
-                    cboFlatType.EditValue =Convert.ToInt32(dr["PlotTypeId"]);
-                    m_iPlotTypeId =Convert.ToInt32(dr["PlotTypeId"]);
+                    cboFlatType.EditValue = Convert.ToInt32(dr["PlotTypeId"]);
+                    m_iPlotTypeId = Convert.ToInt32(dr["PlotTypeId"]);
                     cboPaySch();
-                    cboPSch.EditValue = Convert.ToInt32(iPayTypeId);
+                    cboPaymentSchedule.EditValue = Convert.ToInt32(iPayTypeId);
                 }
                 else
                 {
@@ -1022,7 +1039,7 @@ namespace CRM
                     m_iFlatTypeId = Convert.ToInt32(dr["FlatTypeId"].ToString());
                     cboFlatType.EditValue = Convert.ToInt32(dr["FlatTypeId"].ToString());
                     cboPaySch();
-                    cboPSch.EditValue = Convert.ToInt32(iPayTypeId);
+                    cboPaymentSchedule.EditValue = Convert.ToInt32(iPayTypeId);
                 }
                 cboBroker.Enabled = true;
                 if (m_sCallType == "Finalisation" || m_sCallType == "Finalization")
@@ -1034,7 +1051,7 @@ namespace CRM
                 txtRate.Enabled = true;
                 txtAdv.EditValue = Convert.ToDecimal(vGridControl1.Rows["AdvAmount"].Properties.Value);
                 txtRate.EditValue = Convert.ToDecimal(vGridControl1.Rows["Rate"].Properties.Value);
-                m_dRate =Convert.ToDecimal(CommFun.IsNullCheck(txtRate.EditValue, CommFun.datatypes.vartypenumeric));
+                m_dRate = Convert.ToDecimal(CommFun.IsNullCheck(txtRate.EditValue, CommFun.datatypes.vartypenumeric));
                 m_VarCalRate = m_dRate * (1 - m_dVariant / 100);
                 if (BsfGlobal.FindPermission("Flat-Finalisation-Rate-Change") == false)
                 {
@@ -1060,15 +1077,15 @@ namespace CRM
 
                 if (cboBroker.Text == "None")
                 {
-                    txtCAmt.Enabled = false;
+                    txtCommAmt.Enabled = false;
                     txtCommpercent.Enabled = false;
 
                     txtCommpercent.Text = "0";
-                    txtCAmt.Text = "0";
+                    txtCommAmt.Text = "0";
                 }
                 else
                 {
-                    txtCAmt.Enabled = true;
+                    txtCommAmt.Enabled = true;
                     txtCommpercent.Enabled = true;
 
                     // Adding for Commision percentage
@@ -1090,18 +1107,18 @@ namespace CRM
                         if (sCommType == "P")
                         {
                             txtCommpercent.EditValue = CommFun.FormatNum(dCommPer.ToString(), 2);
-                            txtCAmt.EditValue = decimal.Round(dFlatAmt * dCommPer / 100, 3);
+                            txtCommAmt.EditValue = decimal.Round(dFlatAmt * dCommPer / 100, 3);
                         }
                         else if (sCommType == "A")
                         {
                             txtCommpercent.EditValue = decimal.Round(dCommAmt / dFlatAmt * 100, 2);
-                            txtCAmt.EditValue = dCommAmt;
+                            txtCommAmt.EditValue = dCommAmt;
                         }
                     }
                     else
                     {
                         txtCommpercent.Text = "0";
-                        txtCAmt.Text = "0";
+                        txtCommAmt.Text = "0";
                     }
                 }
             }
@@ -1168,7 +1185,21 @@ namespace CRM
 
         private void cboPSch_EditValueChanged(object sender, EventArgs e)
         {
-            m_iPayId = Convert.ToInt32(cboPSch.EditValue);
+            m_iPayId = Convert.ToInt32(cboPaymentSchedule.EditValue);
+
+            txtInitialAmount.Text = 0.ToString();
+            txtNoOfMonths.Text = 0.ToString();
+            bool bEMI = Convert.ToBoolean(CommFun.IsNullCheck(cboPaymentSchedule.GetColumnValue("EMI"), CommFun.datatypes.varTypeBoolean));
+            if (bEMI == true)
+            {
+                txtInitialAmount.Enabled = true;
+                txtNoOfMonths.Enabled = true;
+            }
+            else
+            {
+                txtInitialAmount.Enabled = false;
+                txtNoOfMonths.Enabled = false;
+            }
         }
 
         private void txtCommpercent_EditValueChanged(object sender, EventArgs e)
@@ -1181,7 +1212,7 @@ namespace CRM
                     decimal dComP = Convert.ToDecimal(CommFun.IsNullCheck(txtCommpercent.Text, CommFun.datatypes.vartypenumeric));
                     decimal dBrokerAmt = 0;
                     if (dComP != 0) { dBrokerAmt = dNetAmt * dComP / 100; }
-                    txtCAmt.Text = CommFun.FormatNum(dBrokerAmt.ToString(), 2);
+                    txtCommAmt.Text = CommFun.FormatNum(dBrokerAmt.ToString(), 2);
                 }
             }
         }
@@ -1218,8 +1249,8 @@ namespace CRM
             }
         }
 
-        #endregion 
-       
+        #endregion
+
         #region Button Event
 
         private void btnExit_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -1374,7 +1405,7 @@ namespace CRM
                     CCAllotNo = txtCCAllotNo.Text,
                     COAllotNo = txtCompAllotNo.Text,
                     ProjName = sCCName,
-                    PaySchId = Convert.ToInt32(cboPSch.EditValue),
+                    PaySchId = Convert.ToInt32(cboPaymentSchedule.EditValue),
                     LeadId = m_iLeedId,
                     CallSheetEntryId = m_iEntryId,
                     ExecutiveId = BsfGlobal.g_lUserId,
@@ -1386,12 +1417,12 @@ namespace CRM
                     CustomerType = m_sCustomerType,
                     PaymentOption = m_sPaymntOpt,
                     ComPer = Convert.ToDecimal(txtCommpercent.Text == string.Empty ? 0 : Convert.ToDecimal(txtCommpercent.Text)),
-                    ComAmount = Convert.ToDecimal(txtCAmt.Text == string.Empty ? 0 : Convert.ToDecimal(txtCAmt.Text)),
+                    ComAmount = Convert.ToDecimal(txtCommAmt.Text == string.Empty ? 0 : Convert.ToDecimal(txtCommAmt.Text)),
                     ValidUpto = Convert.ToDateTime(dtpValidUpto.EditValue),
                     FinaliseDate = Convert.ToDateTime(dateFinal.EditValue),
                     NewLeedId = m_iLeedId,
                     CallType = m_sCallType,
-                    PostSaleExecId = Convert.ToInt32(cboExec.EditValue),
+                    PostSaleExecId = Convert.ToInt32(cboPostSaleExec.EditValue),
                     AdvAmt = Convert.ToDecimal(txtAdv.EditValue),
                     Rate = Convert.ToDecimal(CommFun.IsNullCheck(txtRate.EditValue, CommFun.datatypes.vartypenumeric)),
                     PlotId = m_iPlotId,
@@ -1451,13 +1482,13 @@ namespace CRM
             bChkSend = frm.bFinal;
         }
 
-        #endregion           
+        #endregion
 
         #region RadioGroup Event
 
         private void radioGroup1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (radioGroup1.SelectedIndex == 0)
+            if (RGCustomerType.SelectedIndex == 0)
             {
                 m_sCustomerType = "B";
             }
@@ -1469,7 +1500,7 @@ namespace CRM
 
         private void radioGroup2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (radioGroup2.SelectedIndex == 0)
+            if (RGPaymentOpt.SelectedIndex == 0)
             {
                 m_sPaymntOpt = "L";
             }
@@ -1481,7 +1512,7 @@ namespace CRM
 
         private void radioGroup3_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (radioGroup3.SelectedIndex == 1)
+            if (RGStatus.SelectedIndex == 1)
             {
                 m_sFlatStatus = "B";
                 dtpValidUpto.Enabled = true;
@@ -1494,12 +1525,85 @@ namespace CRM
 
         }
 
-        #endregion          
+        #endregion
 
         private void groupControl1_Paint(object sender, PaintEventArgs e)
         {
 
         }
 
+        private void txtNoOfMonths_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+            if ((Keys)e.KeyChar == Keys.Enter)
+            {
+                int iPayTypeId = Convert.ToInt32(CommFun.IsNullCheck(cboPaymentSchedule.EditValue, CommFun.datatypes.vartypenumeric));
+                if (iPayTypeId == 0) { return; }
+
+                decimal dNoOfMonths = Convert.ToDecimal(CommFun.IsNullCheck(txtNoOfMonths.Text, CommFun.datatypes.vartypenumeric));
+                if (dNoOfMonths == 0) { gridControl1.DataSource = null; return; }
+
+                decimal dInitialAmount = Convert.ToDecimal(CommFun.IsNullCheck(txtInitialAmount.Text, CommFun.datatypes.vartypenumeric));
+
+                DataTable dtInstallment = new DataTable();
+                dtInstallment.Columns.Add("Description", typeof(string));
+                dtInstallment.Columns.Add("Amount", typeof(decimal));
+
+                DataRow drow = dtInstallment.NewRow();
+                drow["Description"] = "Initial Amount";
+                drow["Amount"] = dInitialAmount;
+                dtInstallment.Rows.Add(drow);
+
+                DataTable dt = new DataTable();
+                dt = PaymentScheduleBL.GetEMISchedule(iCCId, iPayTypeId);
+                if (dt.Rows.Count == 0) return;
+
+                if (dNoOfMonths > dt.Rows.Count) { dNoOfMonths = dt.Rows.Count; txtNoOfMonths.Text = dNoOfMonths.ToString(); }
+
+                decimal dPercentage = Math.Round(100 / dNoOfMonths, 2);
+                decimal dExcessPer = 100 - (dPercentage * dNoOfMonths);
+                decimal dFirstInsPer = dPercentage + dExcessPer;
+                decimal dGrossAmt = Convert.ToDecimal(CommFun.IsNullCheck(vGridControl1.Rows["GrossAmt"].Properties.Value, CommFun.datatypes.vartypenumeric)) - dInitialAmount;
+                for (int i = 0; i <= dt.Rows.Count - 1; i++)
+                {
+                    DateTime dSchDate = Convert.ToDateTime(CommFun.IsNullCheck(dt.Rows[i]["SchDate"], CommFun.datatypes.VarTypeDate));
+                    if (dSchDate == DateTime.MinValue)
+                    {
+                        if (i < dNoOfMonths)
+                        {
+                            string sInstallment = "";
+                            if (i == 0)
+                                sInstallment = (i + 1) + "st Installment";
+                            else if (i == 1)
+                                sInstallment = (i + 1) + "nd Installment";
+                            else if (i == 2)
+                                sInstallment = (i + 1) + "rd Installment";
+                            else
+                                sInstallment = (i + 1) + "th Installment";
+
+                            decimal dAmount = 0;
+                            if (i == 0)
+                                dAmount = Math.Round(dGrossAmt * dFirstInsPer / 100, 2);
+                            else
+                                dAmount = Math.Round(dGrossAmt * dPercentage / 100, 2);
+
+                            drow = dtInstallment.NewRow();
+                            drow["Description"] = sInstallment;
+                            drow["Amount"] = dAmount;
+                            dtInstallment.Rows.Add(drow);
+                        }
+                    }
+                }
+
+                gridControl1.DataSource = dtInstallment;
+                gridView1.Columns["Amount"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+                gridView1.Columns["Amount"].DisplayFormat.FormatString = BsfGlobal.g_sDigitFormat;
+
+                gridView1.Columns["Amount"].SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Sum;
+                gridView1.Columns["Amount"].SummaryItem.DisplayFormat = BsfGlobal.g_sDigitFormatS;
+                gridView1.OptionsView.ShowFooter = true;
+            }
+            Cursor.Current = Cursors.Default;
+        }
     }
 }

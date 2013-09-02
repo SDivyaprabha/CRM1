@@ -107,6 +107,30 @@ namespace CRM.DataLayer
             return dt;
         }
 
+        internal static DataTable GetEMISchedule(int argCCId, int argPayTypeId)
+        {
+            BsfGlobal.OpenCRMDB();
+            DataTable dt = null;
+            try
+            {
+                string sSql = " SELECT * FROM dbo.PaymentSchedule " +
+                              " Where CostCentreId= " + argCCId + " AND TypeId=" + argPayTypeId + " AND SchType='E' ORDER BY SortOrder";
+                SqlDataAdapter sda = new SqlDataAdapter(sSql, BsfGlobal.g_CRMDB);
+                dt = new DataTable();
+                sda.Fill(dt);
+                sda.Dispose();
+            }
+            catch (Exception e)
+            {
+                BsfGlobal.CustomException(e.Message, e.StackTrace);
+            }
+            finally
+            {
+                BsfGlobal.g_CRMDB.Close();
+            }
+            return dt;
+        }
+
         internal static DataTable PopulateDescriptionMaster(string argDescType)
         {
             BsfGlobal.OpenCRMDB();

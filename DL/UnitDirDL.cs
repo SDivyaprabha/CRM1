@@ -1866,7 +1866,7 @@ namespace CRM.DataLayer
 
         }
 
-        public static DataTable GetStage(string argSchType,int argCCID)
+        public static DataTable GetStage(string argSchType, int argCCID)
         {
             BsfGlobal.OpenCRMDB();
             DataTable dt = null;
@@ -1887,7 +1887,7 @@ namespace CRM.DataLayer
                     {
                         sSql = "SELECT DISTINCT P.OtherCostId Id,P.Description Name FROM dbo.PaymentSchedule P WHERE P.SchType='O' AND CostCentreId= " + argCCID;
                     }
-                    
+
                     if (sSql != "")
                     {
                         SqlCommand cmd = new SqlCommand(sSql, BsfGlobal.g_CRMDB);
@@ -4693,7 +4693,8 @@ namespace CRM.DataLayer
 
                         if (bPayTypewise == true)
                             PaymentScheduleDL.UpdateReceiptBuyerSchedule(iFlatId, dtP, conn, tran);
-                        else PaymentScheduleDL.UpdateReceiptBuyerScheduleQual(iFlatId, dtP, conn, tran);
+                        else
+                            PaymentScheduleDL.UpdateReceiptBuyerScheduleQual(iFlatId, dtP, conn, tran);
                         //PaymentScheduleBL.InsertFlatScheduleI(iFlatId, conn, tran);
 
                         dQualAmt = UnitDirBL.GetGlobalQualifierAmt(iFlatId, bPayTypewise, conn, tran);

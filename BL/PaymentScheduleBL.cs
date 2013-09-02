@@ -404,5 +404,10 @@ namespace CRM.BusinessLayer
         }
 
         #endregion
+
+        internal static DataTable GetEMISchedule(int argBranchId, int argPayTypeId)
+        {
+            return PaymentScheduleDL.GetEMISchedule(argBranchId, argPayTypeId);
+        }
     }
 }

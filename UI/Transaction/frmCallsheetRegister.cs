@@ -288,7 +288,7 @@ namespace CRM
                     //UpdateChildren(frm.groupControl1.Controls, true);
                     frm.btnBroker.Enabled = true;
                     frm.cboBroker.Enabled = true;
-                    frm.txtCAmt.Enabled = true;
+                    frm.txtCommAmt.Enabled = true;
                     frm.txtCommpercent.Enabled = true;
                     frm.btnSave.Enabled = true;
                     frm.btnCancel.Enabled = true;

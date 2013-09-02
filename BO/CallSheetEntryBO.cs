@@ -35,6 +35,8 @@ namespace CRM.BusinessObjects
         public decimal CommAmt { get; set; }
         public string CallType { get; set; }
         public string Email { get; set; }
+        public decimal InitialAmount { get; set; }
+        public decimal NoOfMonths { get; set; }
     }
 
    public class FollowUpBO

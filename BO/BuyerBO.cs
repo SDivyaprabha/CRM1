@@ -39,6 +39,8 @@ namespace CRM.BusinessObjects
         public int PostSaleExecId { set; get; }
         public decimal AdvAmt { set; get; }
         public decimal Rate { set; get; }
+        public decimal InitialAmount { get; set; }
+        public decimal NoOfMonths { get; set; }
     }
 
     public class CheckListBO

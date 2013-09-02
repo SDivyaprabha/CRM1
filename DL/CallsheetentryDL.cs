@@ -405,13 +405,14 @@ namespace CRM.DataLayer
                             if (dtEnqTrans.Rows.Count > 0)
                             {
                                 sSql = "INSERT INTO dbo.BuyerDetail(AllotmentNo,CCAllotNo,COAllotNo,CostCentreId,ExecutiveId,LeadId,EntryId,FlatId,PaySchId,Status,CustomerType," +
-                                        " PaymentOption,BranchId,LoanPer,LoanAccNo,BrokerId,BrokerComm,BrokerAmount,ValidUpto,FinaliseDate,PostSaleExecId,Advance) Values" +
+                                        " PaymentOption,BranchId,LoanPer,LoanAccNo,BrokerId,BrokerComm,BrokerAmount,ValidUpto,FinaliseDate,PostSaleExecId,Advance,InitialAmount,NoOfMonths) Values" +
                                         " ('" + dtEnqTrans.Rows[0]["GAllotNo"] + "','" + dtEnqTrans.Rows[0]["CCAllotNo"] + "','" + dtEnqTrans.Rows[0]["COAllotNo"] + "'," + argCallSheet.ProjID + "," + argCallSheet.ExecutiveID + "," + argCallSheet.LeadID + "," +
                                         " " + iEntryId + "," + argCallSheet.FlatID + "," + dtEnqTrans.Rows[0]["PaySchId"] + ",'" + dtEnqTrans.Rows[0]["Status"] + "'," +
                                         " '" + dtEnqTrans.Rows[0]["CustomerType"] + "','" + dtEnqTrans.Rows[0]["PaymentOption"] + "'," +
                                         " " + dtEnqTrans.Rows[0]["BranchId"] + "," + dtEnqTrans.Rows[0]["LoanPer"] + ",'" + dtEnqTrans.Rows[0]["LoanAccNo"] + "'," +
                                         " " + dtEnqTrans.Rows[0]["BrokerId"] + "," + dtEnqTrans.Rows[0]["ComPer"] + "," + dtEnqTrans.Rows[0]["ComAmount"] + "," +
-                                        " @ValidUpto,@FinaliseDate," + dtEnqTrans.Rows[0]["PostSaleExecId"] + "," + dtEnqTrans.Rows[0]["AdvAmt"] + ") ";
+                                        " @ValidUpto,@FinaliseDate," + dtEnqTrans.Rows[0]["PostSaleExecId"] + "," + dtEnqTrans.Rows[0]["AdvAmt"] +
+                                        "," + dtEnqTrans.Rows[0]["InitialAmount"] + "," + dtEnqTrans.Rows[0]["NoOfMonths"] + ") ";
                                 cmd = new SqlCommand(sSql, conn, tran);
 
                                 SqlParameter dateparameter = new SqlParameter() { DbType = DbType.DateTime, ParameterName = "@ValidUpto" };
@@ -484,7 +485,8 @@ namespace CRM.DataLayer
                                         " LoanPer=" + dtEnqTrans.Rows[0]["LoanPer"] + ",LoanAccNo='" + dtEnqTrans.Rows[0]["LoanAccNo"] + "',BrokerId=" + dtEnqTrans.Rows[0]["BrokerId"] + "," +
                                         " BrokerComm=" + dtEnqTrans.Rows[0]["ComPer"] + ",BrokerAmount=" + dtEnqTrans.Rows[0]["ComAmount"] + "," +
                                         " ValidUpto=@ValidUpto,FinaliseDate=@FinaliseDate," +
-                                        " PostSaleExecId=" + dtEnqTrans.Rows[0]["PostSaleExecId"] + ",Advance=" + dtEnqTrans.Rows[0]["AdvAmt"] + "" +
+                                        " PostSaleExecId=" + dtEnqTrans.Rows[0]["PostSaleExecId"] + ",Advance=" + dtEnqTrans.Rows[0]["AdvAmt"] + "," +
+                                        " InitialAmount=" + dtEnqTrans.Rows[0]["InitialAmount"] + ",NoOfMonths=" + dtEnqTrans.Rows[0]["NoOfMonths"] + "" +
                                         " WHERE EntryId=" + iEntryId + " ";
                                 cmd = new SqlCommand(sSql, conn, tran);
 
@@ -917,14 +919,16 @@ namespace CRM.DataLayer
                             if (dtEnqTrans.Rows.Count > 0)
                             {
                                 sSql = "INSERT INTO dbo.BuyerDetail(CostCentreId,ExecutiveId,LeadId,EntryId,FlatId,PaySchId,Status,CustomerType," +
-                                    " PaymentOption,BranchId,LoanPer,LoanAccNo,BrokerId,BrokerComm,BrokerAmount,ValidUpto,FinaliseDate,PostSaleExecId,Advance,PlotId,RegDate) Values" +
+                                    " PaymentOption,BranchId,LoanPer,LoanAccNo,BrokerId,BrokerComm,BrokerAmount,ValidUpto,FinaliseDate, "+
+                                    "PostSaleExecId,Advance,PlotId,RegDate,InitialAmount,NoOfMonths) Values" +
                                     " (" + argCallSheet.ProjID + "," + argCallSheet.ExecutiveID + "," + argCallSheet.LeadID + "," +
                                     " " + iEntryId + ",0," + dtEnqTrans.Rows[0]["PaySchId"] + ",'" + dtEnqTrans.Rows[0]["Status"] + "'," +
                                     " '" + dtEnqTrans.Rows[0]["CustomerType"] + "','" + dtEnqTrans.Rows[0]["PaymentOption"] + "'," +
                                     " " + dtEnqTrans.Rows[0]["BranchId"] + "," + dtEnqTrans.Rows[0]["LoanPer"] + ",'" + dtEnqTrans.Rows[0]["LoanAccNo"] + "'," +
                                     " " + dtEnqTrans.Rows[0]["BrokerId"] + "," + dtEnqTrans.Rows[0]["ComPer"] + "," + dtEnqTrans.Rows[0]["ComAmount"] + "," +
                                     " '" + validUpto + "','" + FinaliseDate + "'," + dtEnqTrans.Rows[0]["PostSaleExecId"] + "," + dtEnqTrans.Rows[0]["AdvAmt"] + "," +
-                                    " " + dtEnqTrans.Rows[0]["PlotId"] + ",'" + string.Format(Convert.ToDateTime(dtEnqTrans.Rows[0]["RegDate"]).ToString("dd-MMM-yyyy")) + "') ";
+                                    " " + dtEnqTrans.Rows[0]["PlotId"] + ",'" + string.Format(Convert.ToDateTime(dtEnqTrans.Rows[0]["RegDate"]).ToString("dd-MMM-yyyy")) +
+                                    "'," + dtEnqTrans.Rows[0]["InitialAmount"] + "," + dtEnqTrans.Rows[0]["NoOfMonths"] + ") ";
                                 cmd = new SqlCommand(sSql, conn, tran);
                                 cmd.ExecuteNonQuery();
                                 cmd.Dispose();
@@ -966,7 +970,9 @@ namespace CRM.DataLayer
                                 " BrokerComm=" + dtEnqTrans.Rows[0]["ComPer"] + ",BrokerAmount=" + dtEnqTrans.Rows[0]["ComAmount"] + "," +
                                 " ValidUpto='" + validUpto + "',FinaliseDate='" + FinaliseDate + "'," +
                                 " PostSaleExecId=" + dtEnqTrans.Rows[0]["PostSaleExecId"] + ",Advance=" + dtEnqTrans.Rows[0]["AdvAmt"] + "," +
-                                " PlotId=" + dtEnqTrans.Rows[0]["PlotId"] + ",RegDate='" + string.Format(Convert.ToDateTime(dtEnqTrans.Rows[0]["RegDate"]).ToString("dd-MMM-yyyy")) + "'" +
+                                " PlotId=" + dtEnqTrans.Rows[0]["PlotId"] + "," +
+                                " RegDate='" + string.Format(Convert.ToDateTime(dtEnqTrans.Rows[0]["RegDate"]).ToString("dd-MMM-yyyy")) + "'," +
+                                " InitialAmount=" + dtEnqTrans.Rows[0]["InitialAmount"] + ",NoOfMonths=" + dtEnqTrans.Rows[0]["NoOfMonths"] +
                                 " WHERE EntryId=" + iEntryId + "";
                             cmd = new SqlCommand(sSql, conn, tran);
                             cmd.ExecuteNonQuery();
@@ -1957,7 +1963,7 @@ namespace CRM.DataLayer
                 String sSql = "Select A.AllotmentNo GAllotNo,COAllotNo,CCAllotNo,C.CostCentreName ProjName,A.CostCentreId,A.AccountId,A.ExecutiveId,"+
                               "A.LeadId,A.EntryId CallSheetEntryId,A.FlatId,A.PaySchId,A.Status,A.CustomerType,A.PaymentOption,A.BranchId,A.LoanPer,A.LoanAppDate," + 
                               " A.LoanAccNo,A.BrokerId,A.BrokerComm ComPer,A.BrokerAmount ComAmount,A.ValidUpto,A.FinaliseDate,A.PostSaleExecId,A.Advance AdvAmt,"+
-                              "A.Approve,A.AdvRefId,A.PlotId,A.RegDate,B.Rate,B.FlatTypeId From dbo.BuyerDetail A " +
+                              "A.Approve,A.AdvRefId,A.PlotId,A.RegDate,B.Rate,B.FlatTypeId,A.InitialAmount,A.NoOfMonths From dbo.BuyerDetail A " +
                               " Inner Join dbo.FlatDetails B On A.FlatId=B.FlatId "+
                               " INNER JOIN [" + BsfGlobal.g_sWorkFlowDBName + "].dbo.OperationalCostCentre C On B.CostCentreId=C.CostCentreId" +
                               " Where A.EntryId=" + argEntryId + "";
@@ -2564,13 +2570,13 @@ namespace CRM.DataLayer
                     if (dtEnqTrans.Rows.Count > 0)
                     {
                         sSql = "INSERT INTO dbo.BuyerDetail(CostCentreId,ExecutiveId,LeadId,FlatId,Status,CustomerType," +
-                            " PaymentOption,BankId,LoanPer,BrokerId,BrokerComm,BrokerAmount,ValidUpto) Values" +
+                            " PaymentOption,BankId,LoanPer,BrokerId,BrokerComm,BrokerAmount,ValidUpto,InitialAmount,NoOfMonths) Values" +
                             " (" + dtEnqTrans.Rows[0]["CostCentreId"] + "," + dtEnqTrans.Rows[0]["ExecutiveId"] + "," +
                             " " + dtEnqTrans.Rows[0]["LeadId"] + "," + dtEnqTrans.Rows[0]["FlatId"] + ",'" + dtEnqTrans.Rows[0]["Status"] + "'," +
                             " '" + dtEnqTrans.Rows[0]["CustomerType"] + "','" + dtEnqTrans.Rows[0]["PaymentOption"] + "'," +
                             " " + dtEnqTrans.Rows[0]["BankId"] + "," + dtEnqTrans.Rows[0]["LoanPer"] + "," +
                             " " + dtEnqTrans.Rows[0]["BrokerId"] + "," + dtEnqTrans.Rows[0]["ComPer"] + "," + dtEnqTrans.Rows[0]["ComAmount"] + "," +
-                            " '" + validUpto + "') SELECT SCOPE_IDENTITY();";
+                            " '" + validUpto + "'," + dtEnqTrans.Rows[0]["InitialAmount"] + "," + dtEnqTrans.Rows[0]["NoOfMonths"] + ") SELECT SCOPE_IDENTITY();";
                         cmd = new SqlCommand(sSql, conn, tran);
                         iBuyerId = int.Parse(cmd.ExecuteScalar().ToString());
                         cmd.Dispose();

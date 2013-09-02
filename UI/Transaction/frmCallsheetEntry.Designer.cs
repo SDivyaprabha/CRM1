@@ -30,10 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCallsheetEntry));
-            DevExpress.Utils.SuperToolTip superToolTip9 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem9 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.SuperToolTip superToolTip10 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem10 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.SuperToolTip superToolTip1 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem1 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.SuperToolTip superToolTip2 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem2 = new DevExpress.Utils.ToolTipTitleItem();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.barManager1 = new DevExpress.XtraBars.BarManager(this.components);
             this.bar3 = new DevExpress.XtraBars.Bar();
@@ -205,9 +205,9 @@
             this.btnSave.Glyph = ((System.Drawing.Image)(resources.GetObject("btnSave.Glyph")));
             this.btnSave.Id = 1;
             this.btnSave.Name = "btnSave";
-            toolTipTitleItem9.Text = "Save";
-            superToolTip9.Items.Add(toolTipTitleItem9);
-            this.btnSave.SuperTip = superToolTip9;
+            toolTipTitleItem1.Text = "Save";
+            superToolTip1.Items.Add(toolTipTitleItem1);
+            this.btnSave.SuperTip = superToolTip1;
             this.btnSave.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnSave_ItemClick);
             // 
             // btnSaveNew
@@ -225,9 +225,9 @@
             this.btnCancel.Glyph = ((System.Drawing.Image)(resources.GetObject("btnCancel.Glyph")));
             this.btnCancel.Id = 3;
             this.btnCancel.Name = "btnCancel";
-            toolTipTitleItem10.Text = "Cancel\r\n";
-            superToolTip10.Items.Add(toolTipTitleItem10);
-            this.btnCancel.SuperTip = superToolTip10;
+            toolTipTitleItem2.Text = "Cancel\r\n";
+            superToolTip2.Items.Add(toolTipTitleItem2);
+            this.btnCancel.SuperTip = superToolTip2;
             this.btnCancel.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnCancel_ItemClick);
             // 
             // bar1

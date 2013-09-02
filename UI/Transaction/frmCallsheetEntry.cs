@@ -509,6 +509,8 @@ namespace CRM
                     oCSheetEntryBO.BrokerId = Convert.ToInt32(CommFun.IsNullCheck(dtBuyrDetails.Rows[0]["BrokerId"], CommFun.datatypes.vartypenumeric).ToString());
                     oCSheetEntryBO.CommPer = Convert.ToDecimal(CommFun.IsNullCheck(dtBuyrDetails.Rows[0]["ComPer"], CommFun.datatypes.vartypenumeric).ToString());
                     oCSheetEntryBO.CommAmt = Convert.ToDecimal(CommFun.IsNullCheck(dtBuyrDetails.Rows[0]["ComAmount"], CommFun.datatypes.vartypenumeric).ToString());
+                    oCSheetEntryBO.InitialAmount = Convert.ToDecimal(CommFun.IsNullCheck(dtBuyrDetails.Rows[0]["InitialAmount"], CommFun.datatypes.vartypenumeric));
+                    oCSheetEntryBO.NoOfMonths = Convert.ToDecimal(CommFun.IsNullCheck(dtBuyrDetails.Rows[0]["NoOfMonths"], CommFun.datatypes.vartypenumeric));
                 }
                 oCSheetEntryBO.ReminderId = 0;
             }
@@ -524,6 +526,8 @@ namespace CRM
                     oCSheetEntryBO.BrokerId = Convert.ToInt32(dtBuyrDetails.Rows[0]["BrokerId"].ToString());
                     oCSheetEntryBO.CommPer = Convert.ToDecimal(dtBuyrDetails.Rows[0]["ComPer"].ToString());
                     oCSheetEntryBO.CommAmt = Convert.ToDecimal(dtBuyrDetails.Rows[0]["ComAmount"].ToString());
+                    oCSheetEntryBO.InitialAmount = Convert.ToDecimal(CommFun.IsNullCheck(dtBuyrDetails.Rows[0]["InitialAmount"], CommFun.datatypes.vartypenumeric));
+                    oCSheetEntryBO.NoOfMonths = Convert.ToDecimal(CommFun.IsNullCheck(dtBuyrDetails.Rows[0]["NoOfMonths"], CommFun.datatypes.vartypenumeric));
                 }
                 if (cboReminder.EditValue.ToString() == "" || Convert.ToInt32(cboReminder.EditValue) != 0)
                     oCSheetEntryBO.ReminderId = 0;
@@ -784,31 +788,7 @@ namespace CRM
             {
                 if (cboCallType.Text == "Finalization" || cboCallType.Text == "Finalisation")
                 {
-                    //sVoucherType = BsfGlobal.GetVoucherType(85);
-                    //oVType = new BsfGlobal.VoucherType();
-                    //oVType = BsfGlobal.GetVoucherNo(85, Convert.ToDateTime(dtCallsheetDate.EditValue), 0, 0);
-                    //if (oVType.GenType == true)
-                    //{
-                    //    //txtBillNo.Enabled = false;
-                    //    //txtBillNo.Text = oVType.VoucherNo;
-                    //    if (sVoucherType == "  " || sVoucherType == "GE")
-                    //    {
-
-                    //        sVNo = oVType.VoucherNo;
-                    //        // barStaticItem1.Caption = oVType.VoucherNo;
-                    //    }
-                    //    else
-                    //    {
-
-                    //        sVNo = oVType.VoucherNo;
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    //txtBillNo.Enabled = true;
-                    //}
                 }
-                //else { sVNo = ""; }
             }
             if (cboCallType.Text == "Finalization" || cboCallType.Text == "Finalisation" || cboCallType.Text == "Block")
             {

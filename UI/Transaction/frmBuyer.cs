@@ -227,6 +227,10 @@ namespace CRM
                                 {
                                     RGPaymentOpt.SelectedIndex = 1;
                                 }
+
+                                txtInitialAmount.Text = Convert.ToDecimal(CommFun.IsNullCheck(dtRetn.Rows[0]["InitialAmount"], CommFun.datatypes.vartypenumeric)).ToString();
+                                txtNoOfMonths.Text = Convert.ToDecimal(CommFun.IsNullCheck(dtRetn.Rows[0]["NoOfMonths"], CommFun.datatypes.vartypenumeric)).ToString();
+                                if (Convert.ToDecimal(txtNoOfMonths.Text) > 0) { GenerateInstallment(); }
                                 cboBroker.EditValue = Convert.ToInt32(CommFun.IsNullCheck(dtRetn.Rows[0]["BrokerId"].ToString(), CommFun.datatypes.vartypenumeric));
                                 txtCommpercent.EditValue = Convert.ToDecimal(CommFun.IsNullCheck(dtRetn.Rows[0]["ComPer"].ToString(), CommFun.datatypes.vartypenumeric));
                                 txtCommAmt.EditValue = Convert.ToDecimal(CommFun.IsNullCheck(dtRetn.Rows[0]["ComAmount"].ToString(), CommFun.datatypes.vartypenumeric));
@@ -307,6 +311,9 @@ namespace CRM
                         {
                             RGPaymentOpt.SelectedIndex = 1;
                         }
+                        txtInitialAmount.Text = Convert.ToDecimal(CommFun.IsNullCheck(dtenq.Rows[0]["InitialAmount"], CommFun.datatypes.vartypenumeric)).ToString();
+                        txtNoOfMonths.Text = Convert.ToDecimal(CommFun.IsNullCheck(dtenq.Rows[0]["NoOfMonths"], CommFun.datatypes.vartypenumeric)).ToString();
+                        if (Convert.ToDecimal(txtNoOfMonths.Text) > 0) { GenerateInstallment(); }
                         cboBroker.EditValue = Convert.ToInt32(dtenq.Rows[0]["BrokerId"].ToString());
                         txtCommpercent.Text = dtenq.Rows[0]["ComPer"].ToString();
                         txtCommAmt.Text = dtenq.Rows[0]["ComAmount"].ToString();
@@ -1429,6 +1436,8 @@ namespace CRM
                     RegDate = Convert.ToDateTime(dEReg.EditValue),
                     FlatTypeId = m_iFlatTypeId,
                     PlotTypeId = m_iPlotTypeId,
+                    InitialAmount = Convert.ToDecimal(CommFun.IsNullCheck(txtInitialAmount.Text, CommFun.datatypes.vartypenumeric)),
+                    NoOfMonths = Convert.ToDecimal(CommFun.IsNullCheck(txtNoOfMonths.Text, CommFun.datatypes.vartypenumeric))
                 });
                 dtRetn = CommFun.GenericListToDataTable(oBuyerDetBO);
 
@@ -1534,75 +1543,82 @@ namespace CRM
 
         private void txtNoOfMonths_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Cursor.Current = Cursors.WaitCursor;
             if ((Keys)e.KeyChar == Keys.Enter)
             {
-                int iPayTypeId = Convert.ToInt32(CommFun.IsNullCheck(cboPaymentSchedule.EditValue, CommFun.datatypes.vartypenumeric));
-                if (iPayTypeId == 0) { return; }
+                GenerateInstallment();
+            }
+        }
 
-                decimal dNoOfMonths = Convert.ToDecimal(CommFun.IsNullCheck(txtNoOfMonths.Text, CommFun.datatypes.vartypenumeric));
-                if (dNoOfMonths == 0) { gridControl1.DataSource = null; return; }
+        private void GenerateInstallment()
+        {
+            Cursor.Current = Cursors.WaitCursor;
 
-                decimal dInitialAmount = Convert.ToDecimal(CommFun.IsNullCheck(txtInitialAmount.Text, CommFun.datatypes.vartypenumeric));
+            int iPayTypeId = Convert.ToInt32(CommFun.IsNullCheck(cboPaymentSchedule.EditValue, CommFun.datatypes.vartypenumeric));
+            if (iPayTypeId == 0) { return; }
 
-                DataTable dtInstallment = new DataTable();
-                dtInstallment.Columns.Add("Description", typeof(string));
-                dtInstallment.Columns.Add("Amount", typeof(decimal));
+            decimal dNoOfMonths = Convert.ToDecimal(CommFun.IsNullCheck(txtNoOfMonths.Text, CommFun.datatypes.vartypenumeric));
+            if (dNoOfMonths == 0) { gridControl1.DataSource = null; return; }
 
-                DataRow drow = dtInstallment.NewRow();
-                drow["Description"] = "Initial Amount";
-                drow["Amount"] = dInitialAmount;
-                dtInstallment.Rows.Add(drow);
+            decimal dInitialAmount = Convert.ToDecimal(CommFun.IsNullCheck(txtInitialAmount.Text, CommFun.datatypes.vartypenumeric));
 
-                DataTable dt = new DataTable();
-                dt = PaymentScheduleBL.GetEMISchedule(iCCId, iPayTypeId);
-                if (dt.Rows.Count == 0) return;
+            DataTable dtInstallment = new DataTable();
+            dtInstallment.Columns.Add("Description", typeof(string));
+            dtInstallment.Columns.Add("Amount", typeof(decimal));
 
-                if (dNoOfMonths > dt.Rows.Count) { dNoOfMonths = dt.Rows.Count; txtNoOfMonths.Text = dNoOfMonths.ToString(); }
+            DataRow drow = dtInstallment.NewRow();
+            drow["Description"] = "Initial Amount";
+            drow["Amount"] = dInitialAmount;
+            dtInstallment.Rows.Add(drow);
 
-                decimal dPercentage = Math.Round(100 / dNoOfMonths, 2);
-                decimal dExcessPer = 100 - (dPercentage * dNoOfMonths);
-                decimal dFirstInsPer = dPercentage + dExcessPer;
-                decimal dGrossAmt = Convert.ToDecimal(CommFun.IsNullCheck(vGridControl1.Rows["GrossAmt"].Properties.Value, CommFun.datatypes.vartypenumeric)) - dInitialAmount;
-                for (int i = 0; i <= dt.Rows.Count - 1; i++)
+            DataTable dt = new DataTable();
+            dt = PaymentScheduleBL.GetEMISchedule(iCCId, iPayTypeId);
+            if (dt.Rows.Count == 0) return;
+
+            if (dNoOfMonths > dt.Rows.Count) { dNoOfMonths = dt.Rows.Count; txtNoOfMonths.Text = dNoOfMonths.ToString(); }
+
+            decimal dPercentage = Math.Round(100 / dNoOfMonths, 3);
+            decimal dExcessPer = 100 - (dPercentage * dNoOfMonths);
+            decimal dFirstInsPer = dPercentage + dExcessPer;
+            decimal dGrossAmt = Convert.ToDecimal(CommFun.IsNullCheck(vGridControl1.Rows["GrossAmt"].Properties.Value, CommFun.datatypes.vartypenumeric)) - dInitialAmount;
+            for (int i = 0; i <= dt.Rows.Count - 1; i++)
+            {
+                DateTime dSchDate = Convert.ToDateTime(CommFun.IsNullCheck(dt.Rows[i]["SchDate"], CommFun.datatypes.VarTypeDate));
+                if (dSchDate == DateTime.MinValue)
                 {
-                    DateTime dSchDate = Convert.ToDateTime(CommFun.IsNullCheck(dt.Rows[i]["SchDate"], CommFun.datatypes.VarTypeDate));
-                    if (dSchDate == DateTime.MinValue)
+                    if (i < dNoOfMonths)
                     {
-                        if (i < dNoOfMonths)
-                        {
-                            string sInstallment = "";
-                            if (i == 0)
-                                sInstallment = (i + 1) + "st Installment";
-                            else if (i == 1)
-                                sInstallment = (i + 1) + "nd Installment";
-                            else if (i == 2)
-                                sInstallment = (i + 1) + "rd Installment";
-                            else
-                                sInstallment = (i + 1) + "th Installment";
+                        string sInstallment = "";
+                        if (i == 0)
+                            sInstallment = (i + 1) + "st Installment";
+                        else if (i == 1)
+                            sInstallment = (i + 1) + "nd Installment";
+                        else if (i == 2)
+                            sInstallment = (i + 1) + "rd Installment";
+                        else
+                            sInstallment = (i + 1) + "th Installment";
 
-                            decimal dAmount = 0;
-                            if (i == 0)
-                                dAmount = Math.Round(dGrossAmt * dFirstInsPer / 100, 2);
-                            else
-                                dAmount = Math.Round(dGrossAmt * dPercentage / 100, 2);
+                        decimal dAmount = 0;
+                        if (i == 0)
+                            dAmount = Math.Round(dGrossAmt * dFirstInsPer / 100, 3);
+                        else
+                            dAmount = Math.Round(dGrossAmt * dPercentage / 100, 3);
 
-                            drow = dtInstallment.NewRow();
-                            drow["Description"] = sInstallment;
-                            drow["Amount"] = dAmount;
-                            dtInstallment.Rows.Add(drow);
-                        }
+                        drow = dtInstallment.NewRow();
+                        drow["Description"] = sInstallment;
+                        drow["Amount"] = dAmount;
+                        dtInstallment.Rows.Add(drow);
                     }
                 }
-
-                gridControl1.DataSource = dtInstallment;
-                gridView1.Columns["Amount"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-                gridView1.Columns["Amount"].DisplayFormat.FormatString = BsfGlobal.g_sDigitFormat;
-
-                gridView1.Columns["Amount"].SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Sum;
-                gridView1.Columns["Amount"].SummaryItem.DisplayFormat = BsfGlobal.g_sDigitFormatS;
-                gridView1.OptionsView.ShowFooter = true;
             }
+
+            gridControl1.DataSource = dtInstallment;
+            gridView1.Columns["Amount"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            gridView1.Columns["Amount"].DisplayFormat.FormatString = BsfGlobal.g_sDigitFormat;
+
+            gridView1.Columns["Amount"].SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Sum;
+            gridView1.Columns["Amount"].SummaryItem.DisplayFormat = BsfGlobal.g_sDigitFormatS;
+            gridView1.OptionsView.ShowFooter = true;
+
             Cursor.Current = Cursors.Default;
         }
     }

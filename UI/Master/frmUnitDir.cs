@@ -9840,6 +9840,8 @@ namespace CRM
             Cursor.Current = Cursors.WaitCursor;
             if ((Keys)e.KeyChar == Keys.Enter)
             {
+                int iPayTypeId = Convert.ToInt32(CommFun.IsNullCheck(cboPaySchType.EditValue, CommFun.datatypes.vartypenumeric));
+                if (iPayTypeId == 0) { return; }
                 decimal dNoOfMonths = Convert.ToDecimal(CommFun.IsNullCheck(txtPaySchNoOfMonths.Text, CommFun.datatypes.vartypenumeric));
                 if (dNoOfMonths == 0)
                 {
@@ -9854,18 +9856,26 @@ namespace CRM
                 {
                     string sInstallment = "";
                     if (i == 0)
-                        sInstallment = i + "st Installment";
-                    else if(i==1)
-                        sInstallment = i + "nd Installment";
+                        sInstallment = (i + 1) + "st Installment";
+                    else if (i == 1)
+                        sInstallment = (i + 1) + "nd Installment";
                     else if (i == 2)
-                        sInstallment = i + "rd Installment";
+                        sInstallment = (i + 1) + "rd Installment";
                     else
-                        sInstallment = i + "th Installment";
+                        sInstallment = (i + 1) + "th Installment";
 
                     DataRow drow = dt.NewRow();
+                    drow["TemplateId"] = 0;
                     drow["Description"] = sInstallment;
+                    drow["SchType"] = "E";
+                    drow["SchDate"] = DBNull.Value;
+                    drow["FlatTypeId"] = CommFun.IsNullCheck(chkcboPayFlatType.EditValue, CommFun.datatypes.vartypestring).ToString();
+                    drow["BlockId"] = CommFun.IsNullCheck(chkcbPayBlock.EditValue, CommFun.datatypes.vartypestring).ToString();
+                    drow["SchPercent"] = 0;
 
                     dt.Rows.Add(drow);
+
+                    PaymentScheduleBL.InsertPayScheduleDes(dt, m_iCCId, iPayTypeId, i, "E");
                 }
 
                 grdPaymentSch.DataSource = dt;

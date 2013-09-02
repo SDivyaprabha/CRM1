@@ -170,12 +170,15 @@ namespace CRM.DataLayer
                     sSql = String.Format("DELETE FROM dbo.PaymentSchedule WHERE CostCentreId={0} AND TypeId={1}", argCCId, argTId);
                     cmd = new SqlCommand(sSql, conn, tran);
                     cmd.ExecuteNonQuery();
+                    cmd.Dispose();
+
                     for (int t = 0; t < argPayTrans.Rows.Count; t++)
                     {
                         string nxtSchDate = string.Format("{0:dd/MMM/yyyy}", Convert.ToDateTime(argPayTrans.Rows[t]["SchDate"]));
                         sSql = String.Format("INSERT INTO dbo.PaymentSchedule(CostCentreId,TypeId,SchType,Description,SchDescId,StageId,OtherCostId,SchDate,DateAfter,Duration,DurationType,SchPercent,Amount,PreStageTypeId) Values({0},{1},'{2}','{3}',{4},{5},{6},'{7}',{8},{9},'{10}',{11},{12},{13})SELECT SCOPE_IDENTITY();", argPayTrans.Rows[t]["CCId"], argTId, argPayTrans.Rows[t]["EntryType"], argPayTrans.Rows[t]["Description"], argPayTrans.Rows[t]["DescId"], argPayTrans.Rows[t]["StageId"], argPayTrans.Rows[t]["OtherCostId"], nxtSchDate, Convert.ToInt32(argPayTrans.Rows[t]["DateAfter"].ToString()), argPayTrans.Rows[t]["Duration"], Convert.ToChar(argPayTrans.Rows[t]["DurationType"].ToString()), argPayTrans.Rows[t]["AmtPercent"], argPayTrans.Rows[t]["Amount"], argPayTrans.Rows[t]["PreStageTypeId"]);
                         cmd = new SqlCommand(sSql, conn, tran);
                         ipaySchId = int.Parse(cmd.ExecuteScalar().ToString());
+                        cmd.Dispose();
                         cmd.Dispose();
                     }
                     tran.Commit();
@@ -201,17 +204,45 @@ namespace CRM.DataLayer
             {
                 try
                 {
-                    for (int i = 0; i < argDt.Rows.Count; i++)
-                    {
-                        int iShId = Convert.ToInt32(argDt.Rows[i]["SchDescId"].ToString());
-                        string sShName = argDt.Rows[i]["SchDescName"].ToString();
-                        int iSortOrder = argRow + i + 1;
+                    string sSql = "Delete dbo.PaymentSchedule Where TypeId=" + argPayTypeId + " AND CostCentreId=" + argCCId + " AND SchType='" + argDescType + "'";
+                    SqlCommand cmd = new SqlCommand(sSql, conn, tran);
+                    cmd.ExecuteNonQuery();
+                    cmd.Dispose();
 
-                        string sSql = "Insert into dbo.PaymentSchedule(TypeId,CostCentreId,SchType,Description,SchDescId,SchDate,SortOrder) " +
-                                      "Values(" + argPayTypeId + "," + argCCId + ",'" + argDescType + "','" + sShName + "'," + iShId + ",null," + iSortOrder + ")";
-                        SqlCommand cmd = new SqlCommand(sSql, conn, tran);
-                        cmd.ExecuteNonQuery();
-                        cmd.Dispose();
+                    if (argDescType == "E")
+                    {
+                        for (int i = 0; i < argDt.Rows.Count; i++)
+                        {
+                            string sShName = argDt.Rows[i]["Description"].ToString();
+
+                            sSql = "Insert into dbo.SchDescription(SchDescName, Type) Values('" + sShName + "','E') SELECT SCOPE_IDENTITY();";
+                            cmd = new SqlCommand(sSql, conn, tran);
+                            int iSchDescId = Convert.ToInt32(CommFun.IsNullCheck(cmd.ExecuteScalar(), CommFun.datatypes.vartypenumeric));
+                            cmd.Dispose();
+
+                            int iSortOrder = argRow + i + 1;
+
+                            sSql = "Insert into dbo.PaymentSchedule(TypeId,CostCentreId,SchType,Description,SchDescId,SchDate,SortOrder) " +
+                                          "Values(" + argPayTypeId + "," + argCCId + ",'" + argDescType + "','" + sShName + "'," + iSchDescId + ",NULL," + iSortOrder + ")";
+                            cmd = new SqlCommand(sSql, conn, tran);
+                            cmd.ExecuteNonQuery();
+                            cmd.Dispose();
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 0; i < argDt.Rows.Count; i++)
+                        {
+                            int iShId = Convert.ToInt32(argDt.Rows[i]["SchDescId"].ToString());
+                            string sShName = argDt.Rows[i]["SchDescName"].ToString();
+                            int iSortOrder = argRow + i + 1;
+
+                            sSql = "Insert into dbo.PaymentSchedule(TypeId,CostCentreId,SchType,Description,SchDescId,SchDate,SortOrder) " +
+                                          "Values(" + argPayTypeId + "," + argCCId + ",'" + argDescType + "','" + sShName + "'," + iShId + ",null," + iSortOrder + ")";
+                            cmd = new SqlCommand(sSql, conn, tran);
+                            cmd.ExecuteNonQuery();
+                            cmd.Dispose();
+                        }
                     }
                     tran.Commit();
                 }
@@ -231,22 +262,21 @@ namespace CRM.DataLayer
         public static void InsertPayScheduleStage(DataTable argDt, int argCCId, int argPayTypeId, int argRow)
         {
             SqlConnection conn = new SqlConnection();
-            SqlCommand cmd;
             conn = BsfGlobal.OpenCRMDB();
             using (SqlTransaction tran = conn.BeginTransaction())
             {
-                string sSql = "";
                 try
                 {
-                    int iStageId = 0;
-                    int iSortOrder = 0;
-                    string sStageName = "";
+                    string sSql = "Delete dbo.PaymentSchedule Where TypeId=" + argPayTypeId + ",CostCentreId=" + argCCId + "";
+                    SqlCommand cmd = new SqlCommand(sSql, conn, tran);
+                    cmd.ExecuteNonQuery();
+                    cmd.Dispose();
 
                     for (int i = 0; i < argDt.Rows.Count; i++)
                     {
-                        iStageId = Convert.ToInt32(argDt.Rows[i]["StageId"].ToString());
-                        sStageName = argDt.Rows[i]["StageName"].ToString();
-                        iSortOrder = argRow + i + 1;
+                        int iStageId = Convert.ToInt32(argDt.Rows[i]["StageId"].ToString());
+                        string sStageName = argDt.Rows[i]["StageName"].ToString();
+                        int iSortOrder = argRow + i + 1;
 
                         sSql = "Insert into dbo.PaymentSchedule(TypeId,CostCentreId,SchType,Description,StageId,SchDate,SortOrder) " +
                                "Values(" + argPayTypeId + "," + argCCId + ",'S','" + sStageName + "'," + iStageId + ",null," + iSortOrder + ")";

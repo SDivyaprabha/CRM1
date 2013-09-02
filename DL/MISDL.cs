@@ -720,15 +720,16 @@ namespace CRM.DataLayer
                 }
                 else
                 {
-                    sSql = sSql + ") A ),0) Received From dbo.FlatDetails C " +
-                                  " INNER JOIN dbo.LeadRegister E ON E.LeadId=C.LeadId " +
-                                  " INNER JOIN [" + BsfGlobal.g_sRateAnalDBName + "].dbo.LandPlotDetails LP ON E.LeadId=LP.BuyerId " +
-                                  " INNER JOIN dbo.BuyerDetail D ON (D.LeadId=C.LeadId OR D.LeadId=LP.BuyerId) AND " +
-                                  " (D.FlatId=C.FlatId OR D.PlotId=LP.PlotDetailsId) And (D.Status=C.Status OR D.Status=LP.Status) " +
+                    sSql = sSql + ") A ),0) Received From BuyerDetail D "+
+                                  " LEFT JOIN dbo.FlatDetails C ON D.LeadId=C.LeadId AND D.FlatId=C.FlatId AND D.Status=C.Status " +
+                                  " LEFT JOIN [" + BsfGlobal.g_sRateAnalDBName + "].dbo.LandPlotDetails LP ON D.LeadId=LP.BuyerId "+
+                                  " AND D.PlotId=LP.PlotDetailsId AND D.Status=LP.Status " +
+                                  " INNER JOIN dbo.LeadRegister E ON D.LeadId=E.LeadId " +
+                                  " INNER JOIN [" + BsfGlobal.g_sWorkFlowDBName + "].dbo.OperationalCostCentre OC ON D.CostCentreId=OC.CostCentreId " +
                                   " ) A GROUP BY CostCentreId  " +
                                   " ) A " +
                                   " INNER JOIN [" + BsfGlobal.g_sWorkFlowDBName + "].dbo.OperationalCostCentre B ON A.ProjectId=B.CostCentreId  " +
-                                  " And B.CostCentreId Not In (Select CostCentreId From [" + BsfGlobal.g_sWorkFlowDBName + "].dbo.UserCostCentreTrans " +
+                                  " And B.CostCentreId NOT IN(Select CostCentreId From [" + BsfGlobal.g_sWorkFlowDBName + "].dbo.UserCostCentreTrans " +
                                   " Where UserId=" + BsfGlobal.g_lUserId + ") " +
                                   " GROUP BY ProjectId,ProjectDB,B.CostCentreName";
                 }
@@ -1102,7 +1103,7 @@ namespace CRM.DataLayer
                 {
                     if (sBusinessType == "B")
                     {
-                        sSql = sSql + ") A ),0) Received,0.00 ReceivedWriteOff,0.00 WriteOff,0 Due,0 TotReceivablefrom dbo.BuyerDetail BD " +
+                        sSql = sSql + ") A ),0) Received,0.00 ReceivedWriteOff,0.00 WriteOff,0 Due,0 TotReceivable from dbo.BuyerDetail BD " +
                                       " INNER JOIN dbo.FlatDetails C ON BD.FlatId=C.FlatId AND BD.LeadId=C.LeadId AND BD.Status=C.Status AND BlockId=" + arg_iBlockId + " " +
                                       " INNER JOIN dbo.LeadRegister LR ON LR.LeadId=BD.LeadId " +
                                       " Where BD.CostCentreId=" + argCCId + "" +
@@ -1111,8 +1112,9 @@ namespace CRM.DataLayer
                                       " INNER JOIN dbo.BlockMaster BM On BM.BlockId=FD.BlockId " +
                                       " INNER JOIN dbo.LevelMaster LM ON LM.LevelId=FD.LevelId " +
                                       " INNER JOIN dbo.LeadRegister LR ON LR.LeadId=FD.LeadId " +
+                                      " LEFT JOIN dbo.PaymentScheduleFlat PSF ON PSF.FlatId=FD.FlatId AND PSF.WriteOff<>0 " +
                                       " Where A.FlatNo IS NOT NULL " +
-                                      " GROUP BY BM.SortOrder,LM.SortOrder,FD.SortOrder,A.FlatId,A.FlatNo,BuyerName,A.Type,LR.Mobile,FD.Rate,A.WriteOff,A.ReceivedWriteOff " +
+                                      " GROUP BY BM.SortOrder,LM.SortOrder,FD.SortOrder,A.FlatId,A.FlatNo,BuyerName,A.Type,LR.Mobile,FD.Rate,PSF.WriteOff,A.ReceivedWriteOff " +
                                       " Order By BM.SortOrder,LM.SortOrder,FD.SortOrder,dbo.Val(A.FlatNo) ";
                     }
                     else

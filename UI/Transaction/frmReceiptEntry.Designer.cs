@@ -32,9 +32,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmReceiptEntry));
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.TabAdjustment = new DevExpress.XtraTab.XtraTabControl();
-            this.pageScheduleAdjustment = new DevExpress.XtraTab.XtraTabPage();
-            this.grdReceipt = new DevExpress.XtraGrid.GridControl();
-            this.grdReceiptView = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.pageEBAdjustment = new DevExpress.XtraTab.XtraTabPage();
+            this.grdExtraBill = new DevExpress.XtraGrid.GridControl();
+            this.grdExtraBillView = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.barManager1 = new DevExpress.XtraBars.BarManager(this.components);
             this.bar3 = new DevExpress.XtraBars.Bar();
             this.btnAcct = new DevExpress.XtraBars.BarButtonItem();
@@ -48,6 +48,9 @@
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
+            this.pageScheduleAdjustment = new DevExpress.XtraTab.XtraTabPage();
+            this.grdReceipt = new DevExpress.XtraGrid.GridControl();
+            this.grdReceiptView = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.panelExtraBillAdvance = new DevExpress.XtraEditors.PanelControl();
             this.lblInterest = new DevExpress.XtraEditors.LabelControl();
             this.checkEdit1 = new DevExpress.XtraEditors.CheckEdit();
@@ -55,9 +58,6 @@
             this.xtraScrollableControl1 = new DevExpress.XtraEditors.XtraScrollableControl();
             this.lblEBAdvance = new DevExpress.XtraEditors.LabelControl();
             this.txtExtraBillAdvance = new DevExpress.XtraEditors.TextEdit();
-            this.pageEBAdjustment = new DevExpress.XtraTab.XtraTabPage();
-            this.grdExtraBill = new DevExpress.XtraGrid.GridControl();
-            this.grdExtraBillView = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.btnNarration = new DevExpress.XtraEditors.SimpleButton();
             this.txtNarration = new DevExpress.XtraEditors.MemoEdit();
@@ -99,20 +99,20 @@
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TabAdjustment)).BeginInit();
             this.TabAdjustment.SuspendLayout();
+            this.pageEBAdjustment.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grdExtraBill)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdExtraBillView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barManager1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barAndDockingController1)).BeginInit();
             this.pageScheduleAdjustment.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdReceipt)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdReceiptView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.barManager1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.barAndDockingController1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelExtraBillAdvance)).BeginInit();
             this.panelExtraBillAdvance.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.checkEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtInterest.Properties)).BeginInit();
             this.xtraScrollableControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtExtraBillAdvance.Properties)).BeginInit();
-            this.pageEBAdjustment.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grdExtraBill)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grdExtraBillView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtNarration.Properties)).BeginInit();
@@ -167,44 +167,40 @@
             this.pageEBAdjustment});
             this.TabAdjustment.TabPageWidth = 200;
             // 
-            // pageScheduleAdjustment
+            // pageEBAdjustment
             // 
-            this.pageScheduleAdjustment.Controls.Add(this.grdReceipt);
-            this.pageScheduleAdjustment.Controls.Add(this.panelExtraBillAdvance);
-            this.pageScheduleAdjustment.Name = "pageScheduleAdjustment";
-            this.pageScheduleAdjustment.Size = new System.Drawing.Size(987, 223);
-            this.pageScheduleAdjustment.Text = "Schedule";
+            this.pageEBAdjustment.Controls.Add(this.grdExtraBill);
+            this.pageEBAdjustment.Name = "pageEBAdjustment";
+            this.pageEBAdjustment.Size = new System.Drawing.Size(987, 223);
+            this.pageEBAdjustment.Text = "Extra Bill ";
             // 
-            // grdReceipt
+            // grdExtraBill
             // 
-            this.grdReceipt.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdReceipt.Location = new System.Drawing.Point(0, 0);
-            this.grdReceipt.LookAndFeel.SkinName = "Blue";
-            this.grdReceipt.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.grdReceipt.MainView = this.grdReceiptView;
-            this.grdReceipt.MenuManager = this.barManager1;
-            this.grdReceipt.Name = "grdReceipt";
-            this.grdReceipt.Size = new System.Drawing.Size(987, 165);
-            this.grdReceipt.TabIndex = 0;
-            this.grdReceipt.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.grdReceiptView});
+            this.grdExtraBill.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdExtraBill.Location = new System.Drawing.Point(0, 0);
+            this.grdExtraBill.LookAndFeel.SkinName = "Blue";
+            this.grdExtraBill.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.grdExtraBill.MainView = this.grdExtraBillView;
+            this.grdExtraBill.MenuManager = this.barManager1;
+            this.grdExtraBill.Name = "grdExtraBill";
+            this.grdExtraBill.Size = new System.Drawing.Size(987, 223);
+            this.grdExtraBill.TabIndex = 1;
+            this.grdExtraBill.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.grdExtraBillView});
             // 
-            // grdReceiptView
+            // grdExtraBillView
             // 
-            this.grdReceiptView.ColumnPanelRowHeight = 30;
-            this.grdReceiptView.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
-            this.grdReceiptView.GridControl = this.grdReceipt;
-            this.grdReceiptView.IndicatorWidth = 50;
-            this.grdReceiptView.Name = "grdReceiptView";
-            this.grdReceiptView.OptionsBehavior.AllowIncrementalSearch = true;
-            this.grdReceiptView.OptionsCustomization.AllowColumnMoving = false;
-            this.grdReceiptView.OptionsCustomization.AllowSort = false;
-            this.grdReceiptView.OptionsNavigation.EnterMoveNextColumn = true;
-            this.grdReceiptView.OptionsView.ShowFooter = true;
-            this.grdReceiptView.OptionsView.ShowGroupPanel = false;
-            this.grdReceiptView.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gridViewReceipt_CustomDrawRowIndicator);
-            this.grdReceiptView.ShowingEditor += new System.ComponentModel.CancelEventHandler(this.gridViewReceipt_ShowingEditor);
-            this.grdReceiptView.ValidatingEditor += new DevExpress.XtraEditors.Controls.BaseContainerValidateEditorEventHandler(this.gridViewReceipt_ValidatingEditor);
+            this.grdExtraBillView.ColumnPanelRowHeight = 30;
+            this.grdExtraBillView.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
+            this.grdExtraBillView.GridControl = this.grdExtraBill;
+            this.grdExtraBillView.IndicatorWidth = 50;
+            this.grdExtraBillView.Name = "grdExtraBillView";
+            this.grdExtraBillView.OptionsBehavior.AllowIncrementalSearch = true;
+            this.grdExtraBillView.OptionsCustomization.AllowColumnMoving = false;
+            this.grdExtraBillView.OptionsCustomization.AllowSort = false;
+            this.grdExtraBillView.OptionsNavigation.EnterMoveNextColumn = true;
+            this.grdExtraBillView.OptionsView.ShowFooter = true;
+            this.grdExtraBillView.OptionsView.ShowGroupPanel = false;
             // 
             // barManager1
             // 
@@ -344,6 +340,45 @@
             this.barDockControlRight.Location = new System.Drawing.Point(992, 26);
             this.barDockControlRight.Size = new System.Drawing.Size(0, 506);
             // 
+            // pageScheduleAdjustment
+            // 
+            this.pageScheduleAdjustment.Controls.Add(this.grdReceipt);
+            this.pageScheduleAdjustment.Controls.Add(this.panelExtraBillAdvance);
+            this.pageScheduleAdjustment.Name = "pageScheduleAdjustment";
+            this.pageScheduleAdjustment.Size = new System.Drawing.Size(987, 223);
+            this.pageScheduleAdjustment.Text = "Schedule";
+            // 
+            // grdReceipt
+            // 
+            this.grdReceipt.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdReceipt.Location = new System.Drawing.Point(0, 0);
+            this.grdReceipt.LookAndFeel.SkinName = "Blue";
+            this.grdReceipt.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.grdReceipt.MainView = this.grdReceiptView;
+            this.grdReceipt.MenuManager = this.barManager1;
+            this.grdReceipt.Name = "grdReceipt";
+            this.grdReceipt.Size = new System.Drawing.Size(987, 165);
+            this.grdReceipt.TabIndex = 0;
+            this.grdReceipt.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.grdReceiptView});
+            // 
+            // grdReceiptView
+            // 
+            this.grdReceiptView.ColumnPanelRowHeight = 30;
+            this.grdReceiptView.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
+            this.grdReceiptView.GridControl = this.grdReceipt;
+            this.grdReceiptView.IndicatorWidth = 50;
+            this.grdReceiptView.Name = "grdReceiptView";
+            this.grdReceiptView.OptionsBehavior.AllowIncrementalSearch = true;
+            this.grdReceiptView.OptionsCustomization.AllowColumnMoving = false;
+            this.grdReceiptView.OptionsCustomization.AllowSort = false;
+            this.grdReceiptView.OptionsNavigation.EnterMoveNextColumn = true;
+            this.grdReceiptView.OptionsView.ShowFooter = true;
+            this.grdReceiptView.OptionsView.ShowGroupPanel = false;
+            this.grdReceiptView.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.gridViewReceipt_CustomDrawRowIndicator);
+            this.grdReceiptView.ShowingEditor += new System.ComponentModel.CancelEventHandler(this.gridViewReceipt_ShowingEditor);
+            this.grdReceiptView.ValidatingEditor += new DevExpress.XtraEditors.Controls.BaseContainerValidateEditorEventHandler(this.gridViewReceipt_ValidatingEditor);
+            // 
             // panelExtraBillAdvance
             // 
             this.panelExtraBillAdvance.Controls.Add(this.lblInterest);
@@ -457,41 +492,6 @@
             this.txtExtraBillAdvance.Properties.ValidateOnEnterKey = true;
             this.txtExtraBillAdvance.Size = new System.Drawing.Size(221, 27);
             this.txtExtraBillAdvance.TabIndex = 1;
-            // 
-            // pageEBAdjustment
-            // 
-            this.pageEBAdjustment.Controls.Add(this.grdExtraBill);
-            this.pageEBAdjustment.Name = "pageEBAdjustment";
-            this.pageEBAdjustment.Size = new System.Drawing.Size(987, 223);
-            this.pageEBAdjustment.Text = "Extra Bill ";
-            // 
-            // grdExtraBill
-            // 
-            this.grdExtraBill.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdExtraBill.Location = new System.Drawing.Point(0, 0);
-            this.grdExtraBill.LookAndFeel.SkinName = "Blue";
-            this.grdExtraBill.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.grdExtraBill.MainView = this.grdExtraBillView;
-            this.grdExtraBill.MenuManager = this.barManager1;
-            this.grdExtraBill.Name = "grdExtraBill";
-            this.grdExtraBill.Size = new System.Drawing.Size(987, 223);
-            this.grdExtraBill.TabIndex = 1;
-            this.grdExtraBill.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.grdExtraBillView});
-            // 
-            // grdExtraBillView
-            // 
-            this.grdExtraBillView.ColumnPanelRowHeight = 30;
-            this.grdExtraBillView.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
-            this.grdExtraBillView.GridControl = this.grdExtraBill;
-            this.grdExtraBillView.IndicatorWidth = 50;
-            this.grdExtraBillView.Name = "grdExtraBillView";
-            this.grdExtraBillView.OptionsBehavior.AllowIncrementalSearch = true;
-            this.grdExtraBillView.OptionsCustomization.AllowColumnMoving = false;
-            this.grdExtraBillView.OptionsCustomization.AllowSort = false;
-            this.grdExtraBillView.OptionsNavigation.EnterMoveNextColumn = true;
-            this.grdExtraBillView.OptionsView.ShowFooter = true;
-            this.grdExtraBillView.OptionsView.ShowGroupPanel = false;
             // 
             // groupControl1
             // 
@@ -955,7 +955,7 @@
             this.dateCheque.Properties.LookAndFeel.UseDefaultLookAndFeel = false;
             this.dateCheque.Properties.VistaTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.dateCheque.Size = new System.Drawing.Size(100, 20);
+            this.dateCheque.Size = new System.Drawing.Size(106, 20);
             this.dateCheque.TabIndex = 9;
             // 
             // cboBuyer
@@ -993,7 +993,7 @@
             // 
             // textAmt
             // 
-            this.textAmt.EditValue = "0.000";
+            this.textAmt.EditValue = "0";
             this.textAmt.EnterMoveNextControl = true;
             this.textAmt.Location = new System.Drawing.Point(118, 164);
             this.textAmt.MenuManager = this.barManager1;
@@ -1055,20 +1055,20 @@
             this.panelControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.TabAdjustment)).EndInit();
             this.TabAdjustment.ResumeLayout(false);
+            this.pageEBAdjustment.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grdExtraBill)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdExtraBillView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barManager1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barAndDockingController1)).EndInit();
             this.pageScheduleAdjustment.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grdReceipt)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdReceiptView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.barManager1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.barAndDockingController1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelExtraBillAdvance)).EndInit();
             this.panelExtraBillAdvance.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.checkEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtInterest.Properties)).EndInit();
             this.xtraScrollableControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.txtExtraBillAdvance.Properties)).EndInit();
-            this.pageEBAdjustment.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.grdExtraBill)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grdExtraBillView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.txtNarration.Properties)).EndInit();

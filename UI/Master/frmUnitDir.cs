@@ -9827,14 +9827,11 @@ namespace CRM
         private void chkPaySchEMI_CheckedChanged(object sender, EventArgs e)
         {
             txtPaySchNoOfMonths.Text = 0.ToString();
-            txtPaySchInitialAmt.Text = 0.ToString();
 
             txtPaySchNoOfMonths.Enabled = false;
-            txtPaySchInitialAmt.Enabled = false;
             if (chkPaySchEMI.Checked == true)
             {
                 txtPaySchNoOfMonths.Enabled = true;
-                txtPaySchInitialAmt.Enabled = true;
             }
         }
 

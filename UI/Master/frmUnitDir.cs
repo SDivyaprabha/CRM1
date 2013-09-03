@@ -8259,13 +8259,11 @@ namespace CRM
             }
             if (Convert.ToInt32(cboPaySchType.EditValue) == 0) { return; }
 
-            if (chkPaySchEMI.Checked == true) return;
-
             int iPayTypeId = Convert.ToInt32(cboPaySchType.EditValue);
             frmOption frm = new frmOption();
             string sType = frm.Execute();
 
-            if (sType == "D")
+            if (sType == "D" && chkPaySchEMI.Checked == false)
             {
                 frmSchDesc frmS = new frmSchDesc();
                 DataTable dt = new DataTable();
@@ -8294,7 +8292,7 @@ namespace CRM
                     dt.Dispose();
                 }
             }
-            else if (sType == "O")
+            else if (sType == "O" && chkPaySchEMI.Checked == false)
             {
                 int iRow = grdPaymentSchView.RowCount;
                 frmOtherCost frms = new frmOtherCost();
@@ -8404,7 +8402,7 @@ namespace CRM
                 else if (sAns == "L") { MessageBox.Show("Percentage for Advance should not less than 100"); return; }
 
                 bool bAns = PaymentScheduleBL.GetRecOrder(PayTypeId, m_iCCId);
-                if (bAns == false) { MessageBox.Show("Set ReceiptType Order for Schedule"); return; }                
+                if (bAns == false) { MessageBox.Show("Set ReceiptType Order for Schedule"); return; }
 
                 string sFlatTypeId = CommFun.IsNullCheck(chkcboPayFlatType.EditValue, CommFun.datatypes.vartypestring).ToString();
                 string sBlockId = CommFun.IsNullCheck(chkcbPayBlock.EditValue, CommFun.datatypes.vartypestring).ToString();
@@ -8418,6 +8416,20 @@ namespace CRM
                 decimal dRoundValue = Convert.ToDecimal(CommFun.IsNullCheck(txtPaymentSchRoundDigit.Text, CommFun.datatypes.vartypenumeric));
                 bool bEMI = Convert.ToBoolean(CommFun.IsNullCheck(chkPaySchEMI.Checked, CommFun.datatypes.varTypeBoolean));
                 decimal dNoOfMonths = Convert.ToDecimal(CommFun.IsNullCheck(txtPaySchNoOfMonths.Text, CommFun.datatypes.vartypenumeric));
+
+                if (bEMI == true)
+                {
+                    DataTable dtDummy = new DataTable();
+                    dtDummy = grdPaymentSch.DataSource as DataTable;
+                    DataView dView = new DataView(dtDummy) { RowFilter = "SchType='S'" };
+                    if (dView.ToTable() != null)
+                    {
+                        if (dView.ToTable().Rows.Count == 0)
+                        {
+                            MessageBox.Show("Set One Stage for EMI Schedule", "Payment Schedule", MessageBoxButtons.OK, MessageBoxIcon.Information); return;
+                        }
+                    }
+                }
 
                 sSql = "Update dbo.PaySchType Set RoundValue=" + dRoundValue + ",EMI='" + bEMI + "',NoOfMonths=" + dNoOfMonths + " WHERE TypeId=" + iPaySchTypeId + "";
                 cmd = new SqlCommand(sSql, BsfGlobal.g_CRMDB);
@@ -9869,7 +9881,6 @@ namespace CRM
 
                 DataTable dt = new DataTable();
                 dt = grdPaymentSch.DataSource as DataTable;
-                dt.Rows.Clear();
                 for (int i = 0; i <= dNoOfMonths - 1; i++)
                 {
                     string sInstallment = "";

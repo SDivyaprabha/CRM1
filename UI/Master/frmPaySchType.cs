@@ -46,6 +46,8 @@ namespace CRM
             DGVPay.DataSource = dt;
             DGvTransPay.PopulateColumns();
             DGvTransPay.Columns["TypeId"].Visible = false;
+            DGvTransPay.Columns["RoundValue"].Visible = false;
+            DGvTransPay.Columns["NoOfMonths"].Visible = false;
             DGvTransPay.Columns["TypeName"].BestFit();
             dt.GetChanges();
         }

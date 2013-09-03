@@ -333,6 +333,8 @@ namespace CRM
                     txtAdv.Enabled = false;
                     txtCommpercent.Enabled = false;
                     txtRate.Enabled = false;
+                    txtInitialAmount.Enabled = false;
+                    txtNoOfMonths.Enabled = false;
 
                     btnBroker.Enabled = false;
                     cboBroker.Enabled = false;
@@ -533,7 +535,6 @@ namespace CRM
             iPayTypeId = 0;
             if (dtPSch.Rows.Count > 0) { iPayTypeId = Convert.ToInt32(dtPSch.Rows[0]["TypeId"]); }
 
-
             dtPay = new DataTable();
             if (m_sBussinessType == "B")
                 dtPay = UnitDirBL.PaySchType();
@@ -546,6 +547,8 @@ namespace CRM
             cboPaymentSchedule.Properties.ValueMember = "TypeId";
             cboPaymentSchedule.Properties.Columns["TypeId"].Visible = false;
             cboPaymentSchedule.Properties.Columns["EMI"].Visible = false;
+            cboPaymentSchedule.Properties.Columns["RoundValue"].Visible = false;
+            cboPaymentSchedule.Properties.Columns["NoOfMonths"].Visible = false;
             cboPaymentSchedule.Properties.ShowHeader = false;
             cboPaymentSchedule.Properties.ShowFooter = false;
 
@@ -1556,10 +1559,12 @@ namespace CRM
             int iPayTypeId = Convert.ToInt32(CommFun.IsNullCheck(cboPaymentSchedule.EditValue, CommFun.datatypes.vartypenumeric));
             if (iPayTypeId == 0) { return; }
 
+            decimal dInitialAmount = Convert.ToDecimal(CommFun.IsNullCheck(txtInitialAmount.Text, CommFun.datatypes.vartypenumeric));
+            decimal dGrossAmount = Convert.ToDecimal(CommFun.IsNullCheck(vGridControl1.Rows["GrossAmt"].Properties.Value, CommFun.datatypes.vartypenumeric));
+            decimal dRoundValue = Convert.ToDecimal(CommFun.IsNullCheck(cboPaymentSchedule.GetColumnValue("RoundValue"), CommFun.datatypes.vartypenumeric));
+
             decimal dNoOfMonths = Convert.ToDecimal(CommFun.IsNullCheck(txtNoOfMonths.Text, CommFun.datatypes.vartypenumeric));
             if (dNoOfMonths == 0) { gridControl1.DataSource = null; return; }
-
-            decimal dInitialAmount = Convert.ToDecimal(CommFun.IsNullCheck(txtInitialAmount.Text, CommFun.datatypes.vartypenumeric));
 
             DataTable dtInstallment = new DataTable();
             dtInstallment.Columns.Add("Description", typeof(string));
@@ -1579,7 +1584,8 @@ namespace CRM
             decimal dPercentage = Math.Round(100 / dNoOfMonths, 3);
             decimal dExcessPer = 100 - (dPercentage * dNoOfMonths);
             decimal dFirstInsPer = dPercentage + dExcessPer;
-            decimal dGrossAmt = Convert.ToDecimal(CommFun.IsNullCheck(vGridControl1.Rows["GrossAmt"].Properties.Value, CommFun.datatypes.vartypenumeric)) - dInitialAmount;
+            decimal dGrossAmt = dGrossAmount - dInitialAmount;
+            decimal dEMIRoundOff = 0;
             for (int i = 0; i <= dt.Rows.Count - 1; i++)
             {
                 DateTime dSchDate = Convert.ToDateTime(CommFun.IsNullCheck(dt.Rows[i]["SchDate"], CommFun.datatypes.VarTypeDate));
@@ -1599,9 +1605,19 @@ namespace CRM
 
                         decimal dAmount = 0;
                         if (i == 0)
-                            dAmount = Math.Round(dGrossAmt * dFirstInsPer / 100, 3);
+                            dAmount = dGrossAmt * dFirstInsPer / 100;
                         else
-                            dAmount = Math.Round(dGrossAmt * dPercentage / 100, 3);
+                            dAmount = dGrossAmt * dPercentage / 100;
+
+                        decimal dRoundOff = 0;
+                        decimal dRound = 0;
+                        if (dRoundValue > 0)
+                        {
+                            dRoundOff = Math.Truncate(dAmount / dRoundValue) * dRoundValue;
+                            dRound = dAmount - dRoundOff;
+                            dEMIRoundOff = dEMIRoundOff + dRound;
+                            dAmount = dRoundOff;
+                        }
 
                         drow = dtInstallment.NewRow();
                         drow["Description"] = sInstallment;
@@ -1610,6 +1626,11 @@ namespace CRM
                     }
                 }
             }
+
+            drow = dtInstallment.NewRow();
+            drow["Description"] = "Round Off";
+            drow["Amount"] = dEMIRoundOff;
+            dtInstallment.Rows.Add(drow);
 
             gridControl1.DataSource = dtInstallment;
             gridView1.Columns["Amount"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;

@@ -1458,7 +1458,7 @@ namespace CRM.DataLayer
             DataTable dt = null;
             try
             {
-                String sSql = "select TypeId,TypeName,EMI from dbo.PaySchType ORDER BY TypeName";
+                String sSql = "select TypeId,TypeName,EMI,RoundValue,NoOfMonths from dbo.PaySchType ORDER BY TypeName";
                 SqlDataAdapter sda = new SqlDataAdapter(sSql, BsfGlobal.g_CRMDB);
                 dt = new DataTable();
                 sda.Fill(dt);

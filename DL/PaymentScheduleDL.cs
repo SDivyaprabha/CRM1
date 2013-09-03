@@ -2243,10 +2243,16 @@ namespace CRM.DataLayer
                 {
                     if (CommFun.IsNullCheck(dt.Rows[dt.Rows.Count - 1]["SchType"], CommFun.datatypes.vartypestring).ToString() == "R")
                     {
-                        sSql = "Update dbo.PaymentScheduleFlat Set Amount=" + dEMIRoundOff + ",NetAmount=" + dEMIRoundOff +
+                        sSql = "Update dbo.PaymentScheduleFlat Set SchDate=@SchDate, Amount=" + dEMIRoundOff + ",NetAmount=" + dEMIRoundOff +
                                " Where PaymentSchId=" + dt.Rows[dt.Rows.Count - 1]["PaymentSchId"] + " AND FlatId=" + argFlatId + 
                                " AND CostCentreId=" + iCCId + " AND SchType='R'";
                         cmd = new SqlCommand(sSql, conn, tran);
+                        SqlParameter dateParameter = new SqlParameter() { DbType = DbType.DateTime, ParameterName = "@SchDate" };
+                        if (FinaliseDate == DateTime.MinValue)
+                            dateParameter.Value = System.Data.SqlTypes.SqlDateTime.Null;
+                        else
+                            dateParameter.Value = FinaliseDate;
+                        cmd.Parameters.Add(dateParameter);
                         cmd.ExecuteNonQuery();
                         cmd.Dispose();
                     }
@@ -2317,9 +2323,15 @@ namespace CRM.DataLayer
 
                 if (sSchType == "R")
                 {
-                    sSql = "Update dbo.PaymentScheduleFlat Set Amount=" + dEMIRoundOff + ",NetAmount=" + dEMIRoundOff +
+                    sSql = "Update dbo.PaymentScheduleFlat Set SchDate=@SchDate, Amount=" + dEMIRoundOff + ",NetAmount=" + dEMIRoundOff +
                            " Where PaymentSchId=" + iPaymentSchId + " AND FlatId=" + argFlatId + " AND CostCentreId=" + iCCId + " AND SchType='R'";
                     cmd = new SqlCommand(sSql, conn, tran);
+                    SqlParameter dateParameter = new SqlParameter() { DbType = DbType.DateTime, ParameterName = "@SchDate" };
+                    if (FinaliseDate == DateTime.MinValue)
+                        dateParameter.Value = System.Data.SqlTypes.SqlDateTime.Null;
+                    else
+                        dateParameter.Value = FinaliseDate;
+                    cmd.Parameters.Add(dateParameter);
                     cmd.ExecuteNonQuery();
                     cmd.Dispose();
                 }
@@ -2426,10 +2438,16 @@ namespace CRM.DataLayer
                         if (sSchType != "R")
                         {
                             if (bPayTypewise == true)
-                                sSql = "Update dbo.PaymentScheduleFlat Set SchPercent=" + dSchPercent + ", Amount= " + dAmt + ",NetAmount=" + dQNetAmt + "  Where PaymentSchId = " + iPaymentSchId;
+                                sSql = "Update dbo.PaymentScheduleFlat Set SchDate=@SchDate, SchPercent=" + dSchPercent + ", Amount= " + dAmt + ",NetAmount=" + dQNetAmt + "  Where PaymentSchId = " + iPaymentSchId;
                             else
-                                sSql = "Update dbo.PaymentScheduleFlat Set SchPercent=" + dSchPercent + ", Amount= " + dAmt + ",NetAmount=" + dAmt + "  Where PaymentSchId = " + iPaymentSchId;
+                                sSql = "Update dbo.PaymentScheduleFlat Set SchDate=@SchDate, SchPercent=" + dSchPercent + ", Amount= " + dAmt + ",NetAmount=" + dAmt + "  Where PaymentSchId = " + iPaymentSchId;
                             cmd = new SqlCommand(sSql, conn, tran);
+                            SqlParameter dateParameter = new SqlParameter() { DbType = DbType.DateTime, ParameterName = "@SchDate" };
+                            if (FinaliseDate == DateTime.MinValue)
+                                dateParameter.Value = System.Data.SqlTypes.SqlDateTime.Null;
+                            else
+                                dateParameter.Value = FinaliseDate;
+                            cmd.Parameters.Add(dateParameter);
                             cmd.ExecuteNonQuery();
                             cmd.Dispose();
                         }
@@ -2802,10 +2820,16 @@ namespace CRM.DataLayer
                         if (sSchType != "R")
                         {
                             if (bPayTypewise == true)
-                                sSql = "Update dbo.PaymentScheduleFlat Set SchPercent=" + dSchPercent + ", Amount= " + dAmt + ",NetAmount=" + dTNetAmt + "  Where PaymentSchId = " + iPaymentSchId;
+                                sSql = "Update dbo.PaymentScheduleFlat Set SchDate=@SchDate, SchPercent=" + dSchPercent + ", Amount= " + dAmt + ",NetAmount=" + dTNetAmt + "  Where PaymentSchId = " + iPaymentSchId;
                             else
-                                sSql = "Update dbo.PaymentScheduleFlat Set SchPercent=" + dSchPercent + ", Amount= " + dAmt + ",NetAmount=" + dA + "  Where PaymentSchId = " + iPaymentSchId;
+                                sSql = "Update dbo.PaymentScheduleFlat Set SchDate=@SchDate, SchPercent=" + dSchPercent + ", Amount= " + dAmt + ",NetAmount=" + dA + "  Where PaymentSchId = " + iPaymentSchId;
                             cmd = new SqlCommand(sSql, conn, tran);
+                            SqlParameter dateParameter = new SqlParameter() { DbType = DbType.DateTime, ParameterName = "@SchDate" };
+                            if (FinaliseDate == DateTime.MinValue)
+                                dateParameter.Value = System.Data.SqlTypes.SqlDateTime.Null;
+                            else
+                                dateParameter.Value = FinaliseDate;
+                            cmd.Parameters.Add(dateParameter);
                             cmd.ExecuteNonQuery();
                             cmd.Dispose();
                         }

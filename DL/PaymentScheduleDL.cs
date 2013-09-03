@@ -859,15 +859,25 @@ namespace CRM.DataLayer
                 if (bLCBon == false) { dLandAmt = Convert.ToDecimal(dt.Rows[0]["LandRate"].ToString()); }
                 else { dLandAmt = Convert.ToDecimal(dt.Rows[0]["USLandAmt"].ToString()); }
 
-                //dLandAmt = Convert.ToDecimal(dt.Rows[0]["USLandAmt"].ToString());
-
             }
             dt.Dispose();
 
-            sSql = "Select SUM(RoundValue) From dbo.PaySchType Where TypeId=" + iPayTypeId + " ";
+            sSql = "Select RoundValue, EMI From dbo.PaySchType Where TypeId=" + iPayTypeId + " ";
             cmd = new SqlCommand(sSql, conn, tran);
-            decimal dRoundValue = Convert.ToDecimal(CommFun.IsNullCheck(cmd.ExecuteScalar(), CommFun.datatypes.vartypenumeric));
+            sdr = cmd.ExecuteReader();
+            DataTable dtPaySchType = new DataTable();
+            dtPaySchType.Load(sdr);
+            sdr.Close();
             cmd.Dispose();
+
+            decimal dRoundValue = 0;
+            bool bEMI = false;
+            if (dtPaySchType.Rows.Count > 0)
+            {
+                dRoundValue = Convert.ToDecimal(CommFun.IsNullCheck(dtPaySchType.Rows[0]["RoundValue"], CommFun.datatypes.vartypenumeric));
+                bEMI = Convert.ToBoolean(CommFun.IsNullCheck(dtPaySchType.Rows[0]["EMI"], CommFun.datatypes.varTypeBoolean));
+            }
+            dtPaySchType.Dispose();
 
             if (iPayTypeId > 0 && dRoundValue > 0)
             {
@@ -1042,6 +1052,23 @@ namespace CRM.DataLayer
             sdr.Close();
             cmd.Dispose();
 
+            sSql = "Select InitialAmount, NoOfMonths from dbo.BuyerDetail Where FlatId = " + argFlatId + " AND CostCentreId=" + iCCId + " ";
+            cmd = new SqlCommand(sSql, conn, tran);
+            sdr = cmd.ExecuteReader();
+            DataTable dtBuyerDetail = new DataTable();
+            dtBuyerDetail.Load(sdr);
+            sdr.Close();
+            cmd.Dispose();
+
+            decimal dEMIInitialAmount = 0;
+            decimal dEMINoOfMonths = 0;
+            if (dtBuyerDetail.Rows.Count > 0)
+            {
+                dEMIInitialAmount = Convert.ToDecimal(CommFun.IsNullCheck(dtBuyerDetail.Rows[0]["InitialAmount"], CommFun.datatypes.vartypenumeric));
+                dEMINoOfMonths = Convert.ToDecimal(CommFun.IsNullCheck(dtBuyerDetail.Rows[0]["NoOfMonths"], CommFun.datatypes.vartypenumeric));
+            }
+            dtBuyerDetail.Dispose();
+
             sSql = "Select PaymentSchId,TemplateId,SchType,SchDate,OtherCostId,SchPercent from dbo.PaymentScheduleFlat Where FlatId = " + argFlatId + " Order by SortOrder";
             cmd = new SqlCommand(sSql, conn, tran);
             sdr = cmd.ExecuteReader();
@@ -1051,19 +1078,29 @@ namespace CRM.DataLayer
             cmd.Dispose();
 
             decimal dAmt = 0;
-            DataView dv;
             decimal dAdvRAmt = 0;
-
             DataTable dtTempT;
             DataTable dtQualT;
             dAdvBalAmt = dAdvAmt;
-
             decimal dEMIRoundOff = 0;
+
+            decimal dEMIPercentage = Math.Round(100 / dEMINoOfMonths, 3);
+            decimal dEMIExcessPer = 100 - (dEMIPercentage * dEMINoOfMonths);
+            decimal dEMIFirstInsPer = dEMIPercentage + dEMIExcessPer;
+
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 iPaymentSchId = Convert.ToInt32(dt.Rows[i]["PaymentSchId"].ToString());
                 iTemplateId = Convert.ToInt32(dt.Rows[i]["TemplateId"].ToString());
                 sSchType = dt.Rows[i]["SchType"].ToString();
+                if (sSchType == "E")
+                {
+                    if (i > dEMINoOfMonths)
+                    {
+                        break;
+                    }
+                }
+
                 m_dSchDate = Convert.ToDateTime(CommFun.IsNullCheck(dt.Rows[i]["SchDate"], CommFun.datatypes.VarTypeDate));
                 iOtherCostId = Convert.ToInt32(dt.Rows[i]["OtherCostId"].ToString());
                 dSchPercent = Convert.ToDecimal(dt.Rows[i]["SchPercent"].ToString());
@@ -1073,6 +1110,7 @@ namespace CRM.DataLayer
 
                 dAmt = 0;
 
+                DataView dv;
                 if (sSchType == "A")
                 {
                     dAmt = dAdvAmt;
@@ -1090,7 +1128,17 @@ namespace CRM.DataLayer
                 }
                 else
                 {
-                    dAmt = dNetAmt * dSchPercent / 100;
+                    if (sSchType == "E")
+                    {
+                        if (i == 0)
+                            dAmt = dNetAmt * dEMIFirstInsPer / 100;
+                        else
+                            dAmt = dNetAmt * dEMIPercentage / 100;
+                    }
+                    else
+                    {
+                        dAmt = dNetAmt * dSchPercent / 100;
+                    }
                 }
 
                 dtTempT = new DataTable();
@@ -1760,10 +1808,6 @@ namespace CRM.DataLayer
 
         public static void InsertFinalFlatScheduleI(int argFlatId, string argType, SqlConnection conn, SqlTransaction tran)
         {
-            string sSql = "";
-
-            SqlDataReader sdr;
-            SqlCommand cmd;
             DataTable dt = new DataTable();
             DataTable dtTax = new DataTable();
 
@@ -1794,10 +1838,7 @@ namespace CRM.DataLayer
             decimal dTNetAmt = 0;
             decimal dBalAmt = 0;
             bool bPayTypewise = false;
-            //decimal dTaxPer = 0; decimal dTotSerTaxamt = 0; decimal dTotVatTaxamt = 0; decimal dSerTaxamt = 0; decimal dVatTaxamt = 0; bool bTaxSel = false;
             decimal dTotalTax = 0;
-            //decimal dServiceTax = 0;
-            //decimal dVATTax = 0;
             bool bService = false, bLCBon = false;
             DataRow[] drT;
             cRateQualR RAQual;
@@ -1809,9 +1850,9 @@ namespace CRM.DataLayer
 
             DataTable dtReceipt = new DataTable();
 
-            sSql = "Delete From dbo.PaymentSchedule Where TypeId IN(Select PayTypeId from dbo.FlatDetails Where FlatId=" + argFlatId + ") " +
-                   " AND CostCentreId IN(Select CostCentreId from dbo.FlatDetails Where FlatId=" + argFlatId + ") AND SchType='R'";
-            cmd = new SqlCommand(sSql, conn, tran);
+            String sSql = "Delete From dbo.PaymentSchedule Where TypeId IN(Select PayTypeId from dbo.FlatDetails Where FlatId=" + argFlatId + ") " +
+                          " AND CostCentreId IN(Select CostCentreId from dbo.FlatDetails Where FlatId=" + argFlatId + ") AND SchType='R'";
+            SqlCommand cmd = new SqlCommand(sSql, conn, tran);
             cmd.ExecuteNonQuery();
             cmd.Dispose();
 
@@ -1840,7 +1881,7 @@ namespace CRM.DataLayer
             else if (argType == "B")
                 sSql = "Select Date From dbo.BlockUnits Where BlockType='B' And FlatId=" + argFlatId + "";
             cmd = new SqlCommand(sSql, conn, tran);
-            sdr = cmd.ExecuteReader();
+            SqlDataReader sdr = cmd.ExecuteReader();
             dt = new DataTable();
             dt.Load(sdr);
             sdr.Close();
@@ -1848,12 +1889,13 @@ namespace CRM.DataLayer
 
             if (dt.Rows.Count > 0)
             {
-                if (argType == "S") { FinaliseDate = Convert.ToDateTime(dt.Rows[0]["FinaliseDate"]); }
-                else if (argType == "B") { BlockDate = Convert.ToDateTime(dt.Rows[0]["Date"]); }
+                if (argType == "S") 
+                    FinaliseDate = Convert.ToDateTime(dt.Rows[0]["FinaliseDate"]);
+                else if (argType == "B") 
+                    BlockDate = Convert.ToDateTime(dt.Rows[0]["Date"]);
             }
             dt.Dispose();
 
-            //sSql = "Select FlatTypeId,CostCentreId,PayTypeId,BaseAmt,AdvAmount,USLandAmt from dbo.FlatDetails Where FlatId= " + argFlatId;//modified
             sSql = "Select FlatTypeId,CostCentreId,PayTypeId,BaseAmt,AdvAmount,LandRate,Guidelinevalue,USLandAmt from dbo.FlatDetails Where FlatId= " + argFlatId;
             cmd = new SqlCommand(sSql, conn, tran);
             sdr = cmd.ExecuteReader();
@@ -1878,18 +1920,29 @@ namespace CRM.DataLayer
                 dtPI.Load(sdr);
                 sdr.Close();
                 cmd.Dispose();
+
                 if (dtPI.Rows.Count > 0) { bLCBon = Convert.ToBoolean(dtPI.Rows[0]["LCBasedon"]); }
                 if (bLCBon == false) { dLandAmt = Convert.ToDecimal(dt.Rows[0]["LandRate"].ToString()); }
                 else { dLandAmt = Convert.ToDecimal(dt.Rows[0]["USLandAmt"].ToString()); }
-                //dLandAmt = Convert.ToDecimal(dt.Rows[0]["USLandAmt"].ToString());
-                //dLandAmt = Convert.ToDecimal(dt.Rows[0]["LandRate"].ToString());
             }
             dt.Dispose();
 
-            sSql = "Select SUM(RoundValue) From dbo.PaySchType Where TypeId=" + iPayTypeId + " ";
+            sSql = "Select RoundValue, EMI From dbo.PaySchType Where TypeId=" + iPayTypeId + " ";
             cmd = new SqlCommand(sSql, conn, tran);
-            decimal dRoundValue = Convert.ToDecimal(CommFun.IsNullCheck(cmd.ExecuteScalar(), CommFun.datatypes.vartypenumeric));
+            sdr = cmd.ExecuteReader();
+            DataTable dtPaySchType = new DataTable();
+            dtPaySchType.Load(sdr);
+            sdr.Close();
             cmd.Dispose();
+
+            decimal dRoundValue = 0;
+            bool bEMI = false;
+            if (dtPaySchType.Rows.Count > 0)
+            {
+                dRoundValue = Convert.ToDecimal(CommFun.IsNullCheck(dtPaySchType.Rows[0]["RoundValue"], CommFun.datatypes.vartypenumeric));
+                bEMI = Convert.ToBoolean(CommFun.IsNullCheck(dtPaySchType.Rows[0]["EMI"], CommFun.datatypes.varTypeBoolean));
+            }
+            dtPaySchType.Dispose();
 
             if (iPayTypeId > 0 && dRoundValue > 0)
             {
@@ -2051,8 +2104,6 @@ namespace CRM.DataLayer
             sdr.Close();
             cmd.Dispose();
 
-            //sSql = "Select A.*,IsNull(B.Service,0)Service From dbo.CCReceiptQualifier A " +
-            //        " Left Join dbo.OtherCostMaster B On A.OtherCostId=B.OtherCostId Where CostCentreId=" + iCCId;
             sSql = "Select C.QualTypeId,A.*,IsNull(B.Service,0)Service From dbo.CCReceiptQualifier A " +
                     " Left Join dbo.OtherCostMaster B On A.OtherCostId=B.OtherCostId " +
                     " Inner Join [" + BsfGlobal.g_sRateAnalDBName + "].dbo.Qualifier_Temp C On C.QualifierId=A.QualifierId " +
@@ -2063,6 +2114,23 @@ namespace CRM.DataLayer
             dtQual.Load(sdr);
             sdr.Close();
             cmd.Dispose();
+
+            sSql = "Select InitialAmount, NoOfMonths from dbo.BuyerDetail Where FlatId = " + argFlatId + " AND CostCentreId=" + iCCId + " ";
+            cmd = new SqlCommand(sSql, conn, tran);
+            sdr = cmd.ExecuteReader();
+            DataTable dtBuyerDetail = new DataTable();
+            dtBuyerDetail.Load(sdr);
+            sdr.Close();
+            cmd.Dispose();
+
+            decimal dEMIInitialAmount = 0;
+            decimal dEMINoOfMonths = 0;
+            if (dtBuyerDetail.Rows.Count > 0)
+            {
+                dEMIInitialAmount = Convert.ToDecimal(CommFun.IsNullCheck(dtBuyerDetail.Rows[0]["InitialAmount"], CommFun.datatypes.vartypenumeric));
+                dEMINoOfMonths = Convert.ToDecimal(CommFun.IsNullCheck(dtBuyerDetail.Rows[0]["NoOfMonths"], CommFun.datatypes.vartypenumeric));
+            }
+            dtBuyerDetail.Dispose();
 
             sSql = "Select PaymentSchId,TemplateId,SchType,SchDate,OtherCostId,SchPercent from dbo.PaymentScheduleFlat Where FlatId = " + argFlatId + " Order by SortOrder";
             cmd = new SqlCommand(sSql, conn, tran);
@@ -2075,23 +2143,34 @@ namespace CRM.DataLayer
             decimal dAmt = 0;
             DataView dv;
             decimal dAdvRAmt = 0;
-
             DataTable dtTempT;
             DataTable dtQualT;
             dAdvBalAmt = dAdvAmt;
-
             decimal dEMIRoundOff = 0;
+
+            decimal dEMIPercentage = Math.Round(100 / dEMINoOfMonths, 3);
+            decimal dEMIExcessPer = 100 - (dEMIPercentage * dEMINoOfMonths);
+            decimal dEMIFirstInsPer = dEMIPercentage + dEMIExcessPer;
+
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 iPaymentSchId = Convert.ToInt32(dt.Rows[i]["PaymentSchId"].ToString());
                 iTemplateId = Convert.ToInt32(dt.Rows[i]["TemplateId"].ToString());
                 sSchType = dt.Rows[i]["SchType"].ToString();
+                if (sSchType == "E")
+                {
+                    if (i > dEMINoOfMonths)
+                    {
+                        break;
+                    }
+                }
+                
                 if (argType == "S")
                     m_dSchDate = FinaliseDate;
                 else if (argType == "B")
                     m_dSchDate = BlockDate;
                 if (m_dSchDate == DateTime.MinValue) { m_dSchDate = DateTime.Now; }
-                //Convert.ToDateTime(CommFun.IsNullCheck(dt.Rows[i]["SchDate"], CommFun.datatypes.VarTypeDate));
+
                 iOtherCostId = Convert.ToInt32(dt.Rows[i]["OtherCostId"].ToString());
                 dSchPercent = Convert.ToDecimal(dt.Rows[i]["SchPercent"].ToString());
                 dTNetAmt = 0;
@@ -2114,7 +2193,17 @@ namespace CRM.DataLayer
                 }
                 else
                 {
-                    dAmt = dNetAmt * dSchPercent / 100;
+                    if (sSchType == "E")
+                    {
+                        if (i == 0)
+                            dAmt = dNetAmt * dEMIFirstInsPer / 100;
+                        else
+                            dAmt = dNetAmt * dEMIPercentage / 100;
+                    }
+                    else
+                    {
+                        dAmt = dNetAmt * dSchPercent / 100;
+                    }
                 }
 
                 dtTempT = new DataTable();
@@ -2879,16 +2968,25 @@ namespace CRM.DataLayer
                     if (dtPI.Rows.Count > 0) { bLCBon = Convert.ToBoolean(dtPI.Rows[0]["LCBasedon"]); }
                     if (bLCBon == false) { dLandAmt = Convert.ToDecimal(dt.Rows[0]["LandRate"].ToString()); }
                     else { dLandAmt = Convert.ToDecimal(dt.Rows[0]["USLandAmt"].ToString()); }
-
-                    //dLandAmt = Convert.ToDecimal(dt.Rows[0]["USLandAmt"].ToString());
-                    //dLandAmt = Convert.ToDecimal(dt.Rows[0]["LandRate"].ToString());
                 }
                 dt.Dispose();
 
-                sSql = "Select SUM(RoundValue) From dbo.PaySchType Where TypeId=" + iPayTypeId + " ";
+                sSql = "Select RoundValue, EMI From dbo.PaySchType Where TypeId=" + iPayTypeId + " ";
                 cmd = new SqlCommand(sSql, conn, tran);
-                decimal dRoundValue = Convert.ToDecimal(CommFun.IsNullCheck(cmd.ExecuteScalar(), CommFun.datatypes.vartypenumeric));
+                sdr = cmd.ExecuteReader();
+                DataTable dtPaySchType = new DataTable();
+                dtPaySchType.Load(sdr);
+                sdr.Close();
                 cmd.Dispose();
+
+                decimal dRoundValue = 0;
+                bool bEMI = false;
+                if (dtPaySchType.Rows.Count > 0)
+                {
+                    dRoundValue = Convert.ToDecimal(CommFun.IsNullCheck(dtPaySchType.Rows[0]["RoundValue"], CommFun.datatypes.vartypenumeric));
+                    bEMI = Convert.ToBoolean(CommFun.IsNullCheck(dtPaySchType.Rows[0]["EMI"], CommFun.datatypes.varTypeBoolean));
+                }
+                dtPaySchType.Dispose();
 
                 if (iPayTypeId > 0 && dRoundValue > 0)
                 {
@@ -3041,8 +3139,6 @@ namespace CRM.DataLayer
                 sdr.Close();
                 cmd.Dispose();
 
-                //sSql = "Select A.*,IsNull(B.Service,0)Service From dbo.CCReceiptQualifier A " +
-                //        " Left Join dbo.OtherCostMaster B On A.OtherCostId=B.OtherCostId Where CostCentreId=" + iCCId;
                 sSql = "Select C.QualTypeId,A.*,IsNull(B.Service,0)Service From dbo.CCReceiptQualifier A " +
                         " Left Join dbo.OtherCostMaster B On A.OtherCostId=B.OtherCostId " +
                         " Inner Join [" + BsfGlobal.g_sRateAnalDBName + "].dbo.Qualifier_Temp C On C.QualifierId=A.QualifierId " +
@@ -3053,6 +3149,23 @@ namespace CRM.DataLayer
                 dtQual.Load(sdr);
                 sdr.Close();
                 cmd.Dispose();
+
+                sSql = "Select InitialAmount, NoOfMonths from dbo.BuyerDetail Where FlatId = " + argFlatId + " AND CostCentreId=" + iCCId + " ";
+                cmd = new SqlCommand(sSql, conn, tran);
+                sdr = cmd.ExecuteReader();
+                DataTable dtBuyerDetail = new DataTable();
+                dtBuyerDetail.Load(sdr);
+                sdr.Close();
+                cmd.Dispose();
+
+                decimal dEMIInitialAmount = 0;
+                decimal dEMINoOfMonths = 0;
+                if (dtBuyerDetail.Rows.Count > 0)
+                {
+                    dEMIInitialAmount = Convert.ToDecimal(CommFun.IsNullCheck(dtBuyerDetail.Rows[0]["InitialAmount"], CommFun.datatypes.vartypenumeric));
+                    dEMINoOfMonths = Convert.ToDecimal(CommFun.IsNullCheck(dtBuyerDetail.Rows[0]["NoOfMonths"], CommFun.datatypes.vartypenumeric));
+                }
+                dtBuyerDetail.Dispose();
 
                 sSql = "Select PaymentSchId,TemplateId,SchDate,SchType,OtherCostId,SchPercent from dbo.PaymentScheduleFlat Where FlatId = " + argFlatId + " Order by SortOrder";
                 cmd = new SqlCommand(sSql, conn, tran);
@@ -3065,17 +3178,28 @@ namespace CRM.DataLayer
                 decimal dAmt = 0;
                 DataView dv;
                 decimal dAdvRAmt = 0;
-
                 DataTable dtTempT;
                 DataTable dtQualT;
                 dAdvBalAmt = dAdvAmt;
-
                 decimal dEMIRoundOff = 0;
+
+                decimal dEMIPercentage = Math.Round(100 / dEMINoOfMonths, 3);
+                decimal dEMIExcessPer = 100 - (dEMIPercentage * dEMINoOfMonths);
+                decimal dEMIFirstInsPer = dEMIPercentage + dEMIExcessPer;
+
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
                     iPaymentSchId = Convert.ToInt32(dt.Rows[i]["PaymentSchId"].ToString());
                     iTemplateId = Convert.ToInt32(dt.Rows[i]["TemplateId"].ToString());
                     sSchType = dt.Rows[i]["SchType"].ToString();
+                    if (sSchType == "E")
+                    {
+                        if (i > dEMINoOfMonths)
+                        {
+                            break;
+                        }
+                    }
+
                     dSchDate = Convert.ToDateTime(CommFun.IsNullCheck(dt.Rows[i]["SchDate"], CommFun.datatypes.VarTypeDate));
                     if (dSchDate == DateTime.MinValue) { dSchDate = DateTime.Now; }
                     iOtherCostId = Convert.ToInt32(dt.Rows[i]["OtherCostId"].ToString());
@@ -3100,7 +3224,17 @@ namespace CRM.DataLayer
                     }
                     else
                     {
-                        dAmt = dNetAmt * dSchPercent / 100;
+                        if (sSchType == "E")
+                        {
+                            if (i == 0)
+                                dAmt = dNetAmt * dEMIFirstInsPer / 100;
+                            else
+                                dAmt = dNetAmt * dEMIPercentage / 100;
+                        }
+                        else
+                        {
+                            dAmt = dNetAmt * dSchPercent / 100;
+                        }
                     }
 
                     dtTempT = new DataTable();

@@ -703,7 +703,10 @@ namespace CRM.DataLayer
                         {
                             PaymentScheduleDL.InsertFinalFlatScheduleI(argCallSheet.FlatID, "B", conn, tran);
                         }
-                        else { PaymentScheduleDL.InsertFlatScheduleI(argCallSheet.FlatID, conn, tran); }
+                        else
+                        {
+                            PaymentScheduleDL.InsertFlatScheduleI(argCallSheet.FlatID, conn, tran);
+                        }
                     }
 
                     if (dtEnqTrans.Rows.Count > 0)

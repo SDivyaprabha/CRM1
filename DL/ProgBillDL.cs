@@ -409,7 +409,7 @@ namespace CRM.DataLayer
             {
                 if (arg_sStage == "SchDescription")
                 {
-                    sSql = "Select Distinct LevelId From dbo.StageDetails Where CostCentreId=" + argCCId + " And SchType='D' And StageId=" + argSId + "";
+                    sSql = "Select Distinct LevelId From dbo.StageDetails Where CostCentreId=" + argCCId + " And SchType IN('D', 'E') And StageId=" + argSId + "";
                 }
                 else if (arg_sStage == "Stagewise")
                 {
@@ -1945,7 +1945,10 @@ namespace CRM.DataLayer
                     if (argType == "SchDescription")
                     {
                         sSql = "Select SchDescId Id,SchDescName Name,'D' SchType from dbo.SchDescription " +
-                               " Where SchDescId IN(Select SchDescId from dbo.PaymentSchedule Where CostCentreId=" + argCCId + ")";
+                               " Where SchDescId IN(Select SchDescId from dbo.PaymentSchedule Where CostCentreId=" + argCCId + ") AND SchType='D'"+
+                               " UNION ALL "+
+                               " Select SchDescId Id,SchDescName Name,'E' SchType from dbo.SchDescription " +
+                               " Where SchDescId IN(Select SchDescId from dbo.PaymentSchedule Where CostCentreId=" + argCCId + ") AND SchType='E'";
                     }
                     else if (argType == "Stagewise")
                     {
@@ -1963,7 +1966,10 @@ namespace CRM.DataLayer
                     if (argType == "SchDescription")
                     {
                         sSql = "Select SchDescId Id,SchDescName Name,'D' SchType from [" + BsfGlobal.g_sRateAnalDBName + "].dbo.SchDescription " +
-                               "Where SchDescId in (Select SchDescId from [" + BsfGlobal.g_sRateAnalDBName + "].dbo.PaymentSchedule Where LandRegId=" + argCCId + ")";
+                               "Where SchDescId in (Select SchDescId from [" + BsfGlobal.g_sRateAnalDBName + "].dbo.PaymentSchedule Where LandRegId=" + argCCId + ") AND SchType='D'" +
+                               " UNION ALL " +
+                               "Select SchDescId Id,SchDescName Name,'E' SchType from [" + BsfGlobal.g_sRateAnalDBName + "].dbo.SchDescription " +
+                               "Where SchDescId in (Select SchDescId from [" + BsfGlobal.g_sRateAnalDBName + "].dbo.PaymentSchedule Where LandRegId=" + argCCId + ") AND SchType='E'";
                     }
                     else if (argType == "OtherCost")
                     {

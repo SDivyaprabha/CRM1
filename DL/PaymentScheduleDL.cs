@@ -2852,17 +2852,21 @@ namespace CRM.DataLayer
             cmd = new SqlCommand(sSql, conn, tran);
             dr = cmd.ExecuteReader();
             dt = new DataTable();
-            dt.Load(dr); cmd.Dispose();
+            dt.Load(dr);
+            dr.Close();
+            cmd.Dispose();
+
             if (dt.Rows.Count > 0)
             {
                 FinaliseDate = Convert.ToDateTime(dt.Rows[0]["FinaliseDate"]);
-
 
                 sSql = "Select TemplateId,PreStageTypeId from dbo.PaymentScheduleFlat Where FlatId=" + argFlatId + " And PreStageTypeId=-1";
                 cmd = new SqlCommand(sSql, conn, tran);
                 dr = cmd.ExecuteReader();
                 dt = new DataTable();
-                dt.Load(dr); cmd.Dispose();
+                dt.Load(dr);
+                dr.Close();
+                cmd.Dispose();
 
                 if (dt.Rows.Count > 0)
                 {
@@ -2875,7 +2879,9 @@ namespace CRM.DataLayer
                 cmd = new SqlCommand(sSql, conn, tran);
                 sdr2 = cmd.ExecuteReader();
                 dt1 = new DataTable();
-                dt1.Load(sdr2); cmd.Dispose();
+                dt1.Load(sdr2);
+                sdr2.Close();
+                cmd.Dispose();
                 dt1.Dispose();
 
                 if (dt1.Rows.Count > 0)
@@ -2888,6 +2894,7 @@ namespace CRM.DataLayer
                 dt = new DataTable();
                 dr = cmd.ExecuteReader();
                 dt.Load(dr);
+                dr.Close();
                 dt.Dispose();
 
                 if (dt.Rows.Count > 0)
@@ -2912,10 +2919,10 @@ namespace CRM.DataLayer
                 {
                     if (iStgId == -1)
                         sSql = "Select A.PreStageTypeId,A.CostCentreId,A.TemplateId,A.DateAfter,A.Duration,A.Durationtype from dbo.PaymentScheduleFlat A" +
-                        " Left Join dbo.ProgressBillRegister B On A.FlatId=B.FlatId " +
-                        " Where A.FlatId=" + argFlatId + " And A.SortOrder>=" + iSortOrder + "" +
-                        " And A.PaymentSchId Not In " +
-                        " (Select PaySchId From dbo.ProgressBillRegister Where FlatId=" + argFlatId + ") Order By A.SortOrder";
+                                " Left Join dbo.ProgressBillRegister B On A.FlatId=B.FlatId " +
+                                " Where A.FlatId=" + argFlatId + " And A.SortOrder>=" + iSortOrder + "" +
+                                " And A.PaymentSchId Not In " +
+                                " (Select PaySchId From dbo.ProgressBillRegister Where FlatId=" + argFlatId + ") Order By A.SortOrder";
 
                     cmd = new SqlCommand(sSql, conn, tran);
                     sdr1 = cmd.ExecuteReader();
@@ -4265,29 +4272,28 @@ namespace CRM.DataLayer
             {
                 for (int i = 0; i < argdt.Rows.Count; i++)
                 {
-                    string sDate = string.Format(Convert.ToDateTime(CommFun.IsNullCheck(argdt.Rows[i]["SchDate"], CommFun.datatypes.VarTypeDate)).ToString("dd-MMM-yyyy"));
-                    if (argdt.Rows[i]["SchDate"].ToString() == "")
+                    //string sDate = string.Format(Convert.ToDateTime(CommFun.IsNullCheck(argdt.Rows[i]["SchDate"], CommFun.datatypes.VarTypeDate)).ToString("dd-MMM-yyyy"));
+                    if (FinaliseDate == DateTime.MinValue)
                     {
-                        sDate = "NULL";
                         sSql = "Insert into dbo.PaymentScheduleFlat(FlatId,TemplateId,CostCentreId,SchType,Description,SchDescId,StageId," +
-                        " OtherCostId,SchDate,DateAfter,Duration,DurationType,SchPercent,Amount,PreStageTypeId,SortOrder) " +
-                        " Values(" + argdt.Rows[i]["FlatId"] + "," + argdt.Rows[i]["TemplateId"] + "," + argdt.Rows[i]["CostCentreId"] + "," +
-                        " '" + argdt.Rows[i]["SchType"] + "','" + argdt.Rows[i]["Description"] + "'," + argdt.Rows[i]["SchDescId"] + "," +
-                        " " + argdt.Rows[i]["StageId"] + "," + argdt.Rows[i]["OtherCostId"] + "," + sDate + "," +
-                        " '" + argdt.Rows[i]["DateAfter"] + "'," + argdt.Rows[i]["Duration"] + ",'" + argdt.Rows[i]["DurationType"] + "'," +
-                        " " + argdt.Rows[i]["SchPercent"] + "," + argdt.Rows[i]["Amount"] + "," + argdt.Rows[i]["PreStageTypeId"] + "," +
-                        " " + argdt.Rows[i]["SortOrder"] + ")";
+                                " OtherCostId,SchDate,DateAfter,Duration,DurationType,SchPercent,Amount,PreStageTypeId,SortOrder) " +
+                                " Values(" + argdt.Rows[i]["FlatId"] + "," + argdt.Rows[i]["TemplateId"] + "," + argdt.Rows[i]["CostCentreId"] + "," +
+                                " '" + argdt.Rows[i]["SchType"] + "','" + argdt.Rows[i]["Description"] + "'," + argdt.Rows[i]["SchDescId"] + "," +
+                                " " + argdt.Rows[i]["StageId"] + "," + argdt.Rows[i]["OtherCostId"] + ",NULL," +
+                                " '" + argdt.Rows[i]["DateAfter"] + "'," + argdt.Rows[i]["Duration"] + ",'" + argdt.Rows[i]["DurationType"] + "'," +
+                                " " + argdt.Rows[i]["SchPercent"] + "," + argdt.Rows[i]["Amount"] + "," + argdt.Rows[i]["PreStageTypeId"] + "," +
+                                " " + argdt.Rows[i]["SortOrder"] + ")";
                     }
                     else
                     {
                         sSql = "Insert into dbo.PaymentScheduleFlat(FlatId,TemplateId,CostCentreId,SchType,Description,SchDescId,StageId," +
-                        " OtherCostId,SchDate,DateAfter,Duration,DurationType,SchPercent,Amount,PreStageTypeId,SortOrder) " +
-                        " Values(" + argdt.Rows[i]["FlatId"] + "," + argdt.Rows[i]["TemplateId"] + "," + argdt.Rows[i]["CostCentreId"] + "," +
-                        " '" + argdt.Rows[i]["SchType"] + "','" + argdt.Rows[i]["Description"] + "'," + argdt.Rows[i]["SchDescId"] + "," +
-                        " " + argdt.Rows[i]["StageId"] + "," + argdt.Rows[i]["OtherCostId"] + ",'" + sDate + "'," +
-                        " '" + argdt.Rows[i]["DateAfter"] + "'," + argdt.Rows[i]["Duration"] + ",'" + argdt.Rows[i]["DurationType"] + "'," +
-                        " " + argdt.Rows[i]["SchPercent"] + "," + argdt.Rows[i]["Amount"] + "," + argdt.Rows[i]["PreStageTypeId"] + "," +
-                        " " + argdt.Rows[i]["SortOrder"] + ")";
+                                " OtherCostId,SchDate,DateAfter,Duration,DurationType,SchPercent,Amount,PreStageTypeId,SortOrder) " +
+                                " Values(" + argdt.Rows[i]["FlatId"] + "," + argdt.Rows[i]["TemplateId"] + "," + argdt.Rows[i]["CostCentreId"] + "," +
+                                " '" + argdt.Rows[i]["SchType"] + "','" + argdt.Rows[i]["Description"] + "'," + argdt.Rows[i]["SchDescId"] + "," +
+                                " " + argdt.Rows[i]["StageId"] + "," + argdt.Rows[i]["OtherCostId"] + ",'" + FinaliseDate.ToString("dd-MMM-yyyy") + "'," +
+                                " '" + argdt.Rows[i]["DateAfter"] + "'," + argdt.Rows[i]["Duration"] + ",'" + argdt.Rows[i]["DurationType"] + "'," +
+                                " " + argdt.Rows[i]["SchPercent"] + "," + argdt.Rows[i]["Amount"] + "," + argdt.Rows[i]["PreStageTypeId"] + "," +
+                                " " + argdt.Rows[i]["SortOrder"] + ")";
                     }
                     cmd = new SqlCommand(sSql, conn, tran);
                     cmd.ExecuteNonQuery();

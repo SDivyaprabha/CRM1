@@ -26,55 +26,16 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            DevExpress.XtraTreeList.StyleFormatConditions.StyleFormatCondition styleFormatCondition7 = new DevExpress.XtraTreeList.StyleFormatConditions.StyleFormatCondition();
+            DevExpress.XtraTreeList.StyleFormatConditions.StyleFormatCondition styleFormatCondition1 = new DevExpress.XtraTreeList.StyleFormatConditions.StyleFormatCondition();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmUnitDir));
             this.radUnit = new Telerik.WinControls.UI.Docking.RadDock();
-            this.dwProjInfo = new Telerik.WinControls.UI.Docking.DocumentWindow();
-            this.panelProjectInfo = new DevExpress.XtraEditors.PanelControl();
-            this.standaloneBarDockControl7 = new DevExpress.XtraBars.StandaloneBarDockControl();
-            this.documentContainer1 = new Telerik.WinControls.UI.Docking.DocumentContainer();
-            this.documentTabStrip1 = new Telerik.WinControls.UI.Docking.DocumentTabStrip();
-            this.dwFlatType = new Telerik.WinControls.UI.Docking.DocumentWindow();
-            this.PanelFlatTypeUnit = new Telerik.WinControls.UI.RadPanel();
-            this.grdFlatType = new DevExpress.XtraGrid.GridControl();
-            this.grdViewFType = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.standaloneBarDockControl2 = new DevExpress.XtraBars.StandaloneBarDockControl();
-            this.dwFlat = new Telerik.WinControls.UI.Docking.DocumentWindow();
-            this.radPanel1 = new Telerik.WinControls.UI.RadPanel();
-            this.tvFlat = new DevExpress.XtraTreeList.TreeList();
-            this.imageCollection1 = new DevExpress.Utils.ImageCollection(this.components);
-            this.splitterControl1 = new DevExpress.XtraEditors.SplitterControl();
-            this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
-            this.radDock1 = new Telerik.WinControls.UI.Docking.RadDock();
-            this.dwPayFlat = new Telerik.WinControls.UI.Docking.DocumentWindow();
-            this.grdPayFlat = new DevExpress.XtraGrid.GridControl();
-            this.grdViewPayFlat = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.standaloneBarDockControl3 = new DevExpress.XtraBars.StandaloneBarDockControl();
-            this.documentContainer3 = new Telerik.WinControls.UI.Docking.DocumentContainer();
-            this.documentTabStrip3 = new Telerik.WinControls.UI.Docking.DocumentTabStrip();
-            this.dwBuyerSt = new Telerik.WinControls.UI.Docking.DocumentWindow();
-            this.grdBuyer = new DevExpress.XtraGrid.GridControl();
-            this.grdViewBuyer = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.standaloneBarDockControl6 = new DevExpress.XtraBars.StandaloneBarDockControl();
-            this.dwProgress = new Telerik.WinControls.UI.Docking.DocumentWindow();
-            this.panelProgress = new DevExpress.XtraEditors.PanelControl();
-            this.standaloneBarDockControl5 = new DevExpress.XtraBars.StandaloneBarDockControl();
-            this.dwExtraItem = new Telerik.WinControls.UI.Docking.DocumentWindow();
-            this.grdExtra = new DevExpress.XtraGrid.GridControl();
-            this.grdViewExtra = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.standaloneBarDockControl10 = new DevExpress.XtraBars.StandaloneBarDockControl();
-            this.dwPayInfo = new Telerik.WinControls.UI.Docking.DocumentWindow();
-            this.grdPayInfo = new DevExpress.XtraGrid.GridControl();
-            this.grdViewPayInfo = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.standaloneBarDockControl8 = new DevExpress.XtraBars.StandaloneBarDockControl();
-            this.standaloneBarFDBtm = new DevExpress.XtraBars.StandaloneBarDockControl();
-            this.standaloneBarDockControl1 = new DevExpress.XtraBars.StandaloneBarDockControl();
             this.dwPaySch = new Telerik.WinControls.UI.Docking.DocumentWindow();
             this.radPanel4 = new Telerik.WinControls.UI.RadPanel();
             this.grdPaymentSch = new DevExpress.XtraGrid.GridControl();
             this.grdPaymentSchView = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.standaloneBarDockControl4 = new DevExpress.XtraBars.StandaloneBarDockControl();
             this.radPanel5 = new Telerik.WinControls.UI.RadPanel();
+            this.txtPaySchNoOfMonths = new DevExpress.XtraEditors.TextEdit();
             this.barManager1 = new DevExpress.XtraBars.BarManager(this.components);
             this.bar1 = new DevExpress.XtraBars.Bar();
             this.barStaticItem1 = new DevExpress.XtraBars.BarStaticItem();
@@ -84,6 +45,7 @@
             this.menuPrint = new DevExpress.XtraBars.BarSubItem();
             this.barButtonItem7 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem11 = new DevExpress.XtraBars.BarButtonItem();
+            this.standaloneBarDockControl1 = new DevExpress.XtraBars.StandaloneBarDockControl();
             this.bar2 = new DevExpress.XtraBars.Bar();
             this.btnFTAdd = new DevExpress.XtraBars.BarButtonItem();
             this.btnFTDelete = new DevExpress.XtraBars.BarButtonItem();
@@ -91,6 +53,7 @@
             this.barSubItem8 = new DevExpress.XtraBars.BarSubItem();
             this.btnFTPayShReport = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem16 = new DevExpress.XtraBars.BarButtonItem();
+            this.standaloneBarDockControl2 = new DevExpress.XtraBars.StandaloneBarDockControl();
             this.bar3 = new DevExpress.XtraBars.Bar();
             this.btnEIAdd = new DevExpress.XtraBars.BarButtonItem();
             this.btnEIDelete = new DevExpress.XtraBars.BarButtonItem();
@@ -115,6 +78,7 @@
             this.btnProjLRC = new DevExpress.XtraBars.BarButtonItem();
             this.btnProjUnBlock = new DevExpress.XtraBars.BarButtonItem();
             this.btnProjUDS = new DevExpress.XtraBars.BarButtonItem();
+            this.standaloneBarDockControl7 = new DevExpress.XtraBars.StandaloneBarDockControl();
             this.bar4 = new DevExpress.XtraBars.Bar();
             this.barButtonItem10 = new DevExpress.XtraBars.BarButtonItem();
             this.standaloneBarDockControl9 = new DevExpress.XtraBars.StandaloneBarDockControl();
@@ -130,9 +94,11 @@
             this.btnPaySchPrint = new DevExpress.XtraBars.BarButtonItem();
             this.btnPaySchReport = new DevExpress.XtraBars.BarButtonItem();
             this.btnCost = new DevExpress.XtraBars.BarButtonItem();
+            this.standaloneBarDockControl3 = new DevExpress.XtraBars.StandaloneBarDockControl();
             this.bar11 = new DevExpress.XtraBars.Bar();
             this.cboCheckList = new DevExpress.XtraBars.BarEditItem();
             this.repositoryItemComboBox1 = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
+            this.standaloneBarDockControl5 = new DevExpress.XtraBars.StandaloneBarDockControl();
             this.bar12 = new DevExpress.XtraBars.Bar();
             this.cboBuyerStmt = new DevExpress.XtraBars.BarEditItem();
             this.repositoryItemComboBox2 = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
@@ -142,11 +108,13 @@
             this.barSubItem1 = new DevExpress.XtraBars.BarSubItem();
             this.btnReport = new DevExpress.XtraBars.BarButtonItem();
             this.btnBuyerStmt = new DevExpress.XtraBars.BarButtonItem();
+            this.standaloneBarDockControl6 = new DevExpress.XtraBars.StandaloneBarDockControl();
             this.bar13 = new DevExpress.XtraBars.Bar();
             this.barSubItem9 = new DevExpress.XtraBars.BarSubItem();
             this.btnFiscalYear = new DevExpress.XtraBars.BarButtonItem();
             this.btnPayment = new DevExpress.XtraBars.BarButtonItem();
             this.btnPIPrint = new DevExpress.XtraBars.BarButtonItem();
+            this.standaloneBarDockControl8 = new DevExpress.XtraBars.StandaloneBarDockControl();
             this.bar14 = new DevExpress.XtraBars.Bar();
             this.Add = new DevExpress.XtraBars.BarButtonItem();
             this.btnFDelete = new DevExpress.XtraBars.BarButtonItem();
@@ -169,8 +137,10 @@
             this.btnSalesTime = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem12 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem2 = new DevExpress.XtraBars.BarButtonItem();
+            this.standaloneBarFDBtm = new DevExpress.XtraBars.StandaloneBarDockControl();
             this.bar15 = new DevExpress.XtraBars.Bar();
             this.barButtonItem17 = new DevExpress.XtraBars.BarButtonItem();
+            this.standaloneBarDockControl10 = new DevExpress.XtraBars.StandaloneBarDockControl();
             this.barAndDockingController1 = new DevExpress.XtraBars.BarAndDockingController(this.components);
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
@@ -207,7 +177,6 @@
             this.repositoryItemLookUpEdit7 = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.repositoryItemLookUpEdit10 = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.repositoryItemLookUpEdit11 = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
-            this.txtPaySchNoOfMonths = new DevExpress.XtraEditors.TextEdit();
             this.labelControl8 = new DevExpress.XtraEditors.LabelControl();
             this.chkPaySchEMI = new DevExpress.XtraEditors.CheckEdit();
             this.txtPaymentSchRoundDigit = new DevExpress.XtraEditors.TextEdit();
@@ -219,6 +188,37 @@
             this.btnPayTemp = new DevExpress.XtraEditors.SimpleButton();
             this.cboPaySchType = new DevExpress.XtraEditors.LookUpEdit();
             this.chkcboPayFlatType = new DevExpress.XtraEditors.CheckedComboBoxEdit();
+            this.documentContainer1 = new Telerik.WinControls.UI.Docking.DocumentContainer();
+            this.documentTabStrip1 = new Telerik.WinControls.UI.Docking.DocumentTabStrip();
+            this.dwProjInfo = new Telerik.WinControls.UI.Docking.DocumentWindow();
+            this.panelProjectInfo = new DevExpress.XtraEditors.PanelControl();
+            this.dwFlatType = new Telerik.WinControls.UI.Docking.DocumentWindow();
+            this.PanelFlatTypeUnit = new Telerik.WinControls.UI.RadPanel();
+            this.grdFlatType = new DevExpress.XtraGrid.GridControl();
+            this.grdViewFType = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.dwFlat = new Telerik.WinControls.UI.Docking.DocumentWindow();
+            this.radPanel1 = new Telerik.WinControls.UI.RadPanel();
+            this.tvFlat = new DevExpress.XtraTreeList.TreeList();
+            this.imageCollection1 = new DevExpress.Utils.ImageCollection(this.components);
+            this.splitterControl1 = new DevExpress.XtraEditors.SplitterControl();
+            this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            this.radDock1 = new Telerik.WinControls.UI.Docking.RadDock();
+            this.dwPayFlat = new Telerik.WinControls.UI.Docking.DocumentWindow();
+            this.grdPayFlat = new DevExpress.XtraGrid.GridControl();
+            this.grdViewPayFlat = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.documentContainer3 = new Telerik.WinControls.UI.Docking.DocumentContainer();
+            this.documentTabStrip3 = new Telerik.WinControls.UI.Docking.DocumentTabStrip();
+            this.dwBuyerSt = new Telerik.WinControls.UI.Docking.DocumentWindow();
+            this.grdBuyer = new DevExpress.XtraGrid.GridControl();
+            this.grdViewBuyer = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.dwProgress = new Telerik.WinControls.UI.Docking.DocumentWindow();
+            this.panelProgress = new DevExpress.XtraEditors.PanelControl();
+            this.dwExtraItem = new Telerik.WinControls.UI.Docking.DocumentWindow();
+            this.grdExtra = new DevExpress.XtraGrid.GridControl();
+            this.grdViewExtra = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.dwPayInfo = new Telerik.WinControls.UI.Docking.DocumentWindow();
+            this.grdPayInfo = new DevExpress.XtraGrid.GridControl();
+            this.grdViewPayInfo = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.dwFlatTemp = new Telerik.WinControls.UI.Docking.DocumentWindow();
             this.PanelBFT = new Telerik.WinControls.UI.RadPanel();
             this.btnSkip = new DevExpress.XtraEditors.SimpleButton();
@@ -273,12 +273,40 @@
             this.barButtonItem14 = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.radUnit)).BeginInit();
             this.radUnit.SuspendLayout();
-            this.dwProjInfo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.panelProjectInfo)).BeginInit();
+            this.dwPaySch.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radPanel4)).BeginInit();
+            this.radPanel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grdPaymentSch)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdPaymentSchView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radPanel5)).BeginInit();
+            this.radPanel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPaySchNoOfMonths.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barManager1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboFT)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barAndDockingController1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).BeginInit();
+            this.dockProject.SuspendLayout();
+            this.dockPanel1_Container.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grdCC)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdViewCC)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEdit1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEdit2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEdit7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEdit10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEdit11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkPaySchEMI.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPaymentSchRoundDigit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkcbPayBlock.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboPaySchType.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkcboPayFlatType.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.documentContainer1)).BeginInit();
             this.documentContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.documentTabStrip1)).BeginInit();
             this.documentTabStrip1.SuspendLayout();
+            this.dwProjInfo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelProjectInfo)).BeginInit();
             this.dwFlatType.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PanelFlatTypeUnit)).BeginInit();
             this.PanelFlatTypeUnit.SuspendLayout();
@@ -311,34 +339,6 @@
             this.dwPayInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdPayInfo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdViewPayInfo)).BeginInit();
-            this.dwPaySch.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radPanel4)).BeginInit();
-            this.radPanel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grdPaymentSch)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grdPaymentSchView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radPanel5)).BeginInit();
-            this.radPanel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.barManager1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cboFT)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.barAndDockingController1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).BeginInit();
-            this.dockProject.SuspendLayout();
-            this.dockPanel1_Container.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grdCC)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grdViewCC)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEdit1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEdit2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEdit7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEdit10)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEdit11)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtPaySchNoOfMonths.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chkPaySchEMI.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtPaymentSchRoundDigit.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chkcbPayBlock.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cboPaySchType.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chkcboPayFlatType.Properties)).BeginInit();
             this.dwFlatTemp.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PanelBFT)).BeginInit();
             this.PanelBFT.SuspendLayout();
@@ -386,7 +386,7 @@
             // 
             // radUnit
             // 
-            this.radUnit.ActiveWindow = this.dwPaySch;
+            this.radUnit.ActiveWindow = this.dwProjInfo;
             this.radUnit.CausesValidation = false;
             this.radUnit.Controls.Add(this.documentContainer1);
             this.radUnit.Controls.Add(this.toolTabStrip1);
@@ -409,626 +409,6 @@
             this.radUnit.Text = "radDock1";
             this.radUnit.ToolWindowInsertOrder = Telerik.WinControls.UI.Docking.DockWindowInsertOrder.InFront;
             this.radUnit.ActiveWindowChanged += new Telerik.WinControls.UI.Docking.DockWindowEventHandler(this.radUnit_ActiveWindowChanged);
-            // 
-            // dwProjInfo
-            // 
-            this.dwProjInfo.CloseAction = Telerik.WinControls.UI.Docking.DockWindowCloseAction.Hide;
-            this.dwProjInfo.Controls.Add(this.panelProjectInfo);
-            this.dwProjInfo.Controls.Add(this.standaloneBarDockControl7);
-            this.dwProjInfo.DocumentButtons = Telerik.WinControls.UI.Docking.DocumentStripButtons.None;
-            this.dwProjInfo.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dwProjInfo.Location = new System.Drawing.Point(6, 29);
-            this.dwProjInfo.Name = "dwProjInfo";
-            this.dwProjInfo.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
-            this.dwProjInfo.Size = new System.Drawing.Size(680, 454);
-            this.dwProjInfo.Text = "Project Info";
-            this.dwProjInfo.Enter += new System.EventHandler(this.dwProjInfo_Enter);
-            this.dwProjInfo.Validating += new System.ComponentModel.CancelEventHandler(this.dwProjInfo_Validating);
-            // 
-            // panelProjectInfo
-            // 
-            this.panelProjectInfo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelProjectInfo.Location = new System.Drawing.Point(0, 0);
-            this.panelProjectInfo.Name = "panelProjectInfo";
-            this.panelProjectInfo.Size = new System.Drawing.Size(680, 428);
-            this.panelProjectInfo.TabIndex = 0;
-            // 
-            // standaloneBarDockControl7
-            // 
-            this.standaloneBarDockControl7.CausesValidation = false;
-            this.standaloneBarDockControl7.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.standaloneBarDockControl7.Location = new System.Drawing.Point(0, 428);
-            this.standaloneBarDockControl7.Name = "standaloneBarDockControl7";
-            this.standaloneBarDockControl7.Size = new System.Drawing.Size(680, 26);
-            this.standaloneBarDockControl7.Text = "standaloneBarDockControl7";
-            // 
-            // documentContainer1
-            // 
-            this.documentContainer1.CausesValidation = false;
-            this.documentContainer1.Controls.Add(this.documentTabStrip1);
-            this.documentContainer1.Location = new System.Drawing.Point(5, 5);
-            this.documentContainer1.Name = "documentContainer1";
-            this.documentContainer1.Padding = new System.Windows.Forms.Padding(5);
-            // 
-            // 
-            // 
-            this.documentContainer1.RootElement.MinSize = new System.Drawing.Size(25, 25);
-            this.documentContainer1.RootElement.Padding = new System.Windows.Forms.Padding(5);
-            this.documentContainer1.Size = new System.Drawing.Size(692, 489);
-            this.documentContainer1.SizeInfo.AbsoluteSize = new System.Drawing.Size(692, 200);
-            this.documentContainer1.SizeInfo.SizeMode = Telerik.WinControls.UI.Docking.SplitPanelSizeMode.Fill;
-            this.documentContainer1.SizeInfo.SplitterCorrection = new System.Drawing.Size(-105, 0);
-            this.documentContainer1.SplitterWidth = 4;
-            this.documentContainer1.TabIndex = 0;
-            this.documentContainer1.TabStop = false;
-            // 
-            // documentTabStrip1
-            // 
-            this.documentTabStrip1.CausesValidation = false;
-            this.documentTabStrip1.Controls.Add(this.dwProjInfo);
-            this.documentTabStrip1.Controls.Add(this.dwFlatType);
-            this.documentTabStrip1.Controls.Add(this.dwFlat);
-            this.documentTabStrip1.Controls.Add(this.dwPaySch);
-            this.documentTabStrip1.Controls.Add(this.dwFlatTemp);
-            this.documentTabStrip1.Location = new System.Drawing.Point(0, 0);
-            this.documentTabStrip1.Name = "documentTabStrip1";
-            // 
-            // 
-            // 
-            this.documentTabStrip1.RootElement.MinSize = new System.Drawing.Size(25, 25);
-            this.documentTabStrip1.SelectedIndex = 3;
-            this.documentTabStrip1.Size = new System.Drawing.Size(692, 489);
-            this.documentTabStrip1.TabIndex = 0;
-            this.documentTabStrip1.TabStop = false;
-            // 
-            // dwFlatType
-            // 
-            this.dwFlatType.CloseAction = Telerik.WinControls.UI.Docking.DockWindowCloseAction.Hide;
-            this.dwFlatType.Controls.Add(this.PanelFlatTypeUnit);
-            this.dwFlatType.Controls.Add(this.standaloneBarDockControl2);
-            this.dwFlatType.DocumentButtons = Telerik.WinControls.UI.Docking.DocumentStripButtons.None;
-            this.dwFlatType.Location = new System.Drawing.Point(6, 29);
-            this.dwFlatType.Name = "dwFlatType";
-            this.dwFlatType.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
-            this.dwFlatType.Size = new System.Drawing.Size(680, 454);
-            this.dwFlatType.Text = "Flat Type";
-            this.dwFlatType.Enter += new System.EventHandler(this.dwFlatType_Enter);
-            // 
-            // PanelFlatTypeUnit
-            // 
-            this.PanelFlatTypeUnit.CausesValidation = false;
-            this.PanelFlatTypeUnit.Controls.Add(this.grdFlatType);
-            this.PanelFlatTypeUnit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PanelFlatTypeUnit.Location = new System.Drawing.Point(0, 26);
-            this.PanelFlatTypeUnit.Name = "PanelFlatTypeUnit";
-            this.PanelFlatTypeUnit.Size = new System.Drawing.Size(680, 428);
-            this.PanelFlatTypeUnit.TabIndex = 101;
-            this.PanelFlatTypeUnit.Text = "radPanel3";
-            // 
-            // grdFlatType
-            // 
-            this.grdFlatType.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdFlatType.Location = new System.Drawing.Point(0, 0);
-            this.grdFlatType.LookAndFeel.SkinName = "Blue";
-            this.grdFlatType.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.grdFlatType.MainView = this.grdViewFType;
-            this.grdFlatType.Name = "grdFlatType";
-            this.grdFlatType.Size = new System.Drawing.Size(680, 428);
-            this.grdFlatType.TabIndex = 100;
-            this.grdFlatType.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.grdViewFType});
-            // 
-            // grdViewFType
-            // 
-            this.grdViewFType.Appearance.FooterPanel.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grdViewFType.Appearance.FooterPanel.Options.UseFont = true;
-            this.grdViewFType.Appearance.GroupFooter.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grdViewFType.Appearance.GroupFooter.Options.UseFont = true;
-            this.grdViewFType.Appearance.GroupRow.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grdViewFType.Appearance.GroupRow.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.grdViewFType.Appearance.GroupRow.Options.UseFont = true;
-            this.grdViewFType.Appearance.GroupRow.Options.UseForeColor = true;
-            this.grdViewFType.Appearance.HeaderPanel.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grdViewFType.Appearance.HeaderPanel.Options.UseFont = true;
-            this.grdViewFType.ColumnPanelRowHeight = 30;
-            this.grdViewFType.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
-            this.grdViewFType.GridControl = this.grdFlatType;
-            this.grdViewFType.IndicatorWidth = 60;
-            this.grdViewFType.Name = "grdViewFType";
-            this.grdViewFType.OptionsBehavior.Editable = false;
-            this.grdViewFType.OptionsBehavior.EditorShowMode = DevExpress.Utils.EditorShowMode.Click;
-            this.grdViewFType.OptionsNavigation.AutoFocusNewRow = true;
-            this.grdViewFType.OptionsView.ShowFooter = true;
-            this.grdViewFType.OptionsView.ShowGroupedColumns = true;
-            this.grdViewFType.OptionsView.ShowGroupExpandCollapseButtons = false;
-            this.grdViewFType.OptionsView.ShowGroupPanel = false;
-            this.grdViewFType.PaintStyleName = "Skin";
-            this.grdViewFType.RowCellClick += new DevExpress.XtraGrid.Views.Grid.RowCellClickEventHandler(this.grdViewFType_RowCellClick);
-            this.grdViewFType.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.grdViewFType_CustomDrawRowIndicator);
-            this.grdViewFType.FocusedRowChanged += new DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventHandler(this.grdViewFType_FocusedRowChanged);
-            // 
-            // standaloneBarDockControl2
-            // 
-            this.standaloneBarDockControl2.CausesValidation = false;
-            this.standaloneBarDockControl2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.standaloneBarDockControl2.Location = new System.Drawing.Point(0, 0);
-            this.standaloneBarDockControl2.Name = "standaloneBarDockControl2";
-            this.standaloneBarDockControl2.Size = new System.Drawing.Size(680, 26);
-            this.standaloneBarDockControl2.Text = "standaloneBarDockControl2";
-            // 
-            // dwFlat
-            // 
-            this.dwFlat.CloseAction = Telerik.WinControls.UI.Docking.DockWindowCloseAction.Hide;
-            this.dwFlat.Controls.Add(this.radPanel1);
-            this.dwFlat.Controls.Add(this.standaloneBarFDBtm);
-            this.dwFlat.Controls.Add(this.standaloneBarDockControl1);
-            this.dwFlat.DocumentButtons = Telerik.WinControls.UI.Docking.DocumentStripButtons.None;
-            this.dwFlat.Location = new System.Drawing.Point(6, 29);
-            this.dwFlat.Name = "dwFlat";
-            this.dwFlat.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
-            this.dwFlat.Size = new System.Drawing.Size(680, 454);
-            this.dwFlat.Text = "Flat Details";
-            this.dwFlat.Enter += new System.EventHandler(this.dwFlat_Enter);
-            this.dwFlat.Validating += new System.ComponentModel.CancelEventHandler(this.dwFlat_Validating);
-            // 
-            // radPanel1
-            // 
-            this.radPanel1.Controls.Add(this.tvFlat);
-            this.radPanel1.Controls.Add(this.splitterControl1);
-            this.radPanel1.Controls.Add(this.panelControl1);
-            this.radPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radPanel1.Location = new System.Drawing.Point(0, 53);
-            this.radPanel1.Name = "radPanel1";
-            this.radPanel1.Size = new System.Drawing.Size(680, 401);
-            this.radPanel1.TabIndex = 1;
-            this.radPanel1.Text = "radPanel1";
-            // 
-            // tvFlat
-            // 
-            this.tvFlat.Appearance.FocusedCell.BackColor = System.Drawing.Color.Teal;
-            this.tvFlat.Appearance.FocusedCell.ForeColor = System.Drawing.Color.White;
-            this.tvFlat.Appearance.FocusedCell.Options.UseBackColor = true;
-            this.tvFlat.Appearance.FocusedCell.Options.UseForeColor = true;
-            this.tvFlat.Appearance.FocusedRow.BackColor = System.Drawing.Color.Teal;
-            this.tvFlat.Appearance.FocusedRow.Options.UseBackColor = true;
-            this.tvFlat.Appearance.FooterPanel.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tvFlat.Appearance.FooterPanel.Options.UseFont = true;
-            this.tvFlat.Appearance.GroupFooter.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tvFlat.Appearance.GroupFooter.Options.UseFont = true;
-            this.tvFlat.Appearance.HeaderPanel.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tvFlat.Appearance.HeaderPanel.Options.UseFont = true;
-            this.tvFlat.Appearance.HideSelectionRow.BackColor = System.Drawing.Color.Teal;
-            this.tvFlat.Appearance.HideSelectionRow.ForeColor = System.Drawing.Color.White;
-            this.tvFlat.Appearance.HideSelectionRow.Options.UseBackColor = true;
-            this.tvFlat.Appearance.HideSelectionRow.Options.UseForeColor = true;
-            this.tvFlat.Appearance.SelectedRow.BackColor = System.Drawing.Color.Teal;
-            this.tvFlat.Appearance.SelectedRow.ForeColor = System.Drawing.Color.White;
-            this.tvFlat.Appearance.SelectedRow.Options.UseBackColor = true;
-            this.tvFlat.Appearance.SelectedRow.Options.UseForeColor = true;
-            this.tvFlat.ColumnPanelRowHeight = 30;
-            this.tvFlat.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tvFlat.FormatConditions.AddRange(new DevExpress.XtraTreeList.StyleFormatConditions.StyleFormatCondition[] {
-            styleFormatCondition7});
-            this.tvFlat.IndicatorWidth = 60;
-            this.tvFlat.Location = new System.Drawing.Point(0, 0);
-            this.tvFlat.LookAndFeel.SkinName = "Blue";
-            this.tvFlat.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.tvFlat.Name = "tvFlat";
-            this.tvFlat.BeginUnboundLoad();
-            this.tvFlat.AppendNode(new object[0], -1);
-            this.tvFlat.EndUnboundLoad();
-            this.tvFlat.OptionsBehavior.AllowCopyToClipboard = false;
-            this.tvFlat.OptionsBehavior.AllowIncrementalSearch = true;
-            this.tvFlat.OptionsBehavior.CopyToClipboardWithColumnHeaders = false;
-            this.tvFlat.OptionsBehavior.CopyToClipboardWithNodeHierarchy = false;
-            this.tvFlat.OptionsBehavior.Editable = false;
-            this.tvFlat.OptionsBehavior.EnableFiltering = true;
-            this.tvFlat.OptionsBehavior.EnterMovesNextColumn = true;
-            this.tvFlat.OptionsBehavior.ResizeNodes = false;
-            this.tvFlat.OptionsBehavior.SmartMouseHover = false;
-            this.tvFlat.OptionsBehavior.UseTabKey = true;
-            this.tvFlat.OptionsView.ShowAutoFilterRow = true;
-            this.tvFlat.OptionsView.ShowCheckBoxes = true;
-            this.tvFlat.OptionsView.ShowFocusedFrame = false;
-            this.tvFlat.OptionsView.ShowSummaryFooter = true;
-            this.tvFlat.Size = new System.Drawing.Size(680, 169);
-            this.tvFlat.StateImageList = this.imageCollection1;
-            this.tvFlat.TabIndex = 104;
-            this.tvFlat.GetStateImage += new DevExpress.XtraTreeList.GetStateImageEventHandler(this.tvFlat_GetStateImage);
-            this.tvFlat.NodeCellStyle += new DevExpress.XtraTreeList.GetCustomNodeCellStyleEventHandler(this.tvFlat_NodeCellStyle);
-            this.tvFlat.BeforeCheckNode += new DevExpress.XtraTreeList.CheckNodeEventHandler(this.tvFlat_BeforeCheckNode);
-            this.tvFlat.AfterCheckNode += new DevExpress.XtraTreeList.NodeEventHandler(this.tvFlat_AfterCheckNode);
-            this.tvFlat.FocusedNodeChanged += new DevExpress.XtraTreeList.FocusedNodeChangedEventHandler(this.tvFlat_FocusedNodeChanged);
-            this.tvFlat.CustomDrawNodeIndicator += new DevExpress.XtraTreeList.CustomDrawNodeIndicatorEventHandler(this.tvFlat_CustomDrawNodeIndicator);
-            this.tvFlat.FilterNode += new DevExpress.XtraTreeList.FilterNodeEventHandler(this.OnFilterNode);
-            // 
-            // imageCollection1
-            // 
-            this.imageCollection1.ImageStream = ((DevExpress.Utils.ImageCollectionStreamer)(resources.GetObject("imageCollection1.ImageStream")));
-            this.imageCollection1.Images.SetKeyName(0, "Main.png");
-            this.imageCollection1.Images.SetKeyName(1, "Block.png");
-            this.imageCollection1.Images.SetKeyName(2, "Flat.png");
-            // 
-            // splitterControl1
-            // 
-            this.splitterControl1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.splitterControl1.Location = new System.Drawing.Point(0, 169);
-            this.splitterControl1.LookAndFeel.SkinName = "Money Twins";
-            this.splitterControl1.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.splitterControl1.Name = "splitterControl1";
-            this.splitterControl1.Size = new System.Drawing.Size(680, 6);
-            this.splitterControl1.TabIndex = 105;
-            this.splitterControl1.TabStop = false;
-            // 
-            // panelControl1
-            // 
-            this.panelControl1.CausesValidation = false;
-            this.panelControl1.Controls.Add(this.radDock1);
-            this.panelControl1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelControl1.Location = new System.Drawing.Point(0, 175);
-            this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(680, 226);
-            this.panelControl1.TabIndex = 103;
-            // 
-            // radDock1
-            // 
-            this.radDock1.ActiveWindow = this.dwPayFlat;
-            this.radDock1.CausesValidation = false;
-            this.radDock1.Controls.Add(this.documentContainer3);
-            this.radDock1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radDock1.DocumentManager.DocumentInsertOrder = Telerik.WinControls.UI.Docking.DockWindowInsertOrder.InFront;
-            this.radDock1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radDock1.IsCleanUpTarget = true;
-            this.radDock1.Location = new System.Drawing.Point(2, 2);
-            this.radDock1.MainDocumentContainer = this.documentContainer3;
-            this.radDock1.Name = "radDock1";
-            this.radDock1.Padding = new System.Windows.Forms.Padding(5);
-            // 
-            // 
-            // 
-            this.radDock1.RootElement.MinSize = new System.Drawing.Size(25, 25);
-            this.radDock1.RootElement.Padding = new System.Windows.Forms.Padding(5);
-            this.radDock1.Size = new System.Drawing.Size(676, 222);
-            this.radDock1.SplitterWidth = 4;
-            this.radDock1.TabIndex = 0;
-            this.radDock1.TabStop = false;
-            this.radDock1.Text = "radDock1";
-            // 
-            // dwPayFlat
-            // 
-            this.dwPayFlat.CloseAction = Telerik.WinControls.UI.Docking.DockWindowCloseAction.Hide;
-            this.dwPayFlat.Controls.Add(this.grdPayFlat);
-            this.dwPayFlat.Controls.Add(this.standaloneBarDockControl3);
-            this.dwPayFlat.DocumentButtons = Telerik.WinControls.UI.Docking.DocumentStripButtons.None;
-            this.dwPayFlat.Location = new System.Drawing.Point(4, 4);
-            this.dwPayFlat.Name = "dwPayFlat";
-            this.dwPayFlat.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
-            this.dwPayFlat.Size = new System.Drawing.Size(658, 204);
-            this.dwPayFlat.Text = "PaymentSchedule";
-            // 
-            // grdPayFlat
-            // 
-            this.grdPayFlat.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdPayFlat.Location = new System.Drawing.Point(0, 0);
-            this.grdPayFlat.LookAndFeel.SkinName = "Blue";
-            this.grdPayFlat.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.grdPayFlat.MainView = this.grdViewPayFlat;
-            this.grdPayFlat.Name = "grdPayFlat";
-            this.grdPayFlat.Size = new System.Drawing.Size(658, 178);
-            this.grdPayFlat.TabIndex = 102;
-            this.grdPayFlat.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.grdViewPayFlat});
-            // 
-            // grdViewPayFlat
-            // 
-            this.grdViewPayFlat.Appearance.FooterPanel.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grdViewPayFlat.Appearance.FooterPanel.Options.UseFont = true;
-            this.grdViewPayFlat.Appearance.GroupFooter.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grdViewPayFlat.Appearance.GroupFooter.Options.UseFont = true;
-            this.grdViewPayFlat.Appearance.GroupRow.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grdViewPayFlat.Appearance.GroupRow.Options.UseFont = true;
-            this.grdViewPayFlat.Appearance.HeaderPanel.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grdViewPayFlat.Appearance.HeaderPanel.Options.UseFont = true;
-            this.grdViewPayFlat.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
-            this.grdViewPayFlat.GridControl = this.grdPayFlat;
-            this.grdViewPayFlat.IndicatorWidth = 50;
-            this.grdViewPayFlat.Name = "grdViewPayFlat";
-            this.grdViewPayFlat.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.False;
-            this.grdViewPayFlat.OptionsCustomization.AllowColumnMoving = false;
-            this.grdViewPayFlat.OptionsCustomization.AllowSort = false;
-            this.grdViewPayFlat.OptionsNavigation.AutoFocusNewRow = true;
-            this.grdViewPayFlat.OptionsNavigation.EnterMoveNextColumn = true;
-            this.grdViewPayFlat.OptionsView.ShowFooter = true;
-            this.grdViewPayFlat.OptionsView.ShowGroupedColumns = true;
-            this.grdViewPayFlat.OptionsView.ShowGroupExpandCollapseButtons = false;
-            this.grdViewPayFlat.OptionsView.ShowGroupPanel = false;
-            this.grdViewPayFlat.PaintStyleName = "Skin";
-            this.grdViewPayFlat.ShowButtonMode = DevExpress.XtraGrid.Views.Base.ShowButtonModeEnum.ShowAlways;
-            this.grdViewPayFlat.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.grdViewPayFlat_CustomDrawRowIndicator);
-            this.grdViewPayFlat.CustomDrawCell += new DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventHandler(this.grdViewPayFlat_CustomDrawCell);
-            this.grdViewPayFlat.CustomSummaryCalculate += new DevExpress.Data.CustomSummaryEventHandler(this.grdViewPayFlat_CustomSummaryCalculate);
-            this.grdViewPayFlat.ShowingEditor += new System.ComponentModel.CancelEventHandler(this.grdViewPayFlat_ShowingEditor);
-            // 
-            // standaloneBarDockControl3
-            // 
-            this.standaloneBarDockControl3.CausesValidation = false;
-            this.standaloneBarDockControl3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.standaloneBarDockControl3.Location = new System.Drawing.Point(0, 178);
-            this.standaloneBarDockControl3.Name = "standaloneBarDockControl3";
-            this.standaloneBarDockControl3.Size = new System.Drawing.Size(658, 26);
-            this.standaloneBarDockControl3.Text = "standaloneBarDockControl3";
-            // 
-            // documentContainer3
-            // 
-            this.documentContainer3.CausesValidation = false;
-            this.documentContainer3.Controls.Add(this.documentTabStrip3);
-            this.documentContainer3.Location = new System.Drawing.Point(5, 5);
-            this.documentContainer3.Name = "documentContainer3";
-            this.documentContainer3.Padding = new System.Windows.Forms.Padding(5);
-            // 
-            // 
-            // 
-            this.documentContainer3.RootElement.MinSize = new System.Drawing.Size(25, 25);
-            this.documentContainer3.RootElement.Padding = new System.Windows.Forms.Padding(5);
-            this.documentContainer3.Size = new System.Drawing.Size(666, 212);
-            this.documentContainer3.SizeInfo.SizeMode = Telerik.WinControls.UI.Docking.SplitPanelSizeMode.Fill;
-            this.documentContainer3.SplitterWidth = 4;
-            this.documentContainer3.TabIndex = 0;
-            this.documentContainer3.TabStop = false;
-            // 
-            // documentTabStrip3
-            // 
-            this.documentTabStrip3.AutoScroll = true;
-            this.documentTabStrip3.Controls.Add(this.dwPayFlat);
-            this.documentTabStrip3.Controls.Add(this.dwBuyerSt);
-            this.documentTabStrip3.Controls.Add(this.dwProgress);
-            this.documentTabStrip3.Controls.Add(this.dwExtraItem);
-            this.documentTabStrip3.Controls.Add(this.dwPayInfo);
-            this.documentTabStrip3.Location = new System.Drawing.Point(0, 0);
-            this.documentTabStrip3.Name = "documentTabStrip3";
-            // 
-            // 
-            // 
-            this.documentTabStrip3.RootElement.MinSize = new System.Drawing.Size(25, 25);
-            this.documentTabStrip3.SelectedIndex = 0;
-            this.documentTabStrip3.Size = new System.Drawing.Size(666, 212);
-            this.documentTabStrip3.TabIndex = 0;
-            this.documentTabStrip3.TabStop = false;
-            // 
-            // dwBuyerSt
-            // 
-            this.dwBuyerSt.CloseAction = Telerik.WinControls.UI.Docking.DockWindowCloseAction.Hide;
-            this.dwBuyerSt.Controls.Add(this.grdBuyer);
-            this.dwBuyerSt.Controls.Add(this.standaloneBarDockControl6);
-            this.dwBuyerSt.DocumentButtons = Telerik.WinControls.UI.Docking.DocumentStripButtons.None;
-            this.dwBuyerSt.Location = new System.Drawing.Point(6, 29);
-            this.dwBuyerSt.Name = "dwBuyerSt";
-            this.dwBuyerSt.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
-            this.dwBuyerSt.Size = new System.Drawing.Size(654, 177);
-            this.dwBuyerSt.Text = "BuyerStmt";
-            // 
-            // grdBuyer
-            // 
-            this.grdBuyer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdBuyer.Location = new System.Drawing.Point(0, 0);
-            this.grdBuyer.LookAndFeel.SkinName = "Blue";
-            this.grdBuyer.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.grdBuyer.MainView = this.grdViewBuyer;
-            this.grdBuyer.Name = "grdBuyer";
-            this.grdBuyer.Size = new System.Drawing.Size(654, 151);
-            this.grdBuyer.TabIndex = 105;
-            this.grdBuyer.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.grdViewBuyer});
-            // 
-            // grdViewBuyer
-            // 
-            this.grdViewBuyer.Appearance.FooterPanel.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grdViewBuyer.Appearance.FooterPanel.Options.UseFont = true;
-            this.grdViewBuyer.Appearance.GroupFooter.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grdViewBuyer.Appearance.GroupFooter.Options.UseFont = true;
-            this.grdViewBuyer.Appearance.GroupRow.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grdViewBuyer.Appearance.GroupRow.Options.UseFont = true;
-            this.grdViewBuyer.Appearance.HeaderPanel.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grdViewBuyer.Appearance.HeaderPanel.Options.UseFont = true;
-            this.grdViewBuyer.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
-            this.grdViewBuyer.GridControl = this.grdBuyer;
-            this.grdViewBuyer.IndicatorWidth = 50;
-            this.grdViewBuyer.Name = "grdViewBuyer";
-            this.grdViewBuyer.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.False;
-            this.grdViewBuyer.OptionsBehavior.Editable = false;
-            this.grdViewBuyer.OptionsBehavior.ReadOnly = true;
-            this.grdViewBuyer.OptionsCustomization.AllowColumnMoving = false;
-            this.grdViewBuyer.OptionsCustomization.AllowSort = false;
-            this.grdViewBuyer.OptionsNavigation.AutoFocusNewRow = true;
-            this.grdViewBuyer.OptionsView.ShowFooter = true;
-            this.grdViewBuyer.OptionsView.ShowGroupedColumns = true;
-            this.grdViewBuyer.OptionsView.ShowGroupExpandCollapseButtons = false;
-            this.grdViewBuyer.OptionsView.ShowGroupPanel = false;
-            this.grdViewBuyer.PaintStyleName = "Skin";
-            this.grdViewBuyer.ShowButtonMode = DevExpress.XtraGrid.Views.Base.ShowButtonModeEnum.ShowAlways;
-            this.grdViewBuyer.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.grdViewBuyer_CustomDrawRowIndicator);
-            this.grdViewBuyer.CustomSummaryCalculate += new DevExpress.Data.CustomSummaryEventHandler(this.grdViewBuyer_CustomSummaryCalculate);
-            // 
-            // standaloneBarDockControl6
-            // 
-            this.standaloneBarDockControl6.CausesValidation = false;
-            this.standaloneBarDockControl6.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.standaloneBarDockControl6.Location = new System.Drawing.Point(0, 151);
-            this.standaloneBarDockControl6.Name = "standaloneBarDockControl6";
-            this.standaloneBarDockControl6.Size = new System.Drawing.Size(654, 26);
-            this.standaloneBarDockControl6.Text = "standaloneBarDockControl6";
-            // 
-            // dwProgress
-            // 
-            this.dwProgress.CloseAction = Telerik.WinControls.UI.Docking.DockWindowCloseAction.Hide;
-            this.dwProgress.Controls.Add(this.panelProgress);
-            this.dwProgress.Controls.Add(this.standaloneBarDockControl5);
-            this.dwProgress.DocumentButtons = Telerik.WinControls.UI.Docking.DocumentStripButtons.None;
-            this.dwProgress.Location = new System.Drawing.Point(6, 29);
-            this.dwProgress.Name = "dwProgress";
-            this.dwProgress.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
-            this.dwProgress.Size = new System.Drawing.Size(654, 177);
-            this.dwProgress.Text = "CheckListProgress";
-            // 
-            // panelProgress
-            // 
-            this.panelProgress.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelProgress.Location = new System.Drawing.Point(0, 25);
-            this.panelProgress.Name = "panelProgress";
-            this.panelProgress.Size = new System.Drawing.Size(654, 152);
-            this.panelProgress.TabIndex = 0;
-            // 
-            // standaloneBarDockControl5
-            // 
-            this.standaloneBarDockControl5.CausesValidation = false;
-            this.standaloneBarDockControl5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.standaloneBarDockControl5.Location = new System.Drawing.Point(0, 0);
-            this.standaloneBarDockControl5.Name = "standaloneBarDockControl5";
-            this.standaloneBarDockControl5.Size = new System.Drawing.Size(654, 25);
-            this.standaloneBarDockControl5.Text = "standaloneBarDockControl5";
-            // 
-            // dwExtraItem
-            // 
-            this.dwExtraItem.CloseAction = Telerik.WinControls.UI.Docking.DockWindowCloseAction.Hide;
-            this.dwExtraItem.Controls.Add(this.grdExtra);
-            this.dwExtraItem.Controls.Add(this.standaloneBarDockControl10);
-            this.dwExtraItem.DocumentButtons = Telerik.WinControls.UI.Docking.DocumentStripButtons.None;
-            this.dwExtraItem.Location = new System.Drawing.Point(6, 29);
-            this.dwExtraItem.Name = "dwExtraItem";
-            this.dwExtraItem.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
-            this.dwExtraItem.Size = new System.Drawing.Size(654, 177);
-            this.dwExtraItem.Text = "ExtraItems";
-            // 
-            // grdExtra
-            // 
-            this.grdExtra.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdExtra.Location = new System.Drawing.Point(0, 26);
-            this.grdExtra.LookAndFeel.SkinName = "Blue";
-            this.grdExtra.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.grdExtra.MainView = this.grdViewExtra;
-            this.grdExtra.Name = "grdExtra";
-            this.grdExtra.Size = new System.Drawing.Size(654, 151);
-            this.grdExtra.TabIndex = 103;
-            this.grdExtra.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.grdViewExtra});
-            // 
-            // grdViewExtra
-            // 
-            this.grdViewExtra.Appearance.FooterPanel.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grdViewExtra.Appearance.FooterPanel.Options.UseFont = true;
-            this.grdViewExtra.Appearance.GroupFooter.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grdViewExtra.Appearance.GroupFooter.Options.UseFont = true;
-            this.grdViewExtra.Appearance.GroupRow.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grdViewExtra.Appearance.GroupRow.Options.UseFont = true;
-            this.grdViewExtra.Appearance.HeaderPanel.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grdViewExtra.Appearance.HeaderPanel.Options.UseFont = true;
-            this.grdViewExtra.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
-            this.grdViewExtra.GridControl = this.grdExtra;
-            this.grdViewExtra.IndicatorWidth = 50;
-            this.grdViewExtra.Name = "grdViewExtra";
-            this.grdViewExtra.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.False;
-            this.grdViewExtra.OptionsCustomization.AllowColumnMoving = false;
-            this.grdViewExtra.OptionsCustomization.AllowSort = false;
-            this.grdViewExtra.OptionsNavigation.AutoFocusNewRow = true;
-            this.grdViewExtra.OptionsView.ShowFooter = true;
-            this.grdViewExtra.OptionsView.ShowGroupedColumns = true;
-            this.grdViewExtra.OptionsView.ShowGroupExpandCollapseButtons = false;
-            this.grdViewExtra.OptionsView.ShowGroupPanel = false;
-            this.grdViewExtra.PaintStyleName = "Skin";
-            this.grdViewExtra.ShowButtonMode = DevExpress.XtraGrid.Views.Base.ShowButtonModeEnum.ShowAlways;
-            this.grdViewExtra.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.grdViewExtra_CustomDrawRowIndicator);
-            this.grdViewExtra.HiddenEditor += new System.EventHandler(this.grdViewExtra_HiddenEditor);
-            // 
-            // standaloneBarDockControl10
-            // 
-            this.standaloneBarDockControl10.AutoSize = true;
-            this.standaloneBarDockControl10.CausesValidation = false;
-            this.standaloneBarDockControl10.Dock = System.Windows.Forms.DockStyle.Top;
-            this.standaloneBarDockControl10.Location = new System.Drawing.Point(0, 0);
-            this.standaloneBarDockControl10.Name = "standaloneBarDockControl10";
-            this.standaloneBarDockControl10.Size = new System.Drawing.Size(654, 26);
-            this.standaloneBarDockControl10.Text = "standaloneBarDockControl10";
-            // 
-            // dwPayInfo
-            // 
-            this.dwPayInfo.CloseAction = Telerik.WinControls.UI.Docking.DockWindowCloseAction.Hide;
-            this.dwPayInfo.Controls.Add(this.grdPayInfo);
-            this.dwPayInfo.Controls.Add(this.standaloneBarDockControl8);
-            this.dwPayInfo.DocumentButtons = Telerik.WinControls.UI.Docking.DocumentStripButtons.None;
-            this.dwPayInfo.Location = new System.Drawing.Point(6, 29);
-            this.dwPayInfo.Name = "dwPayInfo";
-            this.dwPayInfo.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
-            this.dwPayInfo.Size = new System.Drawing.Size(654, 177);
-            this.dwPayInfo.Text = "PaymentInfo";
-            // 
-            // grdPayInfo
-            // 
-            this.grdPayInfo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdPayInfo.Location = new System.Drawing.Point(0, 26);
-            this.grdPayInfo.LookAndFeel.SkinName = "Blue";
-            this.grdPayInfo.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.grdPayInfo.MainView = this.grdViewPayInfo;
-            this.grdPayInfo.Name = "grdPayInfo";
-            this.grdPayInfo.Size = new System.Drawing.Size(654, 151);
-            this.grdPayInfo.TabIndex = 104;
-            this.grdPayInfo.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.grdViewPayInfo});
-            // 
-            // grdViewPayInfo
-            // 
-            this.grdViewPayInfo.Appearance.FooterPanel.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grdViewPayInfo.Appearance.FooterPanel.Options.UseFont = true;
-            this.grdViewPayInfo.Appearance.GroupFooter.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grdViewPayInfo.Appearance.GroupFooter.Options.UseFont = true;
-            this.grdViewPayInfo.Appearance.GroupRow.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grdViewPayInfo.Appearance.GroupRow.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.grdViewPayInfo.Appearance.GroupRow.Options.UseFont = true;
-            this.grdViewPayInfo.Appearance.GroupRow.Options.UseForeColor = true;
-            this.grdViewPayInfo.Appearance.HeaderPanel.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grdViewPayInfo.Appearance.HeaderPanel.Options.UseFont = true;
-            this.grdViewPayInfo.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
-            this.grdViewPayInfo.GridControl = this.grdPayInfo;
-            this.grdViewPayInfo.IndicatorWidth = 50;
-            this.grdViewPayInfo.Name = "grdViewPayInfo";
-            this.grdViewPayInfo.OptionsBehavior.Editable = false;
-            this.grdViewPayInfo.OptionsBehavior.ReadOnly = true;
-            this.grdViewPayInfo.OptionsCustomization.AllowColumnMoving = false;
-            this.grdViewPayInfo.OptionsCustomization.AllowSort = false;
-            this.grdViewPayInfo.OptionsNavigation.AutoFocusNewRow = true;
-            this.grdViewPayInfo.OptionsView.ShowFooter = true;
-            this.grdViewPayInfo.OptionsView.ShowGroupedColumns = true;
-            this.grdViewPayInfo.OptionsView.ShowGroupExpandCollapseButtons = false;
-            this.grdViewPayInfo.OptionsView.ShowGroupPanel = false;
-            this.grdViewPayInfo.PaintStyleName = "Skin";
-            this.grdViewPayInfo.ShowButtonMode = DevExpress.XtraGrid.Views.Base.ShowButtonModeEnum.ShowAlways;
-            this.grdViewPayInfo.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.grdViewPayInfo_CustomDrawRowIndicator);
-            // 
-            // standaloneBarDockControl8
-            // 
-            this.standaloneBarDockControl8.CausesValidation = false;
-            this.standaloneBarDockControl8.Dock = System.Windows.Forms.DockStyle.Top;
-            this.standaloneBarDockControl8.Location = new System.Drawing.Point(0, 0);
-            this.standaloneBarDockControl8.Name = "standaloneBarDockControl8";
-            this.standaloneBarDockControl8.Size = new System.Drawing.Size(654, 26);
-            this.standaloneBarDockControl8.Text = "standaloneBarDockControl8";
-            // 
-            // standaloneBarFDBtm
-            // 
-            this.standaloneBarFDBtm.CausesValidation = false;
-            this.standaloneBarFDBtm.Dock = System.Windows.Forms.DockStyle.Top;
-            this.standaloneBarFDBtm.Location = new System.Drawing.Point(0, 27);
-            this.standaloneBarFDBtm.Name = "standaloneBarFDBtm";
-            this.standaloneBarFDBtm.Size = new System.Drawing.Size(680, 26);
-            this.standaloneBarFDBtm.Text = "standaloneBarDockControl10";
-            // 
-            // standaloneBarDockControl1
-            // 
-            this.standaloneBarDockControl1.CausesValidation = false;
-            this.standaloneBarDockControl1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.standaloneBarDockControl1.Location = new System.Drawing.Point(0, 0);
-            this.standaloneBarDockControl1.Name = "standaloneBarDockControl1";
-            this.standaloneBarDockControl1.Size = new System.Drawing.Size(680, 27);
-            this.standaloneBarDockControl1.Text = "standaloneBarDockControl1";
             // 
             // dwPaySch
             // 
@@ -1133,6 +513,28 @@
             this.radPanel5.Name = "radPanel5";
             this.radPanel5.Size = new System.Drawing.Size(680, 114);
             this.radPanel5.TabIndex = 6;
+            // 
+            // txtPaySchNoOfMonths
+            // 
+            this.txtPaySchNoOfMonths.EditValue = "0";
+            this.txtPaySchNoOfMonths.Enabled = false;
+            this.txtPaySchNoOfMonths.EnterMoveNextControl = true;
+            this.txtPaySchNoOfMonths.Location = new System.Drawing.Point(107, 87);
+            this.txtPaySchNoOfMonths.MenuManager = this.barManager1;
+            this.txtPaySchNoOfMonths.Name = "txtPaySchNoOfMonths";
+            this.txtPaySchNoOfMonths.Properties.Appearance.Options.UseTextOptions = true;
+            this.txtPaySchNoOfMonths.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            this.txtPaySchNoOfMonths.Properties.AppearanceDisabled.Options.UseTextOptions = true;
+            this.txtPaySchNoOfMonths.Properties.AppearanceDisabled.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            this.txtPaySchNoOfMonths.Properties.LookAndFeel.SkinName = "Money Twins";
+            this.txtPaySchNoOfMonths.Properties.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.txtPaySchNoOfMonths.Properties.Mask.EditMask = "n0";
+            this.txtPaySchNoOfMonths.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
+            this.txtPaySchNoOfMonths.Properties.Mask.UseMaskAsDisplayFormat = true;
+            this.txtPaySchNoOfMonths.Properties.ValidateOnEnterKey = true;
+            this.txtPaySchNoOfMonths.Size = new System.Drawing.Size(176, 20);
+            this.txtPaySchNoOfMonths.TabIndex = 13;
+            this.txtPaySchNoOfMonths.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPaySchNoOfMonths_KeyPress);
             // 
             // barManager1
             // 
@@ -1368,6 +770,15 @@
             this.barButtonItem11.Name = "barButtonItem11";
             this.barButtonItem11.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem11_ItemClick_1);
             // 
+            // standaloneBarDockControl1
+            // 
+            this.standaloneBarDockControl1.CausesValidation = false;
+            this.standaloneBarDockControl1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.standaloneBarDockControl1.Location = new System.Drawing.Point(0, 0);
+            this.standaloneBarDockControl1.Name = "standaloneBarDockControl1";
+            this.standaloneBarDockControl1.Size = new System.Drawing.Size(680, 27);
+            this.standaloneBarDockControl1.Text = "standaloneBarDockControl1";
+            // 
             // bar2
             // 
             this.bar2.BarName = "Custom 2";
@@ -1444,6 +855,15 @@
             this.barButtonItem16.Id = 163;
             this.barButtonItem16.Name = "barButtonItem16";
             this.barButtonItem16.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem16_ItemClick_1);
+            // 
+            // standaloneBarDockControl2
+            // 
+            this.standaloneBarDockControl2.CausesValidation = false;
+            this.standaloneBarDockControl2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.standaloneBarDockControl2.Location = new System.Drawing.Point(0, 0);
+            this.standaloneBarDockControl2.Name = "standaloneBarDockControl2";
+            this.standaloneBarDockControl2.Size = new System.Drawing.Size(680, 26);
+            this.standaloneBarDockControl2.Text = "standaloneBarDockControl2";
             // 
             // bar3
             // 
@@ -1701,6 +1121,15 @@
             this.btnProjUDS.Name = "btnProjUDS";
             this.btnProjUDS.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnProjUDS_ItemClick);
             // 
+            // standaloneBarDockControl7
+            // 
+            this.standaloneBarDockControl7.CausesValidation = false;
+            this.standaloneBarDockControl7.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.standaloneBarDockControl7.Location = new System.Drawing.Point(0, 428);
+            this.standaloneBarDockControl7.Name = "standaloneBarDockControl7";
+            this.standaloneBarDockControl7.Size = new System.Drawing.Size(680, 26);
+            this.standaloneBarDockControl7.Text = "standaloneBarDockControl7";
+            // 
             // bar4
             // 
             this.bar4.BarName = "Custom 6";
@@ -1859,6 +1288,15 @@
             this.btnCost.Name = "btnCost";
             this.btnCost.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnCost_ItemClick);
             // 
+            // standaloneBarDockControl3
+            // 
+            this.standaloneBarDockControl3.CausesValidation = false;
+            this.standaloneBarDockControl3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.standaloneBarDockControl3.Location = new System.Drawing.Point(0, 178);
+            this.standaloneBarDockControl3.Name = "standaloneBarDockControl3";
+            this.standaloneBarDockControl3.Size = new System.Drawing.Size(658, 26);
+            this.standaloneBarDockControl3.Text = "standaloneBarDockControl3";
+            // 
             // bar11
             // 
             this.bar11.BarName = "Custom 9";
@@ -1898,6 +1336,15 @@
             this.repositoryItemComboBox1.Name = "repositoryItemComboBox1";
             this.repositoryItemComboBox1.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.repositoryItemComboBox1.ValidateOnEnterKey = true;
+            // 
+            // standaloneBarDockControl5
+            // 
+            this.standaloneBarDockControl5.CausesValidation = false;
+            this.standaloneBarDockControl5.Dock = System.Windows.Forms.DockStyle.Top;
+            this.standaloneBarDockControl5.Location = new System.Drawing.Point(0, 0);
+            this.standaloneBarDockControl5.Name = "standaloneBarDockControl5";
+            this.standaloneBarDockControl5.Size = new System.Drawing.Size(654, 25);
+            this.standaloneBarDockControl5.Text = "standaloneBarDockControl5";
             // 
             // bar12
             // 
@@ -1991,6 +1438,15 @@
             this.btnBuyerStmt.Name = "btnBuyerStmt";
             this.btnBuyerStmt.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnBuyerStmt_ItemClick);
             // 
+            // standaloneBarDockControl6
+            // 
+            this.standaloneBarDockControl6.CausesValidation = false;
+            this.standaloneBarDockControl6.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.standaloneBarDockControl6.Location = new System.Drawing.Point(0, 151);
+            this.standaloneBarDockControl6.Name = "standaloneBarDockControl6";
+            this.standaloneBarDockControl6.Size = new System.Drawing.Size(654, 26);
+            this.standaloneBarDockControl6.Text = "standaloneBarDockControl6";
+            // 
             // bar13
             // 
             this.bar13.BarAppearance.Normal.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -2043,6 +1499,15 @@
             this.btnPIPrint.Id = 144;
             this.btnPIPrint.Name = "btnPIPrint";
             this.btnPIPrint.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnPIPrint_ItemClick);
+            // 
+            // standaloneBarDockControl8
+            // 
+            this.standaloneBarDockControl8.CausesValidation = false;
+            this.standaloneBarDockControl8.Dock = System.Windows.Forms.DockStyle.Top;
+            this.standaloneBarDockControl8.Location = new System.Drawing.Point(0, 0);
+            this.standaloneBarDockControl8.Name = "standaloneBarDockControl8";
+            this.standaloneBarDockControl8.Size = new System.Drawing.Size(654, 26);
+            this.standaloneBarDockControl8.Text = "standaloneBarDockControl8";
             // 
             // bar14
             // 
@@ -2251,6 +1716,15 @@
             this.barButtonItem2.Name = "barButtonItem2";
             this.barButtonItem2.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem2_ItemClick_1);
             // 
+            // standaloneBarFDBtm
+            // 
+            this.standaloneBarFDBtm.CausesValidation = false;
+            this.standaloneBarFDBtm.Dock = System.Windows.Forms.DockStyle.Top;
+            this.standaloneBarFDBtm.Location = new System.Drawing.Point(0, 27);
+            this.standaloneBarFDBtm.Name = "standaloneBarFDBtm";
+            this.standaloneBarFDBtm.Size = new System.Drawing.Size(680, 26);
+            this.standaloneBarFDBtm.Text = "standaloneBarDockControl10";
+            // 
             // bar15
             // 
             this.bar15.BarName = "Custom 14";
@@ -2273,6 +1747,16 @@
             this.barButtonItem17.Id = 164;
             this.barButtonItem17.Name = "barButtonItem17";
             this.barButtonItem17.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem17_ItemClick);
+            // 
+            // standaloneBarDockControl10
+            // 
+            this.standaloneBarDockControl10.AutoSize = true;
+            this.standaloneBarDockControl10.CausesValidation = false;
+            this.standaloneBarDockControl10.Dock = System.Windows.Forms.DockStyle.Top;
+            this.standaloneBarDockControl10.Location = new System.Drawing.Point(0, 0);
+            this.standaloneBarDockControl10.Name = "standaloneBarDockControl10";
+            this.standaloneBarDockControl10.Size = new System.Drawing.Size(654, 26);
+            this.standaloneBarDockControl10.Text = "standaloneBarDockControl10";
             // 
             // barAndDockingController1
             // 
@@ -2573,28 +2057,6 @@
             this.repositoryItemLookUpEdit11.Name = "repositoryItemLookUpEdit11";
             this.repositoryItemLookUpEdit11.NullText = "None";
             // 
-            // txtPaySchNoOfMonths
-            // 
-            this.txtPaySchNoOfMonths.EditValue = "0";
-            this.txtPaySchNoOfMonths.Enabled = false;
-            this.txtPaySchNoOfMonths.EnterMoveNextControl = true;
-            this.txtPaySchNoOfMonths.Location = new System.Drawing.Point(107, 87);
-            this.txtPaySchNoOfMonths.MenuManager = this.barManager1;
-            this.txtPaySchNoOfMonths.Name = "txtPaySchNoOfMonths";
-            this.txtPaySchNoOfMonths.Properties.Appearance.Options.UseTextOptions = true;
-            this.txtPaySchNoOfMonths.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.txtPaySchNoOfMonths.Properties.AppearanceDisabled.Options.UseTextOptions = true;
-            this.txtPaySchNoOfMonths.Properties.AppearanceDisabled.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.txtPaySchNoOfMonths.Properties.LookAndFeel.SkinName = "Money Twins";
-            this.txtPaySchNoOfMonths.Properties.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.txtPaySchNoOfMonths.Properties.Mask.EditMask = "n0";
-            this.txtPaySchNoOfMonths.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
-            this.txtPaySchNoOfMonths.Properties.Mask.UseMaskAsDisplayFormat = true;
-            this.txtPaySchNoOfMonths.Properties.ValidateOnEnterKey = true;
-            this.txtPaySchNoOfMonths.Size = new System.Drawing.Size(176, 20);
-            this.txtPaySchNoOfMonths.TabIndex = 13;
-            this.txtPaySchNoOfMonths.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPaySchNoOfMonths_KeyPress);
-            // 
             // labelControl8
             // 
             this.labelControl8.Location = new System.Drawing.Point(13, 90);
@@ -2722,6 +2184,544 @@
             this.chkcboPayFlatType.TabIndex = 1;
             this.chkcboPayFlatType.EditValueChanged += new System.EventHandler(this.CCBFlatType_EditValueChanged);
             // 
+            // documentContainer1
+            // 
+            this.documentContainer1.CausesValidation = false;
+            this.documentContainer1.Controls.Add(this.documentTabStrip1);
+            this.documentContainer1.Location = new System.Drawing.Point(5, 5);
+            this.documentContainer1.Name = "documentContainer1";
+            this.documentContainer1.Padding = new System.Windows.Forms.Padding(5);
+            // 
+            // 
+            // 
+            this.documentContainer1.RootElement.MinSize = new System.Drawing.Size(25, 25);
+            this.documentContainer1.RootElement.Padding = new System.Windows.Forms.Padding(5);
+            this.documentContainer1.Size = new System.Drawing.Size(692, 489);
+            this.documentContainer1.SizeInfo.AbsoluteSize = new System.Drawing.Size(692, 200);
+            this.documentContainer1.SizeInfo.SizeMode = Telerik.WinControls.UI.Docking.SplitPanelSizeMode.Fill;
+            this.documentContainer1.SizeInfo.SplitterCorrection = new System.Drawing.Size(-105, 0);
+            this.documentContainer1.SplitterWidth = 4;
+            this.documentContainer1.TabIndex = 0;
+            this.documentContainer1.TabStop = false;
+            // 
+            // documentTabStrip1
+            // 
+            this.documentTabStrip1.CausesValidation = false;
+            this.documentTabStrip1.Controls.Add(this.dwProjInfo);
+            this.documentTabStrip1.Controls.Add(this.dwFlatType);
+            this.documentTabStrip1.Controls.Add(this.dwFlat);
+            this.documentTabStrip1.Controls.Add(this.dwPaySch);
+            this.documentTabStrip1.Controls.Add(this.dwFlatTemp);
+            this.documentTabStrip1.Location = new System.Drawing.Point(0, 0);
+            this.documentTabStrip1.Name = "documentTabStrip1";
+            // 
+            // 
+            // 
+            this.documentTabStrip1.RootElement.MinSize = new System.Drawing.Size(25, 25);
+            this.documentTabStrip1.SelectedIndex = 0;
+            this.documentTabStrip1.Size = new System.Drawing.Size(692, 489);
+            this.documentTabStrip1.TabIndex = 0;
+            this.documentTabStrip1.TabStop = false;
+            // 
+            // dwProjInfo
+            // 
+            this.dwProjInfo.CloseAction = Telerik.WinControls.UI.Docking.DockWindowCloseAction.Hide;
+            this.dwProjInfo.Controls.Add(this.panelProjectInfo);
+            this.dwProjInfo.Controls.Add(this.standaloneBarDockControl7);
+            this.dwProjInfo.DocumentButtons = Telerik.WinControls.UI.Docking.DocumentStripButtons.None;
+            this.dwProjInfo.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dwProjInfo.Location = new System.Drawing.Point(6, 29);
+            this.dwProjInfo.Name = "dwProjInfo";
+            this.dwProjInfo.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
+            this.dwProjInfo.Size = new System.Drawing.Size(680, 454);
+            this.dwProjInfo.Text = "Project Info";
+            this.dwProjInfo.Enter += new System.EventHandler(this.dwProjInfo_Enter);
+            this.dwProjInfo.Validating += new System.ComponentModel.CancelEventHandler(this.dwProjInfo_Validating);
+            // 
+            // panelProjectInfo
+            // 
+            this.panelProjectInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelProjectInfo.Location = new System.Drawing.Point(0, 0);
+            this.panelProjectInfo.Name = "panelProjectInfo";
+            this.panelProjectInfo.Size = new System.Drawing.Size(680, 428);
+            this.panelProjectInfo.TabIndex = 0;
+            // 
+            // dwFlatType
+            // 
+            this.dwFlatType.CloseAction = Telerik.WinControls.UI.Docking.DockWindowCloseAction.Hide;
+            this.dwFlatType.Controls.Add(this.PanelFlatTypeUnit);
+            this.dwFlatType.Controls.Add(this.standaloneBarDockControl2);
+            this.dwFlatType.DocumentButtons = Telerik.WinControls.UI.Docking.DocumentStripButtons.None;
+            this.dwFlatType.Location = new System.Drawing.Point(6, 29);
+            this.dwFlatType.Name = "dwFlatType";
+            this.dwFlatType.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
+            this.dwFlatType.Size = new System.Drawing.Size(680, 454);
+            this.dwFlatType.Text = "Flat Type";
+            this.dwFlatType.Enter += new System.EventHandler(this.dwFlatType_Enter);
+            // 
+            // PanelFlatTypeUnit
+            // 
+            this.PanelFlatTypeUnit.CausesValidation = false;
+            this.PanelFlatTypeUnit.Controls.Add(this.grdFlatType);
+            this.PanelFlatTypeUnit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PanelFlatTypeUnit.Location = new System.Drawing.Point(0, 26);
+            this.PanelFlatTypeUnit.Name = "PanelFlatTypeUnit";
+            this.PanelFlatTypeUnit.Size = new System.Drawing.Size(680, 428);
+            this.PanelFlatTypeUnit.TabIndex = 101;
+            this.PanelFlatTypeUnit.Text = "radPanel3";
+            // 
+            // grdFlatType
+            // 
+            this.grdFlatType.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdFlatType.Location = new System.Drawing.Point(0, 0);
+            this.grdFlatType.LookAndFeel.SkinName = "Blue";
+            this.grdFlatType.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.grdFlatType.MainView = this.grdViewFType;
+            this.grdFlatType.Name = "grdFlatType";
+            this.grdFlatType.Size = new System.Drawing.Size(680, 428);
+            this.grdFlatType.TabIndex = 100;
+            this.grdFlatType.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.grdViewFType});
+            // 
+            // grdViewFType
+            // 
+            this.grdViewFType.Appearance.FooterPanel.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grdViewFType.Appearance.FooterPanel.Options.UseFont = true;
+            this.grdViewFType.Appearance.GroupFooter.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grdViewFType.Appearance.GroupFooter.Options.UseFont = true;
+            this.grdViewFType.Appearance.GroupRow.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grdViewFType.Appearance.GroupRow.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.grdViewFType.Appearance.GroupRow.Options.UseFont = true;
+            this.grdViewFType.Appearance.GroupRow.Options.UseForeColor = true;
+            this.grdViewFType.Appearance.HeaderPanel.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grdViewFType.Appearance.HeaderPanel.Options.UseFont = true;
+            this.grdViewFType.ColumnPanelRowHeight = 30;
+            this.grdViewFType.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
+            this.grdViewFType.GridControl = this.grdFlatType;
+            this.grdViewFType.IndicatorWidth = 60;
+            this.grdViewFType.Name = "grdViewFType";
+            this.grdViewFType.OptionsBehavior.Editable = false;
+            this.grdViewFType.OptionsBehavior.EditorShowMode = DevExpress.Utils.EditorShowMode.Click;
+            this.grdViewFType.OptionsNavigation.AutoFocusNewRow = true;
+            this.grdViewFType.OptionsView.ShowFooter = true;
+            this.grdViewFType.OptionsView.ShowGroupedColumns = true;
+            this.grdViewFType.OptionsView.ShowGroupExpandCollapseButtons = false;
+            this.grdViewFType.OptionsView.ShowGroupPanel = false;
+            this.grdViewFType.PaintStyleName = "Skin";
+            this.grdViewFType.RowCellClick += new DevExpress.XtraGrid.Views.Grid.RowCellClickEventHandler(this.grdViewFType_RowCellClick);
+            this.grdViewFType.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.grdViewFType_CustomDrawRowIndicator);
+            this.grdViewFType.FocusedRowChanged += new DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventHandler(this.grdViewFType_FocusedRowChanged);
+            // 
+            // dwFlat
+            // 
+            this.dwFlat.CloseAction = Telerik.WinControls.UI.Docking.DockWindowCloseAction.Hide;
+            this.dwFlat.Controls.Add(this.radPanel1);
+            this.dwFlat.Controls.Add(this.standaloneBarFDBtm);
+            this.dwFlat.Controls.Add(this.standaloneBarDockControl1);
+            this.dwFlat.DocumentButtons = Telerik.WinControls.UI.Docking.DocumentStripButtons.None;
+            this.dwFlat.Location = new System.Drawing.Point(6, 29);
+            this.dwFlat.Name = "dwFlat";
+            this.dwFlat.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
+            this.dwFlat.Size = new System.Drawing.Size(680, 454);
+            this.dwFlat.Text = "Flat Details";
+            this.dwFlat.Enter += new System.EventHandler(this.dwFlat_Enter);
+            this.dwFlat.Validating += new System.ComponentModel.CancelEventHandler(this.dwFlat_Validating);
+            // 
+            // radPanel1
+            // 
+            this.radPanel1.Controls.Add(this.tvFlat);
+            this.radPanel1.Controls.Add(this.splitterControl1);
+            this.radPanel1.Controls.Add(this.panelControl1);
+            this.radPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.radPanel1.Location = new System.Drawing.Point(0, 53);
+            this.radPanel1.Name = "radPanel1";
+            this.radPanel1.Size = new System.Drawing.Size(680, 401);
+            this.radPanel1.TabIndex = 1;
+            this.radPanel1.Text = "radPanel1";
+            // 
+            // tvFlat
+            // 
+            this.tvFlat.Appearance.FocusedCell.BackColor = System.Drawing.Color.Teal;
+            this.tvFlat.Appearance.FocusedCell.ForeColor = System.Drawing.Color.White;
+            this.tvFlat.Appearance.FocusedCell.Options.UseBackColor = true;
+            this.tvFlat.Appearance.FocusedCell.Options.UseForeColor = true;
+            this.tvFlat.Appearance.FocusedRow.BackColor = System.Drawing.Color.Teal;
+            this.tvFlat.Appearance.FocusedRow.Options.UseBackColor = true;
+            this.tvFlat.Appearance.FooterPanel.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tvFlat.Appearance.FooterPanel.Options.UseFont = true;
+            this.tvFlat.Appearance.GroupFooter.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tvFlat.Appearance.GroupFooter.Options.UseFont = true;
+            this.tvFlat.Appearance.HeaderPanel.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tvFlat.Appearance.HeaderPanel.Options.UseFont = true;
+            this.tvFlat.Appearance.HideSelectionRow.BackColor = System.Drawing.Color.Teal;
+            this.tvFlat.Appearance.HideSelectionRow.ForeColor = System.Drawing.Color.White;
+            this.tvFlat.Appearance.HideSelectionRow.Options.UseBackColor = true;
+            this.tvFlat.Appearance.HideSelectionRow.Options.UseForeColor = true;
+            this.tvFlat.Appearance.SelectedRow.BackColor = System.Drawing.Color.Teal;
+            this.tvFlat.Appearance.SelectedRow.ForeColor = System.Drawing.Color.White;
+            this.tvFlat.Appearance.SelectedRow.Options.UseBackColor = true;
+            this.tvFlat.Appearance.SelectedRow.Options.UseForeColor = true;
+            this.tvFlat.ColumnPanelRowHeight = 30;
+            this.tvFlat.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tvFlat.FormatConditions.AddRange(new DevExpress.XtraTreeList.StyleFormatConditions.StyleFormatCondition[] {
+            styleFormatCondition1});
+            this.tvFlat.IndicatorWidth = 60;
+            this.tvFlat.Location = new System.Drawing.Point(0, 0);
+            this.tvFlat.LookAndFeel.SkinName = "Blue";
+            this.tvFlat.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.tvFlat.Name = "tvFlat";
+            this.tvFlat.BeginUnboundLoad();
+            this.tvFlat.AppendNode(new object[0], -1);
+            this.tvFlat.EndUnboundLoad();
+            this.tvFlat.OptionsBehavior.AllowCopyToClipboard = false;
+            this.tvFlat.OptionsBehavior.AllowIncrementalSearch = true;
+            this.tvFlat.OptionsBehavior.CopyToClipboardWithColumnHeaders = false;
+            this.tvFlat.OptionsBehavior.CopyToClipboardWithNodeHierarchy = false;
+            this.tvFlat.OptionsBehavior.Editable = false;
+            this.tvFlat.OptionsBehavior.EnableFiltering = true;
+            this.tvFlat.OptionsBehavior.EnterMovesNextColumn = true;
+            this.tvFlat.OptionsBehavior.ResizeNodes = false;
+            this.tvFlat.OptionsBehavior.SmartMouseHover = false;
+            this.tvFlat.OptionsBehavior.UseTabKey = true;
+            this.tvFlat.OptionsView.ShowAutoFilterRow = true;
+            this.tvFlat.OptionsView.ShowCheckBoxes = true;
+            this.tvFlat.OptionsView.ShowFocusedFrame = false;
+            this.tvFlat.OptionsView.ShowSummaryFooter = true;
+            this.tvFlat.Size = new System.Drawing.Size(680, 169);
+            this.tvFlat.StateImageList = this.imageCollection1;
+            this.tvFlat.TabIndex = 104;
+            this.tvFlat.GetStateImage += new DevExpress.XtraTreeList.GetStateImageEventHandler(this.tvFlat_GetStateImage);
+            this.tvFlat.NodeCellStyle += new DevExpress.XtraTreeList.GetCustomNodeCellStyleEventHandler(this.tvFlat_NodeCellStyle);
+            this.tvFlat.BeforeCheckNode += new DevExpress.XtraTreeList.CheckNodeEventHandler(this.tvFlat_BeforeCheckNode);
+            this.tvFlat.AfterCheckNode += new DevExpress.XtraTreeList.NodeEventHandler(this.tvFlat_AfterCheckNode);
+            this.tvFlat.FocusedNodeChanged += new DevExpress.XtraTreeList.FocusedNodeChangedEventHandler(this.tvFlat_FocusedNodeChanged);
+            this.tvFlat.CustomDrawNodeIndicator += new DevExpress.XtraTreeList.CustomDrawNodeIndicatorEventHandler(this.tvFlat_CustomDrawNodeIndicator);
+            this.tvFlat.FilterNode += new DevExpress.XtraTreeList.FilterNodeEventHandler(this.OnFilterNode);
+            // 
+            // imageCollection1
+            // 
+            this.imageCollection1.ImageStream = ((DevExpress.Utils.ImageCollectionStreamer)(resources.GetObject("imageCollection1.ImageStream")));
+            this.imageCollection1.Images.SetKeyName(0, "Main.png");
+            this.imageCollection1.Images.SetKeyName(1, "Block.png");
+            this.imageCollection1.Images.SetKeyName(2, "Flat.png");
+            // 
+            // splitterControl1
+            // 
+            this.splitterControl1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.splitterControl1.Location = new System.Drawing.Point(0, 169);
+            this.splitterControl1.LookAndFeel.SkinName = "Money Twins";
+            this.splitterControl1.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.splitterControl1.Name = "splitterControl1";
+            this.splitterControl1.Size = new System.Drawing.Size(680, 6);
+            this.splitterControl1.TabIndex = 105;
+            this.splitterControl1.TabStop = false;
+            // 
+            // panelControl1
+            // 
+            this.panelControl1.CausesValidation = false;
+            this.panelControl1.Controls.Add(this.radDock1);
+            this.panelControl1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelControl1.Location = new System.Drawing.Point(0, 175);
+            this.panelControl1.Name = "panelControl1";
+            this.panelControl1.Size = new System.Drawing.Size(680, 226);
+            this.panelControl1.TabIndex = 103;
+            // 
+            // radDock1
+            // 
+            this.radDock1.ActiveWindow = this.dwPayFlat;
+            this.radDock1.CausesValidation = false;
+            this.radDock1.Controls.Add(this.documentContainer3);
+            this.radDock1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.radDock1.DocumentManager.DocumentInsertOrder = Telerik.WinControls.UI.Docking.DockWindowInsertOrder.InFront;
+            this.radDock1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radDock1.IsCleanUpTarget = true;
+            this.radDock1.Location = new System.Drawing.Point(2, 2);
+            this.radDock1.MainDocumentContainer = this.documentContainer3;
+            this.radDock1.Name = "radDock1";
+            this.radDock1.Padding = new System.Windows.Forms.Padding(5);
+            // 
+            // 
+            // 
+            this.radDock1.RootElement.MinSize = new System.Drawing.Size(25, 25);
+            this.radDock1.RootElement.Padding = new System.Windows.Forms.Padding(5);
+            this.radDock1.Size = new System.Drawing.Size(676, 222);
+            this.radDock1.SplitterWidth = 4;
+            this.radDock1.TabIndex = 0;
+            this.radDock1.TabStop = false;
+            this.radDock1.Text = "radDock1";
+            // 
+            // dwPayFlat
+            // 
+            this.dwPayFlat.CloseAction = Telerik.WinControls.UI.Docking.DockWindowCloseAction.Hide;
+            this.dwPayFlat.Controls.Add(this.grdPayFlat);
+            this.dwPayFlat.Controls.Add(this.standaloneBarDockControl3);
+            this.dwPayFlat.DocumentButtons = Telerik.WinControls.UI.Docking.DocumentStripButtons.None;
+            this.dwPayFlat.Location = new System.Drawing.Point(4, 4);
+            this.dwPayFlat.Name = "dwPayFlat";
+            this.dwPayFlat.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
+            this.dwPayFlat.Size = new System.Drawing.Size(658, 204);
+            this.dwPayFlat.Text = "PaymentSchedule";
+            // 
+            // grdPayFlat
+            // 
+            this.grdPayFlat.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdPayFlat.Location = new System.Drawing.Point(0, 0);
+            this.grdPayFlat.LookAndFeel.SkinName = "Blue";
+            this.grdPayFlat.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.grdPayFlat.MainView = this.grdViewPayFlat;
+            this.grdPayFlat.Name = "grdPayFlat";
+            this.grdPayFlat.Size = new System.Drawing.Size(658, 178);
+            this.grdPayFlat.TabIndex = 102;
+            this.grdPayFlat.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.grdViewPayFlat});
+            // 
+            // grdViewPayFlat
+            // 
+            this.grdViewPayFlat.Appearance.FooterPanel.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grdViewPayFlat.Appearance.FooterPanel.Options.UseFont = true;
+            this.grdViewPayFlat.Appearance.GroupFooter.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grdViewPayFlat.Appearance.GroupFooter.Options.UseFont = true;
+            this.grdViewPayFlat.Appearance.GroupRow.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grdViewPayFlat.Appearance.GroupRow.Options.UseFont = true;
+            this.grdViewPayFlat.Appearance.HeaderPanel.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grdViewPayFlat.Appearance.HeaderPanel.Options.UseFont = true;
+            this.grdViewPayFlat.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
+            this.grdViewPayFlat.GridControl = this.grdPayFlat;
+            this.grdViewPayFlat.IndicatorWidth = 50;
+            this.grdViewPayFlat.Name = "grdViewPayFlat";
+            this.grdViewPayFlat.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.False;
+            this.grdViewPayFlat.OptionsCustomization.AllowColumnMoving = false;
+            this.grdViewPayFlat.OptionsCustomization.AllowSort = false;
+            this.grdViewPayFlat.OptionsNavigation.AutoFocusNewRow = true;
+            this.grdViewPayFlat.OptionsNavigation.EnterMoveNextColumn = true;
+            this.grdViewPayFlat.OptionsView.ShowFooter = true;
+            this.grdViewPayFlat.OptionsView.ShowGroupedColumns = true;
+            this.grdViewPayFlat.OptionsView.ShowGroupExpandCollapseButtons = false;
+            this.grdViewPayFlat.OptionsView.ShowGroupPanel = false;
+            this.grdViewPayFlat.PaintStyleName = "Skin";
+            this.grdViewPayFlat.ShowButtonMode = DevExpress.XtraGrid.Views.Base.ShowButtonModeEnum.ShowAlways;
+            this.grdViewPayFlat.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.grdViewPayFlat_CustomDrawRowIndicator);
+            this.grdViewPayFlat.CustomDrawCell += new DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventHandler(this.grdViewPayFlat_CustomDrawCell);
+            this.grdViewPayFlat.CustomSummaryCalculate += new DevExpress.Data.CustomSummaryEventHandler(this.grdViewPayFlat_CustomSummaryCalculate);
+            this.grdViewPayFlat.ShowingEditor += new System.ComponentModel.CancelEventHandler(this.grdViewPayFlat_ShowingEditor);
+            // 
+            // documentContainer3
+            // 
+            this.documentContainer3.CausesValidation = false;
+            this.documentContainer3.Controls.Add(this.documentTabStrip3);
+            this.documentContainer3.Location = new System.Drawing.Point(5, 5);
+            this.documentContainer3.Name = "documentContainer3";
+            this.documentContainer3.Padding = new System.Windows.Forms.Padding(5);
+            // 
+            // 
+            // 
+            this.documentContainer3.RootElement.MinSize = new System.Drawing.Size(25, 25);
+            this.documentContainer3.RootElement.Padding = new System.Windows.Forms.Padding(5);
+            this.documentContainer3.Size = new System.Drawing.Size(666, 212);
+            this.documentContainer3.SizeInfo.SizeMode = Telerik.WinControls.UI.Docking.SplitPanelSizeMode.Fill;
+            this.documentContainer3.SplitterWidth = 4;
+            this.documentContainer3.TabIndex = 0;
+            this.documentContainer3.TabStop = false;
+            // 
+            // documentTabStrip3
+            // 
+            this.documentTabStrip3.AutoScroll = true;
+            this.documentTabStrip3.Controls.Add(this.dwPayFlat);
+            this.documentTabStrip3.Controls.Add(this.dwBuyerSt);
+            this.documentTabStrip3.Controls.Add(this.dwProgress);
+            this.documentTabStrip3.Controls.Add(this.dwExtraItem);
+            this.documentTabStrip3.Controls.Add(this.dwPayInfo);
+            this.documentTabStrip3.Location = new System.Drawing.Point(0, 0);
+            this.documentTabStrip3.Name = "documentTabStrip3";
+            // 
+            // 
+            // 
+            this.documentTabStrip3.RootElement.MinSize = new System.Drawing.Size(25, 25);
+            this.documentTabStrip3.SelectedIndex = 0;
+            this.documentTabStrip3.Size = new System.Drawing.Size(666, 212);
+            this.documentTabStrip3.TabIndex = 0;
+            this.documentTabStrip3.TabStop = false;
+            // 
+            // dwBuyerSt
+            // 
+            this.dwBuyerSt.CloseAction = Telerik.WinControls.UI.Docking.DockWindowCloseAction.Hide;
+            this.dwBuyerSt.Controls.Add(this.grdBuyer);
+            this.dwBuyerSt.Controls.Add(this.standaloneBarDockControl6);
+            this.dwBuyerSt.DocumentButtons = Telerik.WinControls.UI.Docking.DocumentStripButtons.None;
+            this.dwBuyerSt.Location = new System.Drawing.Point(6, 29);
+            this.dwBuyerSt.Name = "dwBuyerSt";
+            this.dwBuyerSt.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
+            this.dwBuyerSt.Size = new System.Drawing.Size(654, 177);
+            this.dwBuyerSt.Text = "BuyerStmt";
+            // 
+            // grdBuyer
+            // 
+            this.grdBuyer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdBuyer.Location = new System.Drawing.Point(0, 0);
+            this.grdBuyer.LookAndFeel.SkinName = "Blue";
+            this.grdBuyer.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.grdBuyer.MainView = this.grdViewBuyer;
+            this.grdBuyer.Name = "grdBuyer";
+            this.grdBuyer.Size = new System.Drawing.Size(654, 151);
+            this.grdBuyer.TabIndex = 105;
+            this.grdBuyer.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.grdViewBuyer});
+            // 
+            // grdViewBuyer
+            // 
+            this.grdViewBuyer.Appearance.FooterPanel.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grdViewBuyer.Appearance.FooterPanel.Options.UseFont = true;
+            this.grdViewBuyer.Appearance.GroupFooter.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grdViewBuyer.Appearance.GroupFooter.Options.UseFont = true;
+            this.grdViewBuyer.Appearance.GroupRow.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grdViewBuyer.Appearance.GroupRow.Options.UseFont = true;
+            this.grdViewBuyer.Appearance.HeaderPanel.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grdViewBuyer.Appearance.HeaderPanel.Options.UseFont = true;
+            this.grdViewBuyer.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
+            this.grdViewBuyer.GridControl = this.grdBuyer;
+            this.grdViewBuyer.IndicatorWidth = 50;
+            this.grdViewBuyer.Name = "grdViewBuyer";
+            this.grdViewBuyer.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.False;
+            this.grdViewBuyer.OptionsBehavior.Editable = false;
+            this.grdViewBuyer.OptionsBehavior.ReadOnly = true;
+            this.grdViewBuyer.OptionsCustomization.AllowColumnMoving = false;
+            this.grdViewBuyer.OptionsCustomization.AllowSort = false;
+            this.grdViewBuyer.OptionsNavigation.AutoFocusNewRow = true;
+            this.grdViewBuyer.OptionsView.ShowFooter = true;
+            this.grdViewBuyer.OptionsView.ShowGroupedColumns = true;
+            this.grdViewBuyer.OptionsView.ShowGroupExpandCollapseButtons = false;
+            this.grdViewBuyer.OptionsView.ShowGroupPanel = false;
+            this.grdViewBuyer.PaintStyleName = "Skin";
+            this.grdViewBuyer.ShowButtonMode = DevExpress.XtraGrid.Views.Base.ShowButtonModeEnum.ShowAlways;
+            this.grdViewBuyer.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.grdViewBuyer_CustomDrawRowIndicator);
+            this.grdViewBuyer.CustomSummaryCalculate += new DevExpress.Data.CustomSummaryEventHandler(this.grdViewBuyer_CustomSummaryCalculate);
+            // 
+            // dwProgress
+            // 
+            this.dwProgress.CloseAction = Telerik.WinControls.UI.Docking.DockWindowCloseAction.Hide;
+            this.dwProgress.Controls.Add(this.panelProgress);
+            this.dwProgress.Controls.Add(this.standaloneBarDockControl5);
+            this.dwProgress.DocumentButtons = Telerik.WinControls.UI.Docking.DocumentStripButtons.None;
+            this.dwProgress.Location = new System.Drawing.Point(6, 29);
+            this.dwProgress.Name = "dwProgress";
+            this.dwProgress.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
+            this.dwProgress.Size = new System.Drawing.Size(654, 177);
+            this.dwProgress.Text = "CheckListProgress";
+            // 
+            // panelProgress
+            // 
+            this.panelProgress.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelProgress.Location = new System.Drawing.Point(0, 25);
+            this.panelProgress.Name = "panelProgress";
+            this.panelProgress.Size = new System.Drawing.Size(654, 152);
+            this.panelProgress.TabIndex = 0;
+            // 
+            // dwExtraItem
+            // 
+            this.dwExtraItem.CloseAction = Telerik.WinControls.UI.Docking.DockWindowCloseAction.Hide;
+            this.dwExtraItem.Controls.Add(this.grdExtra);
+            this.dwExtraItem.Controls.Add(this.standaloneBarDockControl10);
+            this.dwExtraItem.DocumentButtons = Telerik.WinControls.UI.Docking.DocumentStripButtons.None;
+            this.dwExtraItem.Location = new System.Drawing.Point(6, 29);
+            this.dwExtraItem.Name = "dwExtraItem";
+            this.dwExtraItem.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
+            this.dwExtraItem.Size = new System.Drawing.Size(654, 177);
+            this.dwExtraItem.Text = "ExtraItems";
+            // 
+            // grdExtra
+            // 
+            this.grdExtra.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdExtra.Location = new System.Drawing.Point(0, 26);
+            this.grdExtra.LookAndFeel.SkinName = "Blue";
+            this.grdExtra.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.grdExtra.MainView = this.grdViewExtra;
+            this.grdExtra.Name = "grdExtra";
+            this.grdExtra.Size = new System.Drawing.Size(654, 151);
+            this.grdExtra.TabIndex = 103;
+            this.grdExtra.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.grdViewExtra});
+            // 
+            // grdViewExtra
+            // 
+            this.grdViewExtra.Appearance.FooterPanel.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grdViewExtra.Appearance.FooterPanel.Options.UseFont = true;
+            this.grdViewExtra.Appearance.GroupFooter.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grdViewExtra.Appearance.GroupFooter.Options.UseFont = true;
+            this.grdViewExtra.Appearance.GroupRow.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grdViewExtra.Appearance.GroupRow.Options.UseFont = true;
+            this.grdViewExtra.Appearance.HeaderPanel.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grdViewExtra.Appearance.HeaderPanel.Options.UseFont = true;
+            this.grdViewExtra.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
+            this.grdViewExtra.GridControl = this.grdExtra;
+            this.grdViewExtra.IndicatorWidth = 50;
+            this.grdViewExtra.Name = "grdViewExtra";
+            this.grdViewExtra.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.False;
+            this.grdViewExtra.OptionsCustomization.AllowColumnMoving = false;
+            this.grdViewExtra.OptionsCustomization.AllowSort = false;
+            this.grdViewExtra.OptionsNavigation.AutoFocusNewRow = true;
+            this.grdViewExtra.OptionsView.ShowFooter = true;
+            this.grdViewExtra.OptionsView.ShowGroupedColumns = true;
+            this.grdViewExtra.OptionsView.ShowGroupExpandCollapseButtons = false;
+            this.grdViewExtra.OptionsView.ShowGroupPanel = false;
+            this.grdViewExtra.PaintStyleName = "Skin";
+            this.grdViewExtra.ShowButtonMode = DevExpress.XtraGrid.Views.Base.ShowButtonModeEnum.ShowAlways;
+            this.grdViewExtra.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.grdViewExtra_CustomDrawRowIndicator);
+            this.grdViewExtra.HiddenEditor += new System.EventHandler(this.grdViewExtra_HiddenEditor);
+            // 
+            // dwPayInfo
+            // 
+            this.dwPayInfo.CloseAction = Telerik.WinControls.UI.Docking.DockWindowCloseAction.Hide;
+            this.dwPayInfo.Controls.Add(this.grdPayInfo);
+            this.dwPayInfo.Controls.Add(this.standaloneBarDockControl8);
+            this.dwPayInfo.DocumentButtons = Telerik.WinControls.UI.Docking.DocumentStripButtons.None;
+            this.dwPayInfo.Location = new System.Drawing.Point(6, 29);
+            this.dwPayInfo.Name = "dwPayInfo";
+            this.dwPayInfo.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
+            this.dwPayInfo.Size = new System.Drawing.Size(654, 177);
+            this.dwPayInfo.Text = "PaymentInfo";
+            // 
+            // grdPayInfo
+            // 
+            this.grdPayInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdPayInfo.Location = new System.Drawing.Point(0, 26);
+            this.grdPayInfo.LookAndFeel.SkinName = "Blue";
+            this.grdPayInfo.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.grdPayInfo.MainView = this.grdViewPayInfo;
+            this.grdPayInfo.Name = "grdPayInfo";
+            this.grdPayInfo.Size = new System.Drawing.Size(654, 151);
+            this.grdPayInfo.TabIndex = 104;
+            this.grdPayInfo.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.grdViewPayInfo});
+            // 
+            // grdViewPayInfo
+            // 
+            this.grdViewPayInfo.Appearance.FooterPanel.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grdViewPayInfo.Appearance.FooterPanel.Options.UseFont = true;
+            this.grdViewPayInfo.Appearance.GroupFooter.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grdViewPayInfo.Appearance.GroupFooter.Options.UseFont = true;
+            this.grdViewPayInfo.Appearance.GroupRow.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grdViewPayInfo.Appearance.GroupRow.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.grdViewPayInfo.Appearance.GroupRow.Options.UseFont = true;
+            this.grdViewPayInfo.Appearance.GroupRow.Options.UseForeColor = true;
+            this.grdViewPayInfo.Appearance.HeaderPanel.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grdViewPayInfo.Appearance.HeaderPanel.Options.UseFont = true;
+            this.grdViewPayInfo.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
+            this.grdViewPayInfo.GridControl = this.grdPayInfo;
+            this.grdViewPayInfo.IndicatorWidth = 50;
+            this.grdViewPayInfo.Name = "grdViewPayInfo";
+            this.grdViewPayInfo.OptionsBehavior.Editable = false;
+            this.grdViewPayInfo.OptionsBehavior.ReadOnly = true;
+            this.grdViewPayInfo.OptionsCustomization.AllowColumnMoving = false;
+            this.grdViewPayInfo.OptionsCustomization.AllowSort = false;
+            this.grdViewPayInfo.OptionsNavigation.AutoFocusNewRow = true;
+            this.grdViewPayInfo.OptionsView.ShowFooter = true;
+            this.grdViewPayInfo.OptionsView.ShowGroupedColumns = true;
+            this.grdViewPayInfo.OptionsView.ShowGroupExpandCollapseButtons = false;
+            this.grdViewPayInfo.OptionsView.ShowGroupPanel = false;
+            this.grdViewPayInfo.PaintStyleName = "Skin";
+            this.grdViewPayInfo.ShowButtonMode = DevExpress.XtraGrid.Views.Base.ShowButtonModeEnum.ShowAlways;
+            this.grdViewPayInfo.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.grdViewPayInfo_CustomDrawRowIndicator);
+            // 
             // dwFlatTemp
             // 
             this.dwFlatTemp.CloseAction = Telerik.WinControls.UI.Docking.DockWindowCloseAction.Hide;
@@ -2820,10 +2820,10 @@
             this.dwFTType.Controls.Add(this.chkType);
             this.dwFTType.Controls.Add(this.grdFTType);
             this.dwFTType.DocumentButtons = Telerik.WinControls.UI.Docking.DocumentStripButtons.None;
-            this.dwFTType.Location = new System.Drawing.Point(6, 29);
+            this.dwFTType.Location = new System.Drawing.Point(4, 4);
             this.dwFTType.Name = "dwFTType";
             this.dwFTType.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
-            this.dwFTType.Size = new System.Drawing.Size(658, 386);
+            this.dwFTType.Size = new System.Drawing.Size(662, 413);
             this.dwFTType.Text = "Flat Type";
             // 
             // chkType
@@ -3395,12 +3395,41 @@
             this.Resize += new System.EventHandler(this.frmUnitDir_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.radUnit)).EndInit();
             this.radUnit.ResumeLayout(false);
-            this.dwProjInfo.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.panelProjectInfo)).EndInit();
+            this.dwPaySch.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.radPanel4)).EndInit();
+            this.radPanel4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grdPaymentSch)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdPaymentSchView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radPanel5)).EndInit();
+            this.radPanel5.ResumeLayout(false);
+            this.radPanel5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPaySchNoOfMonths.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barManager1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboFT)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barAndDockingController1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).EndInit();
+            this.dockProject.ResumeLayout(false);
+            this.dockPanel1_Container.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grdCC)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdViewCC)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEdit1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEdit2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEdit7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEdit10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEdit11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkPaySchEMI.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPaymentSchRoundDigit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkcbPayBlock.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboPaySchType.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkcboPayFlatType.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.documentContainer1)).EndInit();
             this.documentContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.documentTabStrip1)).EndInit();
             this.documentTabStrip1.ResumeLayout(false);
+            this.dwProjInfo.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelProjectInfo)).EndInit();
             this.dwFlatType.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.PanelFlatTypeUnit)).EndInit();
             this.PanelFlatTypeUnit.ResumeLayout(false);
@@ -3434,35 +3463,6 @@
             this.dwPayInfo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grdPayInfo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdViewPayInfo)).EndInit();
-            this.dwPaySch.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.radPanel4)).EndInit();
-            this.radPanel4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.grdPaymentSch)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grdPaymentSchView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radPanel5)).EndInit();
-            this.radPanel5.ResumeLayout(false);
-            this.radPanel5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.barManager1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cboFT)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.barAndDockingController1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).EndInit();
-            this.dockProject.ResumeLayout(false);
-            this.dockPanel1_Container.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.grdCC)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grdViewCC)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEdit1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEdit2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEdit7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEdit10)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEdit11)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtPaySchNoOfMonths.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chkPaySchEMI.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtPaymentSchRoundDigit.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chkcbPayBlock.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cboPaySchType.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chkcboPayFlatType.Properties)).EndInit();
             this.dwFlatTemp.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.PanelBFT)).EndInit();
             this.PanelBFT.ResumeLayout(false);

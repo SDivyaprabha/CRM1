@@ -1581,49 +1581,73 @@ namespace CRM
 
             if (dNoOfMonths > dt.Rows.Count) { dNoOfMonths = dt.Rows.Count; txtNoOfMonths.Text = dNoOfMonths.ToString(); }
 
-            decimal dPercentage = Math.Round(100 / dNoOfMonths, 3);
-            decimal dExcessPer = 100 - (dPercentage * dNoOfMonths);
-            decimal dFirstInsPer = dPercentage + dExcessPer;
             decimal dGrossAmt = dGrossAmount - dInitialAmount;
             decimal dEMIRoundOff = 0;
             for (int i = 0; i <= dt.Rows.Count - 1; i++)
             {
+                DateTime dFinaliseDate = Convert.ToDateTime(CommFun.IsNullCheck(dateFinal.EditValue, CommFun.datatypes.VarTypeDate));
                 DateTime dSchDate = Convert.ToDateTime(CommFun.IsNullCheck(dt.Rows[i]["SchDate"], CommFun.datatypes.VarTypeDate));
-                if (dSchDate == DateTime.MinValue)
+                if (dSchDate != DateTime.MinValue)
                 {
-                    if (i < dNoOfMonths)
+                    CRM.BO.ProjectInfoBO projBO = new BO.ProjectInfoBO() { i_CostCentreId = iCCId };
+                    DataTable dtProject = new DataTable();
+                    dtProject = CRM.BL.ProjectInfoBL.PopulateProjInfo(projBO);
+                    DateTime dStartDate = DateTime.MinValue;
+                    DateTime dEndDate = DateTime.MinValue;
+                    if (dtProject.Rows.Count > 0)
                     {
-                        string sInstallment = "";
-                        if (i == 0)
-                            sInstallment = (i + 1) + "st Installment";
-                        else if (i == 1)
-                            sInstallment = (i + 1) + "nd Installment";
-                        else if (i == 2)
-                            sInstallment = (i + 1) + "rd Installment";
-                        else
-                            sInstallment = (i + 1) + "th Installment";
-
-                        decimal dAmount = 0;
-                        if (i == 0)
-                            dAmount = dGrossAmt * dFirstInsPer / 100;
-                        else
-                            dAmount = dGrossAmt * dPercentage / 100;
-
-                        decimal dRoundOff = 0;
-                        decimal dRound = 0;
-                        if (dRoundValue > 0)
-                        {
-                            dRoundOff = Math.Truncate(dAmount / dRoundValue) * dRoundValue;
-                            dRound = dAmount - dRoundOff;
-                            dEMIRoundOff = dEMIRoundOff + dRound;
-                            dAmount = dRoundOff;
-                        }
-
-                        drow = dtInstallment.NewRow();
-                        drow["Description"] = sInstallment;
-                        drow["Amount"] = dAmount;
-                        dtInstallment.Rows.Add(drow);
+                        dStartDate = Convert.ToDateTime(CommFun.IsNullCheck(dtProject.Rows[0]["StartDate"], CommFun.datatypes.VarTypeDate));
+                        dEndDate = Convert.ToDateTime(CommFun.IsNullCheck(dtProject.Rows[0]["EndDate"], CommFun.datatypes.VarTypeDate));
                     }
+
+                    if (dSchDate == dStartDate)
+                    {
+                        int iTotalMonths = dFinaliseDate.Month - dStartDate.Month;
+                        dNoOfMonths = dNoOfMonths - iTotalMonths;
+                    }
+                    else if (dSchDate == dEndDate)
+                    {
+                        int iTotalMonths = dFinaliseDate.Month - dEndDate.Month;
+                        dNoOfMonths = dNoOfMonths - iTotalMonths;
+                    }
+                }
+
+                decimal dPercentage = Math.Round(100 / dNoOfMonths, 3);
+                decimal dExcessPer = 100 - (dPercentage * dNoOfMonths);
+                decimal dFirstInsPer = dPercentage + dExcessPer;
+
+                if (i < dNoOfMonths)
+                {
+                    string sInstallment = "";
+                    if (i == 0)
+                        sInstallment = (i + 1) + "st Installment";
+                    else if (i == 1)
+                        sInstallment = (i + 1) + "nd Installment";
+                    else if (i == 2)
+                        sInstallment = (i + 1) + "rd Installment";
+                    else
+                        sInstallment = (i + 1) + "th Installment";
+
+                    decimal dAmount = 0;
+                    if (i == 0)
+                        dAmount = dGrossAmt * dFirstInsPer / 100;
+                    else
+                        dAmount = dGrossAmt * dPercentage / 100;
+
+                    decimal dRoundOff = 0;
+                    decimal dRound = 0;
+                    if (dRoundValue > 0)
+                    {
+                        dRoundOff = Math.Truncate(dAmount / dRoundValue) * dRoundValue;
+                        dRound = dAmount - dRoundOff;
+                        dEMIRoundOff = dEMIRoundOff + dRound;
+                        dAmount = dRoundOff;
+                    }
+
+                    drow = dtInstallment.NewRow();
+                    drow["Description"] = sInstallment;
+                    drow["Amount"] = dAmount;
+                    dtInstallment.Rows.Add(drow);
                 }
             }
 

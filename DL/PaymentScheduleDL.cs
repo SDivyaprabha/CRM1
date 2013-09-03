@@ -1068,8 +1068,8 @@ namespace CRM.DataLayer
             DataTable dtTempT;
             DataTable dtQualT;
             dAdvBalAmt = dAdvAmt;
-            decimal dEMIRoundOff = 0;
 
+            decimal dEMIRoundOff = 0;
             int iExcessper = 0;
             for (int i = 0; i < dt.Rows.Count; i++)
             {
@@ -1086,6 +1086,12 @@ namespace CRM.DataLayer
                     if (m_dSchDate == DateTime.MinValue)
                     {
                         dEMINoOfMonths = dEMIMasterNoOfMonths;
+                    }
+                    else
+                    {
+                        int iTotalMonths = DateTime.Now.Month - m_dSchDate.Month;
+                        dEMINoOfMonths = dEMIMasterNoOfMonths - iTotalMonths;
+                        if (dEMINoOfMonths < 0) { dEMINoOfMonths = 0; }
                     }
                 }
                 if (bEMI == true && sSchType == "E" && i > dEMINoOfMonths)
@@ -2158,11 +2164,6 @@ namespace CRM.DataLayer
             DataTable dtQualT;
             dAdvBalAmt = dAdvAmt;
 
-            decimal dEMIPercentage = 0;
-            if (dEMINoOfMonths > 0) { dEMIPercentage = Math.Round(100 / dEMINoOfMonths, 3); }
-            decimal dEMIExcessPer = 100 - (dEMIPercentage * dEMINoOfMonths);
-            decimal dEMIFirstInsPer = dEMIPercentage + dEMIExcessPer;
-
             int iExcessper = 0;
             decimal dEMIRoundOff = 0;
             for (int i = 0; i < dt.Rows.Count; i++)
@@ -2182,6 +2183,12 @@ namespace CRM.DataLayer
                     if (m_dSchDate == DateTime.MinValue)
                     {
                         dEMINoOfMonths = dEMIMasterNoOfMonths;
+                    }
+                    else
+                    {
+                        int iTotalMonths = FinaliseDate.Month - m_dSchDate.Month;
+                        dEMINoOfMonths = dEMIMasterNoOfMonths - iTotalMonths;
+                        if (dEMINoOfMonths < 0) { dEMINoOfMonths = 0; }
                     }
                 }
                 if (bEMI == true && sSchType == "E" && i > dEMINoOfMonths)
@@ -3224,13 +3231,8 @@ namespace CRM.DataLayer
                 DataTable dtTempT;
                 DataTable dtQualT;
                 dAdvBalAmt = dAdvAmt;
-                decimal dEMIRoundOff = 0;
 
-                decimal dEMIPercentage = 0;
-                if (dEMINoOfMonths > 0) { dEMIPercentage = Math.Round(100 / dEMINoOfMonths, 3); }
-                decimal dEMIExcessPer = 100 - (dEMIPercentage * dEMINoOfMonths);
-                decimal dEMIFirstInsPer = dEMIPercentage + dEMIExcessPer;
-                
+                decimal dEMIRoundOff = 0;
                 int iExcessper = 0;
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
@@ -4035,6 +4037,12 @@ namespace CRM.DataLayer
 
             DataTable dtReceipt = new DataTable();
 
+            sSql = "Delete From dbo.PaymentSchedule Where TypeId IN(Select PayTypeId from dbo.FlatDetails Where FlatId=" + argFlatId + ") " +
+                   " AND CostCentreId IN(Select CostCentreId from dbo.FlatDetails Where FlatId=" + argFlatId + ") AND SchType='R'";
+            cmd = new SqlCommand(sSql, conn, tran);
+            cmd.ExecuteNonQuery();
+            cmd.Dispose();
+
             sSql = "Delete from dbo.PaymentScheduleFlat Where FlatId= " + argFlatId;
             cmd = new SqlCommand(sSql, conn, tran);
             cmd.ExecuteNonQuery();
@@ -4070,7 +4078,6 @@ namespace CRM.DataLayer
             }
             dt.Dispose();
 
-            //sSql = "Select FlatTypeId,CostCentreId,PayTypeId,BaseAmt,AdvAmount,USLandAmt from dbo.FlatDetails Where FlatId= " + argFlatId;//modified
             sSql = "Select FlatTypeId,CostCentreId,PayTypeId,BaseAmt,AdvAmount,LandRate,Guidelinevalue,USLandAmt from dbo.FlatDetails Where FlatId= " + argFlatId;
             cmd = new SqlCommand(sSql, conn, tran);
             sdr = cmd.ExecuteReader();
@@ -4097,11 +4104,54 @@ namespace CRM.DataLayer
                 if (dtPI.Rows.Count > 0) { bLCBon = Convert.ToBoolean(dtPI.Rows[0]["LCBasedon"]); }
                 if (bLCBon == false) { dLandAmt = Convert.ToDecimal(dt.Rows[0]["LandRate"].ToString()); }
                 else { dLandAmt = Convert.ToDecimal(dt.Rows[0]["USLandAmt"].ToString()); }
-
-                //dLandAmt = Convert.ToDecimal(dt.Rows[0]["USLandAmt"].ToString());
-                //dLandAmt = Convert.ToDecimal(dt.Rows[0]["LandRate"].ToString());
             }
             dt.Dispose();
+
+            sSql = "Select RoundValue, EMI, NoOfMonths From dbo.PaySchType Where TypeId=" + iPayTypeId + " ";
+            cmd = new SqlCommand(sSql, conn, tran);
+            sdr = cmd.ExecuteReader();
+            DataTable dtPaySchType = new DataTable();
+            dtPaySchType.Load(sdr);
+            sdr.Close();
+            cmd.Dispose();
+
+            decimal dRoundValue = 0;
+            bool bEMI = false;
+            decimal dEMIMasterNoOfMonths = 0;
+            if (dtPaySchType.Rows.Count > 0)
+            {
+                dRoundValue = Convert.ToDecimal(CommFun.IsNullCheck(dtPaySchType.Rows[0]["RoundValue"], CommFun.datatypes.vartypenumeric));
+                bEMI = Convert.ToBoolean(CommFun.IsNullCheck(dtPaySchType.Rows[0]["EMI"], CommFun.datatypes.varTypeBoolean));
+                dEMIMasterNoOfMonths = Convert.ToDecimal(CommFun.IsNullCheck(dtPaySchType.Rows[0]["NoOfMonths"], CommFun.datatypes.vartypenumeric));
+            }
+            dtPaySchType.Dispose();
+
+            if (iPayTypeId > 0 && dRoundValue > 0)
+            {
+                sSql = "Select COUNT(*) From dbo.PaymentSchedule Where TypeId=" + iPayTypeId + " AND CostCentreId=" + iCCId + " AND SchType='R'";
+                cmd = new SqlCommand(sSql, conn, tran);
+                int iCount = Convert.ToInt32(CommFun.IsNullCheck(cmd.ExecuteScalar(), CommFun.datatypes.vartypenumeric));
+                cmd.Dispose();
+
+                if (iCount == 0)
+                {
+                    sSql = "Insert Into dbo.PaymentSchedule(TypeId,CostCentreId,SchType,Description,SchDescId,StageId, " +
+                          " OtherCostId,SchDate,DateAfter,Duration,DurationType,SchPercent,Amount,PreStageTypeId,SortOrder,FlatTypeId,BlockId) " +
+                          " Select TOP 1 " + iPayTypeId + "," + iCCId + ",'R','Final Amount to be Collect from Buyer',0,0,0,NULL,0,0,'',0,0,0, " +
+                          " SortOrder+1,FlatTypeId,BlockId from dbo.PaymentSchedule " +
+                          " Where TypeId=" + iPayTypeId + " AND CostCentreId=" + iCCId + " ORDER BY SortOrder DESC";
+                    cmd = new SqlCommand(sSql, conn, tran);
+                    cmd.ExecuteNonQuery();
+                    cmd.Dispose();
+                }
+            }
+            else
+            {
+                sSql = "Delete From dbo.PaymentSchedule Where TypeId=" + iPayTypeId + " AND CostCentreId=" + iCCId + " AND SchType='R'";
+                cmd = new SqlCommand(sSql, conn, tran);
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+            }
 
             sSql = "Select TemplateId From dbo.PaymentSchedule Where TypeId=" + iPayTypeId + " and CostCentreId = " + iCCId + " and SchType='A'";
             cmd = new SqlCommand(sSql, conn, tran);
@@ -4227,8 +4277,6 @@ namespace CRM.DataLayer
             sdr.Close();
             cmd.Dispose();
 
-            //sSql = "Select A.*,IsNull(B.Service,0)Service From dbo.CCReceiptQualifier A " +
-            //        " Left Join dbo.OtherCostMaster B On A.OtherCostId=B.OtherCostId Where CostCentreId=" + iCCId;
             sSql = "Select C.QualTypeId,A.*,IsNull(B.Service,0)Service From dbo.CCReceiptQualifier A " +
                     " Left Join dbo.OtherCostMaster B On A.OtherCostId=B.OtherCostId " +
                     " Inner Join [" + BsfGlobal.g_sRateAnalDBName + "].dbo.Qualifier_Temp C On C.QualifierId=A.QualifierId " +
@@ -4239,6 +4287,23 @@ namespace CRM.DataLayer
             dtQual.Load(sdr);
             sdr.Close();
             cmd.Dispose();
+
+            sSql = "Select InitialAmount, NoOfMonths from dbo.BuyerDetail Where FlatId = " + argFlatId + " AND CostCentreId=" + iCCId + " ";
+            cmd = new SqlCommand(sSql, conn, tran);
+            sdr = cmd.ExecuteReader();
+            DataTable dtBuyerDetail = new DataTable();
+            dtBuyerDetail.Load(sdr);
+            sdr.Close();
+            cmd.Dispose();
+
+            decimal dEMIInitialAmount = 0;
+            decimal dEMINoOfMonths = 0;
+            if (dtBuyerDetail.Rows.Count > 0)
+            {
+                dEMIInitialAmount = Convert.ToDecimal(CommFun.IsNullCheck(dtBuyerDetail.Rows[0]["InitialAmount"], CommFun.datatypes.vartypenumeric));
+                dEMINoOfMonths = Convert.ToDecimal(CommFun.IsNullCheck(dtBuyerDetail.Rows[0]["NoOfMonths"], CommFun.datatypes.vartypenumeric));
+            }
+            dtBuyerDetail.Dispose();
 
             sSql = "Select PaymentSchId,TemplateId,SchDate,SchType,OtherCostId,SchPercent from dbo.PaymentScheduleFlat Where FlatId = " + argFlatId + " Order by SortOrder";
             cmd = new SqlCommand(sSql, conn, tran);
@@ -4251,24 +4316,64 @@ namespace CRM.DataLayer
             decimal dAmt = 0;
             DataView dv;
             decimal dAdvRAmt = 0;
-
             DataTable dtTempT;
             DataTable dtQualT;
             dAdvBalAmt = dAdvAmt;
 
+            int iExcessper = 0;
+            decimal dEMIRoundOff = 0;
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 iPaymentSchId = Convert.ToInt32(dt.Rows[i]["PaymentSchId"].ToString());
                 iTemplateId = Convert.ToInt32(dt.Rows[i]["TemplateId"].ToString());
+                iOtherCostId = Convert.ToInt32(dt.Rows[i]["OtherCostId"].ToString());
+                dSchPercent = Convert.ToDecimal(dt.Rows[i]["SchPercent"].ToString());
+
                 sSchType = dt.Rows[i]["SchType"].ToString();
                 if (argsType == "S")
                     dSchDate = FinaliseDate;
                 else if (argsType == "B")
                     dSchDate = BlockDate;
+
+                if (bEMI == true)
+                {
+                    if (dSchDate == DateTime.MinValue)
+                    {
+                        dEMINoOfMonths = dEMIMasterNoOfMonths;
+                    }
+                }
+                if (bEMI == true && sSchType == "E" && i > dEMINoOfMonths)
+                {
+                    if (CommFun.IsNullCheck(dt.Rows[dt.Rows.Count - 1]["SchType"], CommFun.datatypes.vartypestring).ToString() == "R")
+                    {
+                        sSql = "Update dbo.PaymentScheduleFlat Set Amount=" + dEMIRoundOff + ",NetAmount=" + dEMIRoundOff +
+                               " Where PaymentSchId=" + dt.Rows[dt.Rows.Count - 1]["PaymentSchId"] + " AND FlatId=" + argFlatId +
+                               " AND CostCentreId=" + iCCId + " AND SchType='R'";
+                        cmd = new SqlCommand(sSql, conn, tran);
+                        cmd.ExecuteNonQuery();
+                        cmd.Dispose();
+                    }
+                    break;
+                }
+                if (bEMI == true && sSchType == "E" && dEMINoOfMonths > 0)
+                {
+                    if (iExcessper == 0)
+                    {
+                        iExcessper = iExcessper + 1;
+                        dSchPercent = Math.Round(100 / dEMINoOfMonths, 3);
+                        dSchPercent = dSchPercent + (100 - (dSchPercent * dEMINoOfMonths));
+                    }
+                    else
+                    {
+                        dSchPercent = Math.Round(100 / dEMINoOfMonths, 3);
+                    }
+                }
+                else if (bEMI == true && sSchType == "S")
+                {
+                    dSchPercent = 0;
+                }
+
                 if (dSchDate == DateTime.MinValue) { dSchDate = DateTime.Now; }
-                //Convert.ToDateTime(CommFun.IsNullCheck(dt.Rows[i]["SchDate"], CommFun.datatypes.VarTypeDate));
-                iOtherCostId = Convert.ToInt32(dt.Rows[i]["OtherCostId"].ToString());
-                dSchPercent = Convert.ToDecimal(dt.Rows[i]["SchPercent"].ToString());
                 dTNetAmt = 0;
 
                 dAmt = 0;
@@ -4289,7 +4394,12 @@ namespace CRM.DataLayer
                 }
                 else
                 {
-                    dAmt = dNetAmt * dSchPercent / 100;
+                    if (bEMI == true && sSchType == "S")
+                        dAmt = dEMIInitialAmount;
+                    else if (bEMI == true && sSchType == "E")
+                        dAmt = (dNetAmt - dEMIInitialAmount) * dSchPercent / 100;
+                    else
+                        dAmt = dNetAmt * dSchPercent / 100;
                 }
 
                 dtTempT = new DataTable();
@@ -4298,370 +4408,213 @@ namespace CRM.DataLayer
                 dtTempT = dv.ToTable();
                 dv.Dispose();
 
-                if (dtTempT.Rows.Count == 1 && sSchType == "O")
+                decimal dRoundOff = 0;
+                decimal dRound = 0;
+                if (dRoundValue > 0)
                 {
+                    dRoundOff = Math.Truncate(dAmt / dRoundValue) * dRoundValue;
+                    dRound = dAmt - dRoundOff;
+                    dEMIRoundOff = dEMIRoundOff + dRound;
+                    dAmt = dRoundOff;
+                }
 
-                    sSql = "Insert into dbo.FlatReceiptType(PaymentSchId,FlatId,ReceiptTypeId,OtherCostId,SchType,Percentage,Amount,NetAmount) " +
-                            "Values(" + iPaymentSchId + "," + argFlatId + ",0," + iOtherCostId + ",'" + sSchType + "',100," + dAmt + "," + dAmt + ") SELECT SCOPE_IDENTITY();";
-                    cmd = new SqlCommand(sSql, conn, tran);
-                    iRSchId = int.Parse(cmd.ExecuteScalar().ToString());
-                    cmd.Dispose();
-
-                    drT = dtReceipt.Select("SchType = 'O' and Id = " + iOtherCostId + "");
-
-                    if (drT.Length > 0)
-                    {
-                        drT[0]["RAmount"] = dAmt;
-                    }
-
-                    dQNetAmt = dAmt;
-
-                    dtQualT = new DataTable();
-                    dv = new DataView(dtQual);
-                    dv.RowFilter = "SchType = '" + sSchType + "' and OtherCostId = " + iOtherCostId;
-                    dtQualT = dv.ToTable();
-                    dv.Dispose();
-
-                    if (dtQualT.Rows.Count > 0)
-                    {
-                        QualVBC = new Collection();
-
-                        for (int Q = 0; Q < dtQualT.Rows.Count; Q++)
-                        {
-                            RAQual = new cRateQualR();
-                            bService = Convert.ToBoolean(dtQualT.Rows[Q]["Service"]);
-
-                            DataTable dtTDS = new DataTable();
-                            if (Convert.ToInt32(dtQualT.Rows[Q]["QualTypeId"]) == 2)
-                            {
-                                if (bService == true)
-                                    dtTDS = GetSTSettings("G", dSchDate, conn, tran);
-                                else
-                                    dtTDS = GetSTSettings("F", dSchDate, conn, tran);
-                            }
-                            else
-                            {
-                                dtTDS = PaymentScheduleDL.GetQual(Convert.ToInt32(dtQualT.Rows[Q]["QualifierId"]), dSchDate, "B", conn, tran);
-                            }
-
-                            RAQual.RateID = Convert.ToInt32(dtQualT.Rows[Q]["QualifierId"]);
-                            if (dtTDS.Rows.Count > 0)
-                            {
-                                RAQual.ExpPer = Convert.ToDecimal(CommFun.IsNullCheck(dtTDS.Rows[0]["ExpPer"], CommFun.datatypes.vartypenumeric));
-                                RAQual.NetPer = Convert.ToDecimal(CommFun.IsNullCheck(dtTDS.Rows[0]["Net"], CommFun.datatypes.vartypenumeric));
-                                RAQual.SurPer = Convert.ToDecimal(CommFun.IsNullCheck(dtTDS.Rows[0]["SurCharge"], CommFun.datatypes.vartypenumeric));
-                                RAQual.EDPer = Convert.ToDecimal(CommFun.IsNullCheck(dtTDS.Rows[0]["EDCess"], CommFun.datatypes.vartypenumeric));
-                                RAQual.HEDPer = Convert.ToDecimal(CommFun.IsNullCheck(dtTDS.Rows[0]["HEDCess"], CommFun.datatypes.vartypenumeric));
-                                RAQual.HEDValue = (dAmt * Convert.ToDecimal(CommFun.IsNullCheck(dtTDS.Rows[0]["HEDCess"], CommFun.datatypes.vartypenumeric))) / 100;
-                                RAQual.TaxablePer = Convert.ToDecimal(CommFun.IsNullCheck(dtTDS.Rows[0]["Taxable"], CommFun.datatypes.vartypenumeric));
-                            }
-
-                            DataTable dtQ = new DataTable();
-                            dtQ = PaymentScheduleDL.GetQual(Convert.ToInt32(dtQualT.Rows[Q]["QualifierId"]), dSchDate, "B", conn, tran);
-                            //dtQ = QualifierSelect(Convert.ToInt32(dtQualT.Rows[Q]["QualifierId"]), "B", dSchDate, conn, tran);
-                            if (dtQ.Rows.Count > 0)
-                            {
-                                RAQual.Add_Less_Flag = dtQ.Rows[0]["Add_Less_Flag"].ToString();
-                                RAQual.Amount = 0;
-                                RAQual.Expression = dtQ.Rows[0]["Expression"].ToString();
-                            }
-
-                            QualVBC.Add(RAQual, RAQual.RateID.ToString(), null, null);
-                        }
-
-                        Qualifier.frmQualifier qul = new Qualifier.frmQualifier();
-                        dQBaseAmt = dAmt;
-                        dQNetAmt = dAmt; decimal dTaxAmt = 0;
-                        decimal dVATAmt = 0;
-
-                        if (qul.Execute("B", ref dQBaseAmt, ref QualVBC, ref dQNetAmt, false, "", true, ref dTaxAmt, dSchDate, ref dVATAmt) == true)
-                        {
-                            foreach (Qualifier.cRateQualR d in QualVBC)
-                            {
-                                sSql = "Insert into dbo.FlatReceiptQualifier(SchId,QualifierId,Expression,ExpPer,Add_Less_Flag,SurCharge,EDCess,ExpValue,ExpPerValue,SurValue,EDValue,Amount,NetPer,HEDPer,HEDValue,TaxablePer,TaxableValue) " +
-                                        "Values(" + iRSchId + "," + d.RateID + ",'" + d.Expression + "'," + d.ExpPer + ",'" + d.Add_Less_Flag + "'," +
-                                        "" + d.SurPer + "," + d.EDPer + "," + d.ExpValue + "," + d.ExpPerValue + "," + d.SurValue + "," + d.EDValue + "," + d.Amount + "," + d.NetPer + "," + d.HEDPer + "," + d.HEDValue + "," + d.TaxablePer + "," + d.TaxableValue + ")";
-                                cmd = new SqlCommand(sSql, conn, tran);
-                                cmd.ExecuteNonQuery();
-                                cmd.Dispose();
-                            }
-                        }
-
-                        sSql = "Update dbo.FlatReceiptType Set NetAmount = " + dQNetAmt + " Where SchId = " + iRSchId;
-                        cmd = new SqlCommand(sSql, conn, tran);
-                        cmd.ExecuteNonQuery();
-                        cmd.Dispose();
-                    }
-
-                    sSql = "Update dbo.PaymentScheduleFlat Set Amount= " + dAmt + ",NetAmount=" + dQNetAmt + "  Where PaymentSchId = " + iPaymentSchId;
+                if (sSchType == "R")
+                {
+                    sSql = "Update dbo.PaymentScheduleFlat Set Amount=" + dEMIRoundOff + ",NetAmount=" + dEMIRoundOff +
+                           " Where PaymentSchId=" + iPaymentSchId + " AND FlatId=" + argFlatId + " AND CostCentreId=" + iCCId + " AND SchType='R'";
                     cmd = new SqlCommand(sSql, conn, tran);
                     cmd.ExecuteNonQuery();
                     cmd.Dispose();
-
-                    dTNetAmt = dTNetAmt + dQNetAmt;
                 }
-
                 else
                 {
-                    dBalAmt = dAmt;
-                    for (int j = 0; j < dtTempT.Rows.Count; j++)
+                    if (dtTempT.Rows.Count == 1 && sSchType == "O")
                     {
-                        iSchId = Convert.ToInt32(dtTempT.Rows[j]["SchId"].ToString());
-                        dRPer = Convert.ToDecimal(dtTempT.Rows[j]["Percentage"].ToString());
-                        sRSchType = dtTempT.Rows[j]["SchType"].ToString();
-                        iReceiptId = Convert.ToInt32(dtTempT.Rows[j]["ReceiptTypeId"].ToString());
-                        iROtherCostId = Convert.ToInt32(dtTempT.Rows[j]["OtherCostId"].ToString());
+                        sSql = "Insert into dbo.FlatReceiptType(PaymentSchId,FlatId,ReceiptTypeId,OtherCostId,SchType,Percentage,Amount,NetAmount) " +
+                                "Values(" + iPaymentSchId + "," + argFlatId + ",0," + iOtherCostId + ",'" + sSchType + "',100," + dAmt + "," + dAmt + ") SELECT SCOPE_IDENTITY();";
+                        cmd = new SqlCommand(sSql, conn, tran);
+                        iRSchId = int.Parse(cmd.ExecuteScalar().ToString());
+                        cmd.Dispose();
 
-                        if (dRPer != 0) { dRAmt = dAmt * dRPer / 100; }
-                        else { dRAmt = dBalAmt; }
+                        drT = dtReceipt.Select("SchType = 'O' and Id = " + iOtherCostId + "");
 
-                        if (dRAmt > dBalAmt) { dRAmt = dBalAmt; }
-
-
-                        if (sRSchType == "A" && bAdvance == false)
+                        if (drT.Length > 0)
                         {
-
-                            dAdvRAmt = dAdvAmt * dRPer / 100;
-                            if (dAdvRAmt > dAdvBalAmt) { dAdvRAmt = dAdvBalAmt; }
-                            dAdvBalAmt = dAdvBalAmt - dAdvRAmt;
-                            dTNetAmt = dTNetAmt - dAdvRAmt;
-
-                            sSql = "Insert into dbo.FlatReceiptType(PaymentSchId,FlatId,ReceiptTypeId,OtherCostId,SchType,Percentage,Amount,NetAmount) " +
-                                    "Values(" + iPaymentSchId + "," + argFlatId + "," + iReceiptId + "," + iROtherCostId + ",'" + sRSchType + "'," + dRPer + ", 0," + dAdvRAmt + ") SELECT SCOPE_IDENTITY();";
-                            cmd = new SqlCommand(sSql, conn, tran);
-                            iRSchId = int.Parse(cmd.ExecuteScalar().ToString());
-                            cmd.Dispose();
+                            drT[0]["RAmount"] = dAmt;
                         }
 
-                        else
+                        dQNetAmt = dAmt;
+
+                        dtQualT = new DataTable();
+                        dv = new DataView(dtQual);
+                        dv.RowFilter = "SchType = '" + sSchType + "' and OtherCostId = " + iOtherCostId;
+                        dtQualT = dv.ToTable();
+                        dv.Dispose();
+
+                        if (dtQualT.Rows.Count > 0)
                         {
-                            if (sRSchType == "A")
+                            QualVBC = new Collection();
+
+                            for (int Q = 0; Q < dtQualT.Rows.Count; Q++)
                             {
-                                drT = dtReceipt.Select("SchType = 'A'");
-                            }
-                            else if (sRSchType == "O")
-                            {
-                                drT = dtReceipt.Select("SchType = 'O' and Id = " + iROtherCostId + "");
-                            }
-                            else
-                            {
-                                drT = dtReceipt.Select("SchType = 'R' and Id = " + iReceiptId + "");
-                            }
+                                RAQual = new cRateQualR();
+                                bService = Convert.ToBoolean(dtQualT.Rows[Q]["Service"]);
 
-
-                            decimal dRTAmt = 0;
-                            decimal dRRAmt = 0;
-
-                            if (drT.Length > 0)
-                            {
-                                dRTAmt = Convert.ToDecimal(drT[0]["Amount"].ToString());
-                                dRRAmt = Convert.ToDecimal(drT[0]["RAmount"].ToString());
-                            }
-
-                            if (dRAmt > dRTAmt - dRRAmt)
-                            {
-                                dRAmt = dRTAmt - dRRAmt;
-                            }
-
-                            if (drT.Length > 0)
-                            {
-                                drT[0]["RAmount"] = dRRAmt + dRAmt;
-                            }
-
-                            if (dAmt == 0) { dRPer = 0; }
-                            else dRPer = (dRAmt / dAmt) * 100;
-
-                            dBalAmt = dBalAmt - dRAmt;
-
-                            sSql = "Insert into dbo.FlatReceiptType(PaymentSchId,FlatId,ReceiptTypeId,OtherCostId,SchType,Percentage,Amount,NetAmount) " +
-                                    "Values(" + iPaymentSchId + "," + argFlatId + "," + iReceiptId + "," + iROtherCostId + ",'" + sRSchType + "'," + dRPer + "," + dRAmt + "," + dRAmt + ") SELECT SCOPE_IDENTITY();";
-                            cmd = new SqlCommand(sSql, conn, tran);
-                            iRSchId = Convert.ToInt32(cmd.ExecuteScalar().ToString());
-                            cmd.Dispose();
-
-                            dQNetAmt = dRAmt;
-
-                            dtQualT = new DataTable();
-                            dv = new DataView(dtQual);
-                            dv.RowFilter = "SchType = '" + sRSchType + "' and ReceiptTypeId = " + iReceiptId + " and OtherCostId = " + iROtherCostId;
-                            dtQualT = dv.ToTable();
-                            dv.Dispose();
-                            if (dtQualT.Rows.Count > 0)
-                            {
-                                QualVBC = new Collection();
-
-                                for (int Q = 0; Q < dtQualT.Rows.Count; Q++)
+                                DataTable dtTDS = new DataTable();
+                                if (Convert.ToInt32(dtQualT.Rows[Q]["QualTypeId"]) == 2)
                                 {
-                                    RAQual = new cRateQualR();
-                                    bService = Convert.ToBoolean(dtQualT.Rows[Q]["Service"]);
-
-                                    DataTable dtTDS = new DataTable();
-                                    if (Convert.ToInt32(dtQualT.Rows[Q]["QualTypeId"]) == 2)
-                                    {
-                                        if (bService == true)
-                                            dtTDS = GetSTSettings("G", dSchDate, conn, tran);
-                                        else
-                                            dtTDS = GetSTSettings("F", dSchDate, conn, tran);
-                                    }
+                                    if (bService == true)
+                                        dtTDS = GetSTSettings("G", dSchDate, conn, tran);
                                     else
-                                    {
-                                        dtTDS = PaymentScheduleDL.GetQual(Convert.ToInt32(dtQualT.Rows[Q]["QualifierId"]), dSchDate, "B", conn, tran);
-                                    }
-
-                                    RAQual.RateID = Convert.ToInt32(dtQualT.Rows[Q]["QualifierId"]);
-                                    if (dtTDS.Rows.Count > 0)
-                                    {
-                                        RAQual.ExpPer = Convert.ToDecimal(CommFun.IsNullCheck(dtTDS.Rows[0]["ExpPer"], CommFun.datatypes.vartypenumeric));
-                                        RAQual.NetPer = Convert.ToDecimal(CommFun.IsNullCheck(dtTDS.Rows[0]["Net"], CommFun.datatypes.vartypenumeric));
-                                        RAQual.SurPer = Convert.ToDecimal(CommFun.IsNullCheck(dtTDS.Rows[0]["SurCharge"], CommFun.datatypes.vartypenumeric));
-                                        RAQual.EDPer = Convert.ToDecimal(CommFun.IsNullCheck(dtTDS.Rows[0]["EDCess"], CommFun.datatypes.vartypenumeric));
-                                        RAQual.HEDPer = Convert.ToDecimal(CommFun.IsNullCheck(dtTDS.Rows[0]["HEDCess"], CommFun.datatypes.vartypenumeric));
-                                        RAQual.HEDValue = (dRAmt * Convert.ToDecimal(CommFun.IsNullCheck(dtTDS.Rows[0]["HEDCess"], CommFun.datatypes.vartypenumeric))) / 100;
-                                        RAQual.TaxablePer = Convert.ToDecimal(CommFun.IsNullCheck(dtTDS.Rows[0]["Taxable"], CommFun.datatypes.vartypenumeric));
-                                    }
-
-                                    DataTable dtQ = new DataTable();
-                                    dtQ = PaymentScheduleDL.GetQual(Convert.ToInt32(dtQualT.Rows[Q]["QualifierId"]), dSchDate, "B", conn, tran);
-                                    //dtQ = QualifierSelect(Convert.ToInt32(dtQualT.Rows[Q]["QualifierId"]), "B", dSchDate, conn, tran);
-                                    if (dtQ.Rows.Count > 0)
-                                    {
-                                        RAQual.Add_Less_Flag = dtQ.Rows[0]["Add_Less_Flag"].ToString();
-                                        RAQual.Amount = 0;
-                                        RAQual.Expression = dtQ.Rows[0]["Expression"].ToString();
-                                    }
-
-                                    QualVBC.Add(RAQual, RAQual.RateID.ToString(), null, null);
-                                }
-
-                                Qualifier.frmQualifier qul = new Qualifier.frmQualifier();
-                                dQBaseAmt = dRAmt;
-                                dQNetAmt = dRAmt; decimal dTaxAmt = 0;
-                                decimal dVATAmt = 0;
-
-                                if (qul.Execute("B", ref dQBaseAmt, ref QualVBC, ref dQNetAmt, false, "", true, ref dTaxAmt, dSchDate, ref dVATAmt) == true)
-                                {
-                                    foreach (Qualifier.cRateQualR d in QualVBC)
-                                    {
-                                        sSql = "Insert into dbo.FlatReceiptQualifier(SchId,QualifierId,Expression,ExpPer,Add_Less_Flag,SurCharge,EDCess,ExpValue,ExpPerValue,SurValue,EDValue,Amount,NetPer,HEDPer,HEDValue,TaxablePer,TaxableValue) " +
-                                                "Values(" + iRSchId + "," + d.RateID + ",'" + d.Expression + "'," + d.ExpPer + ",'" + d.Add_Less_Flag + "'," +
-                                                "" + d.SurPer + "," + d.EDPer + "," + d.ExpValue + "," + d.ExpPerValue + "," + d.SurValue + "," + d.EDValue + "," + d.Amount + "," + d.NetPer + "," + d.HEDPer + "," + d.HEDValue + "," + d.TaxablePer + "," + d.TaxableValue + ")";
-                                        cmd = new SqlCommand(sSql, conn, tran);
-                                        cmd.ExecuteNonQuery();
-                                        cmd.Dispose();
-                                    }
-                                }
-
-                                sSql = "Update dbo.FlatReceiptType Set NetAmount = " + dQNetAmt + " Where SchId = " + iRSchId;
-                                cmd = new SqlCommand(sSql, conn, tran);
-                                cmd.ExecuteNonQuery();
-                                cmd.Dispose();
-                            }
-
-
-                            dTNetAmt = dTNetAmt + dQNetAmt;
-
-                        }
-
-                        //if (dBalAmt <= 0) { break; }
-                    }
-
-                    if (dBalAmt > 0)
-                    {
-                        for (int j = 0; j < dtReceiptOrder.Rows.Count; j++)
-                        {
-                            dRAmt = dBalAmt;
-
-                            sRSchType = dtReceiptOrder.Rows[j]["SchType"].ToString();
-                            iReceiptId = Convert.ToInt32(dtReceiptOrder.Rows[j]["ReceiptTypeId"].ToString());
-                            iROtherCostId = Convert.ToInt32(dtReceiptOrder.Rows[j]["OtherCostId"].ToString());
-
-                            if (sRSchType == "O")
-                            {
-                                drT = dtReceipt.Select("SchType = 'O' and Id = " + iROtherCostId + "");
-                            }
-                            else
-                            {
-                                drT = dtReceipt.Select("SchType = 'R' and Id = " + iReceiptId + "");
-                            }
-
-                            decimal dRTAmt = 0;
-                            decimal dRRAmt = 0;
-
-                            if (drT.Length > 0)
-                            {
-                                dRTAmt = Convert.ToDecimal(drT[0]["Amount"].ToString());
-                                dRRAmt = Convert.ToDecimal(drT[0]["RAmount"].ToString());
-                            }
-
-                            if (dRAmt > dRTAmt - dRRAmt)
-                            {
-                                dRAmt = dRTAmt - dRRAmt;
-                            }
-
-                            if (drT.Length > 0)
-                            {
-                                drT[0]["RAmount"] = dRRAmt + dRAmt;
-                            }
-
-                            if (dRAmt > 0)
-                            {
-                                decimal dPCAmt = 0;
-                                bool bAns = false;
-                                sSql = "Select SchId,Amount,NetAmount from dbo.FlatReceiptType Where PaymentSchId = " + iPaymentSchId + " and " +
-                                        "FlatId= " + argFlatId + " and ReceiptTypeId= " + iReceiptId + " and OtherCostId = " + iROtherCostId + " and SchType= '" + sRSchType + "'";
-                                cmd = new SqlCommand(sSql, conn, tran);
-                                sdr = cmd.ExecuteReader();
-                                DataTable dtP = new DataTable();
-                                dtP.Load(sdr);
-                                sdr.Close();
-                                cmd.Dispose();
-
-                                if (dtP.Rows.Count > 0)
-                                {
-                                    dPCAmt = Convert.ToDecimal(CommFun.IsNullCheck(dtP.Rows[0]["Amount"], CommFun.datatypes.vartypenumeric));
-                                    dTNetAmt = dTNetAmt - dPCAmt;
-                                    dBalAmt = dBalAmt + dPCAmt;
-                                    iRSchId = Convert.ToInt32(dtP.Rows[0]["SchId"].ToString());
-                                    bAns = true;
-                                }
-                                dtP.Dispose();
-
-                                if (bAns == true)
-                                {
-                                    dRAmt = dRAmt + dPCAmt;
-                                    dRPer = (dRAmt / dAmt) * 100;
-
-                                    sSql = "Update dbo.FlatReceiptType Set Amount= " + dRAmt + ",Percentage = " + dRPer + ",NetAmount = " + dRAmt + " Where SchId = " + iRSchId;
-                                    cmd = new SqlCommand(sSql, conn, tran);
-                                    cmd.ExecuteNonQuery();
-                                    cmd.Dispose();
-
-                                    sSql = "Delete from dbo.FlatReceiptQualifier Where SchId = " + iRSchId;
-                                    cmd = new SqlCommand(sSql, conn, tran);
-                                    cmd.ExecuteNonQuery();
-                                    cmd.Dispose();
+                                        dtTDS = GetSTSettings("F", dSchDate, conn, tran);
                                 }
                                 else
                                 {
-                                    dRPer = (dRAmt / dAmt) * 100;
+                                    dtTDS = PaymentScheduleDL.GetQual(Convert.ToInt32(dtQualT.Rows[Q]["QualifierId"]), dSchDate, "B", conn, tran);
+                                }
 
-                                    sSql = "Insert into dbo.FlatReceiptType(PaymentSchId,FlatId,ReceiptTypeId,OtherCostId,SchType,Percentage,Amount,NetAmount) " +
-                                            "Values(" + iPaymentSchId + "," + argFlatId + "," + iReceiptId + "," + iROtherCostId + ",'" + sRSchType + "'," + dRPer + "," + dRAmt + "," + dRAmt + ") SELECT SCOPE_IDENTITY();";
+                                RAQual.RateID = Convert.ToInt32(dtQualT.Rows[Q]["QualifierId"]);
+                                if (dtTDS.Rows.Count > 0)
+                                {
+                                    RAQual.ExpPer = Convert.ToDecimal(CommFun.IsNullCheck(dtTDS.Rows[0]["ExpPer"], CommFun.datatypes.vartypenumeric));
+                                    RAQual.NetPer = Convert.ToDecimal(CommFun.IsNullCheck(dtTDS.Rows[0]["Net"], CommFun.datatypes.vartypenumeric));
+                                    RAQual.SurPer = Convert.ToDecimal(CommFun.IsNullCheck(dtTDS.Rows[0]["SurCharge"], CommFun.datatypes.vartypenumeric));
+                                    RAQual.EDPer = Convert.ToDecimal(CommFun.IsNullCheck(dtTDS.Rows[0]["EDCess"], CommFun.datatypes.vartypenumeric));
+                                    RAQual.HEDPer = Convert.ToDecimal(CommFun.IsNullCheck(dtTDS.Rows[0]["HEDCess"], CommFun.datatypes.vartypenumeric));
+                                    RAQual.HEDValue = (dAmt * Convert.ToDecimal(CommFun.IsNullCheck(dtTDS.Rows[0]["HEDCess"], CommFun.datatypes.vartypenumeric))) / 100;
+                                    RAQual.TaxablePer = Convert.ToDecimal(CommFun.IsNullCheck(dtTDS.Rows[0]["Taxable"], CommFun.datatypes.vartypenumeric));
+                                }
+
+                                DataTable dtQ = new DataTable();
+                                dtQ = PaymentScheduleDL.GetQual(Convert.ToInt32(dtQualT.Rows[Q]["QualifierId"]), dSchDate, "B", conn, tran);
+                                //dtQ = QualifierSelect(Convert.ToInt32(dtQualT.Rows[Q]["QualifierId"]), "B", dSchDate, conn, tran);
+                                if (dtQ.Rows.Count > 0)
+                                {
+                                    RAQual.Add_Less_Flag = dtQ.Rows[0]["Add_Less_Flag"].ToString();
+                                    RAQual.Amount = 0;
+                                    RAQual.Expression = dtQ.Rows[0]["Expression"].ToString();
+                                }
+
+                                QualVBC.Add(RAQual, RAQual.RateID.ToString(), null, null);
+                            }
+
+                            Qualifier.frmQualifier qul = new Qualifier.frmQualifier();
+                            dQBaseAmt = dAmt;
+                            dQNetAmt = dAmt; decimal dTaxAmt = 0;
+                            decimal dVATAmt = 0;
+
+                            if (qul.Execute("B", ref dQBaseAmt, ref QualVBC, ref dQNetAmt, false, "", true, ref dTaxAmt, dSchDate, ref dVATAmt) == true)
+                            {
+                                foreach (Qualifier.cRateQualR d in QualVBC)
+                                {
+                                    sSql = "Insert into dbo.FlatReceiptQualifier(SchId,QualifierId,Expression,ExpPer,Add_Less_Flag,SurCharge,EDCess,ExpValue,ExpPerValue,SurValue,EDValue,Amount,NetPer,HEDPer,HEDValue,TaxablePer,TaxableValue) " +
+                                            "Values(" + iRSchId + "," + d.RateID + ",'" + d.Expression + "'," + d.ExpPer + ",'" + d.Add_Less_Flag + "'," +
+                                            "" + d.SurPer + "," + d.EDPer + "," + d.ExpValue + "," + d.ExpPerValue + "," + d.SurValue + "," + d.EDValue + "," + d.Amount + "," + d.NetPer + "," + d.HEDPer + "," + d.HEDValue + "," + d.TaxablePer + "," + d.TaxableValue + ")";
                                     cmd = new SqlCommand(sSql, conn, tran);
-                                    iRSchId = int.Parse(cmd.ExecuteScalar().ToString());
+                                    cmd.ExecuteNonQuery();
                                     cmd.Dispose();
                                 }
+                            }
+
+                            sSql = "Update dbo.FlatReceiptType Set NetAmount = " + dQNetAmt + " Where SchId = " + iRSchId;
+                            cmd = new SqlCommand(sSql, conn, tran);
+                            cmd.ExecuteNonQuery();
+                            cmd.Dispose();
+                        }
+
+                        if (sSchType != "R")
+                        {
+                            sSql = "Update dbo.PaymentScheduleFlat Set SchPercent=" + dSchPercent + ", Amount= " + dAmt + ",NetAmount=" + dQNetAmt + "  Where PaymentSchId = " + iPaymentSchId;
+                            cmd = new SqlCommand(sSql, conn, tran);
+                            cmd.ExecuteNonQuery();
+                            cmd.Dispose();
+                        }
+
+                        dTNetAmt = dTNetAmt + dQNetAmt;
+                    }
+                    else
+                    {
+                        dBalAmt = dAmt;
+                        for (int j = 0; j < dtTempT.Rows.Count; j++)
+                        {
+                            iSchId = Convert.ToInt32(dtTempT.Rows[j]["SchId"].ToString());
+                            dRPer = Convert.ToDecimal(dtTempT.Rows[j]["Percentage"].ToString());
+                            sRSchType = dtTempT.Rows[j]["SchType"].ToString();
+                            iReceiptId = Convert.ToInt32(dtTempT.Rows[j]["ReceiptTypeId"].ToString());
+                            iROtherCostId = Convert.ToInt32(dtTempT.Rows[j]["OtherCostId"].ToString());
+
+                            if (dRPer != 0) { dRAmt = dAmt * dRPer / 100; }
+                            else { dRAmt = dBalAmt; }
+
+                            if (dRAmt > dBalAmt) { dRAmt = dBalAmt; }
+
+
+                            if (sRSchType == "A" && bAdvance == false)
+                            {
+
+                                dAdvRAmt = dAdvAmt * dRPer / 100;
+                                if (dAdvRAmt > dAdvBalAmt) { dAdvRAmt = dAdvBalAmt; }
+                                dAdvBalAmt = dAdvBalAmt - dAdvRAmt;
+                                dTNetAmt = dTNetAmt - dAdvRAmt;
+
+                                sSql = "Insert into dbo.FlatReceiptType(PaymentSchId,FlatId,ReceiptTypeId,OtherCostId,SchType,Percentage,Amount,NetAmount) " +
+                                        "Values(" + iPaymentSchId + "," + argFlatId + "," + iReceiptId + "," + iROtherCostId + ",'" + sRSchType + "'," + dRPer + ", 0," + dAdvRAmt + ") SELECT SCOPE_IDENTITY();";
+                                cmd = new SqlCommand(sSql, conn, tran);
+                                iRSchId = int.Parse(cmd.ExecuteScalar().ToString());
+                                cmd.Dispose();
+                            }
+
+                            else
+                            {
+                                if (sRSchType == "A")
+                                {
+                                    drT = dtReceipt.Select("SchType = 'A'");
+                                }
+                                else if (sRSchType == "O")
+                                {
+                                    drT = dtReceipt.Select("SchType = 'O' and Id = " + iROtherCostId + "");
+                                }
+                                else
+                                {
+                                    drT = dtReceipt.Select("SchType = 'R' and Id = " + iReceiptId + "");
+                                }
+
+
+                                decimal dRTAmt = 0;
+                                decimal dRRAmt = 0;
+
+                                if (drT.Length > 0)
+                                {
+                                    dRTAmt = Convert.ToDecimal(drT[0]["Amount"].ToString());
+                                    dRRAmt = Convert.ToDecimal(drT[0]["RAmount"].ToString());
+                                }
+
+                                if (dRAmt > dRTAmt - dRRAmt)
+                                {
+                                    dRAmt = dRTAmt - dRRAmt;
+                                }
+
+                                if (drT.Length > 0)
+                                {
+                                    drT[0]["RAmount"] = dRRAmt + dRAmt;
+                                }
+
+                                if (dAmt == 0) { dRPer = 0; }
+                                else dRPer = (dRAmt / dAmt) * 100;
+
+                                dBalAmt = dBalAmt - dRAmt;
+
+                                sSql = "Insert into dbo.FlatReceiptType(PaymentSchId,FlatId,ReceiptTypeId,OtherCostId,SchType,Percentage,Amount,NetAmount) " +
+                                        "Values(" + iPaymentSchId + "," + argFlatId + "," + iReceiptId + "," + iROtherCostId + ",'" + sRSchType + "'," + dRPer + "," + dRAmt + "," + dRAmt + ") SELECT SCOPE_IDENTITY();";
+                                cmd = new SqlCommand(sSql, conn, tran);
+                                iRSchId = Convert.ToInt32(cmd.ExecuteScalar().ToString());
+                                cmd.Dispose();
 
                                 dQNetAmt = dRAmt;
 
                                 dtQualT = new DataTable();
                                 dv = new DataView(dtQual);
-
-                                if (sRSchType == "O")
-                                    dv.RowFilter = "SchType = 'O' and ReceiptTypeId = 0 and OtherCostId = " + iROtherCostId + "";
-                                else
-                                    dv.RowFilter = "SchType = 'R' and ReceiptTypeId = " + iReceiptId + " and OtherCostId = 0";
-
+                                dv.RowFilter = "SchType = '" + sRSchType + "' and ReceiptTypeId = " + iReceiptId + " and OtherCostId = " + iROtherCostId;
                                 dtQualT = dv.ToTable();
                                 dv.Dispose();
                                 if (dtQualT.Rows.Count > 0)
@@ -4673,7 +4626,7 @@ namespace CRM.DataLayer
                                         RAQual = new cRateQualR();
                                         bService = Convert.ToBoolean(dtQualT.Rows[Q]["Service"]);
 
-                                        DataTable dtTDS = new DataTable();                                        
+                                        DataTable dtTDS = new DataTable();
                                         if (Convert.ToInt32(dtQualT.Rows[Q]["QualTypeId"]) == 2)
                                         {
                                             if (bService == true)
@@ -4716,7 +4669,7 @@ namespace CRM.DataLayer
                                     dQNetAmt = dRAmt; decimal dTaxAmt = 0;
                                     decimal dVATAmt = 0;
 
-                                    if (qul.Execute("B", ref dQBaseAmt, ref QualVBC, ref dQNetAmt, false, "", true, ref dTaxAmt, DateTime.Now, ref dVATAmt) == true)
+                                    if (qul.Execute("B", ref dQBaseAmt, ref QualVBC, ref dQNetAmt, false, "", true, ref dTaxAmt, dSchDate, ref dVATAmt) == true)
                                     {
                                         foreach (Qualifier.cRateQualR d in QualVBC)
                                         {
@@ -4728,38 +4681,214 @@ namespace CRM.DataLayer
                                             cmd.Dispose();
                                         }
                                     }
+
                                     sSql = "Update dbo.FlatReceiptType Set NetAmount = " + dQNetAmt + " Where SchId = " + iRSchId;
                                     cmd = new SqlCommand(sSql, conn, tran);
                                     cmd.ExecuteNonQuery();
                                     cmd.Dispose();
                                 }
 
+
                                 dTNetAmt = dTNetAmt + dQNetAmt;
-                                dBalAmt = dBalAmt - dRAmt;
-                                if (dBalAmt <= 0) { break; }
+
                             }
+
+                            //if (dBalAmt <= 0) { break; }
                         }
 
+                        if (dBalAmt > 0)
+                        {
+                            for (int j = 0; j < dtReceiptOrder.Rows.Count; j++)
+                            {
+                                dRAmt = dBalAmt;
+
+                                sRSchType = dtReceiptOrder.Rows[j]["SchType"].ToString();
+                                iReceiptId = Convert.ToInt32(dtReceiptOrder.Rows[j]["ReceiptTypeId"].ToString());
+                                iROtherCostId = Convert.ToInt32(dtReceiptOrder.Rows[j]["OtherCostId"].ToString());
+
+                                if (sRSchType == "O")
+                                {
+                                    drT = dtReceipt.Select("SchType = 'O' and Id = " + iROtherCostId + "");
+                                }
+                                else
+                                {
+                                    drT = dtReceipt.Select("SchType = 'R' and Id = " + iReceiptId + "");
+                                }
+
+                                decimal dRTAmt = 0;
+                                decimal dRRAmt = 0;
+
+                                if (drT.Length > 0)
+                                {
+                                    dRTAmt = Convert.ToDecimal(drT[0]["Amount"].ToString());
+                                    dRRAmt = Convert.ToDecimal(drT[0]["RAmount"].ToString());
+                                }
+
+                                if (dRAmt > dRTAmt - dRRAmt)
+                                {
+                                    dRAmt = dRTAmt - dRRAmt;
+                                }
+
+                                if (drT.Length > 0)
+                                {
+                                    drT[0]["RAmount"] = dRRAmt + dRAmt;
+                                }
+
+                                if (dRAmt > 0)
+                                {
+                                    decimal dPCAmt = 0;
+                                    bool bAns = false;
+                                    sSql = "Select SchId,Amount,NetAmount from dbo.FlatReceiptType Where PaymentSchId = " + iPaymentSchId + " and " +
+                                            "FlatId= " + argFlatId + " and ReceiptTypeId= " + iReceiptId + " and OtherCostId = " + iROtherCostId + " and SchType= '" + sRSchType + "'";
+                                    cmd = new SqlCommand(sSql, conn, tran);
+                                    sdr = cmd.ExecuteReader();
+                                    DataTable dtP = new DataTable();
+                                    dtP.Load(sdr);
+                                    sdr.Close();
+                                    cmd.Dispose();
+
+                                    if (dtP.Rows.Count > 0)
+                                    {
+                                        dPCAmt = Convert.ToDecimal(CommFun.IsNullCheck(dtP.Rows[0]["Amount"], CommFun.datatypes.vartypenumeric));
+                                        dTNetAmt = dTNetAmt - dPCAmt;
+                                        dBalAmt = dBalAmt + dPCAmt;
+                                        iRSchId = Convert.ToInt32(dtP.Rows[0]["SchId"].ToString());
+                                        bAns = true;
+                                    }
+                                    dtP.Dispose();
+
+                                    if (bAns == true)
+                                    {
+                                        dRAmt = dRAmt + dPCAmt;
+                                        dRPer = (dRAmt / dAmt) * 100;
+
+                                        sSql = "Update dbo.FlatReceiptType Set Amount= " + dRAmt + ",Percentage = " + dRPer + ",NetAmount = " + dRAmt + " Where SchId = " + iRSchId;
+                                        cmd = new SqlCommand(sSql, conn, tran);
+                                        cmd.ExecuteNonQuery();
+                                        cmd.Dispose();
+
+                                        sSql = "Delete from dbo.FlatReceiptQualifier Where SchId = " + iRSchId;
+                                        cmd = new SqlCommand(sSql, conn, tran);
+                                        cmd.ExecuteNonQuery();
+                                        cmd.Dispose();
+                                    }
+                                    else
+                                    {
+                                        dRPer = (dRAmt / dAmt) * 100;
+
+                                        sSql = "Insert into dbo.FlatReceiptType(PaymentSchId,FlatId,ReceiptTypeId,OtherCostId,SchType,Percentage,Amount,NetAmount) " +
+                                                "Values(" + iPaymentSchId + "," + argFlatId + "," + iReceiptId + "," + iROtherCostId + ",'" + sRSchType + "'," + dRPer + "," + dRAmt + "," + dRAmt + ") SELECT SCOPE_IDENTITY();";
+                                        cmd = new SqlCommand(sSql, conn, tran);
+                                        iRSchId = int.Parse(cmd.ExecuteScalar().ToString());
+                                        cmd.Dispose();
+                                    }
+
+                                    dQNetAmt = dRAmt;
+
+                                    dtQualT = new DataTable();
+                                    dv = new DataView(dtQual);
+
+                                    if (sRSchType == "O")
+                                        dv.RowFilter = "SchType = 'O' and ReceiptTypeId = 0 and OtherCostId = " + iROtherCostId + "";
+                                    else
+                                        dv.RowFilter = "SchType = 'R' and ReceiptTypeId = " + iReceiptId + " and OtherCostId = 0";
+
+                                    dtQualT = dv.ToTable();
+                                    dv.Dispose();
+                                    if (dtQualT.Rows.Count > 0)
+                                    {
+                                        QualVBC = new Collection();
+
+                                        for (int Q = 0; Q < dtQualT.Rows.Count; Q++)
+                                        {
+                                            RAQual = new cRateQualR();
+                                            bService = Convert.ToBoolean(dtQualT.Rows[Q]["Service"]);
+
+                                            DataTable dtTDS = new DataTable();
+                                            if (Convert.ToInt32(dtQualT.Rows[Q]["QualTypeId"]) == 2)
+                                            {
+                                                if (bService == true)
+                                                    dtTDS = GetSTSettings("G", dSchDate, conn, tran);
+                                                else
+                                                    dtTDS = GetSTSettings("F", dSchDate, conn, tran);
+                                            }
+                                            else
+                                            {
+                                                dtTDS = PaymentScheduleDL.GetQual(Convert.ToInt32(dtQualT.Rows[Q]["QualifierId"]), dSchDate, "B", conn, tran);
+                                            }
+
+                                            RAQual.RateID = Convert.ToInt32(dtQualT.Rows[Q]["QualifierId"]);
+                                            if (dtTDS.Rows.Count > 0)
+                                            {
+                                                RAQual.ExpPer = Convert.ToDecimal(CommFun.IsNullCheck(dtTDS.Rows[0]["ExpPer"], CommFun.datatypes.vartypenumeric));
+                                                RAQual.NetPer = Convert.ToDecimal(CommFun.IsNullCheck(dtTDS.Rows[0]["Net"], CommFun.datatypes.vartypenumeric));
+                                                RAQual.SurPer = Convert.ToDecimal(CommFun.IsNullCheck(dtTDS.Rows[0]["SurCharge"], CommFun.datatypes.vartypenumeric));
+                                                RAQual.EDPer = Convert.ToDecimal(CommFun.IsNullCheck(dtTDS.Rows[0]["EDCess"], CommFun.datatypes.vartypenumeric));
+                                                RAQual.HEDPer = Convert.ToDecimal(CommFun.IsNullCheck(dtTDS.Rows[0]["HEDCess"], CommFun.datatypes.vartypenumeric));
+                                                RAQual.HEDValue = (dRAmt * Convert.ToDecimal(CommFun.IsNullCheck(dtTDS.Rows[0]["HEDCess"], CommFun.datatypes.vartypenumeric))) / 100;
+                                                RAQual.TaxablePer = Convert.ToDecimal(CommFun.IsNullCheck(dtTDS.Rows[0]["Taxable"], CommFun.datatypes.vartypenumeric));
+                                            }
+
+                                            DataTable dtQ = new DataTable();
+                                            dtQ = PaymentScheduleDL.GetQual(Convert.ToInt32(dtQualT.Rows[Q]["QualifierId"]), dSchDate, "B", conn, tran);
+                                            //dtQ = QualifierSelect(Convert.ToInt32(dtQualT.Rows[Q]["QualifierId"]), "B", dSchDate, conn, tran);
+                                            if (dtQ.Rows.Count > 0)
+                                            {
+                                                RAQual.Add_Less_Flag = dtQ.Rows[0]["Add_Less_Flag"].ToString();
+                                                RAQual.Amount = 0;
+                                                RAQual.Expression = dtQ.Rows[0]["Expression"].ToString();
+                                            }
+
+                                            QualVBC.Add(RAQual, RAQual.RateID.ToString(), null, null);
+                                        }
+
+                                        Qualifier.frmQualifier qul = new Qualifier.frmQualifier();
+                                        dQBaseAmt = dRAmt;
+                                        dQNetAmt = dRAmt; decimal dTaxAmt = 0;
+                                        decimal dVATAmt = 0;
+
+                                        if (qul.Execute("B", ref dQBaseAmt, ref QualVBC, ref dQNetAmt, false, "", true, ref dTaxAmt, DateTime.Now, ref dVATAmt) == true)
+                                        {
+                                            foreach (Qualifier.cRateQualR d in QualVBC)
+                                            {
+                                                sSql = "Insert into dbo.FlatReceiptQualifier(SchId,QualifierId,Expression,ExpPer,Add_Less_Flag,SurCharge,EDCess,ExpValue,ExpPerValue,SurValue,EDValue,Amount,NetPer,HEDPer,HEDValue,TaxablePer,TaxableValue) " +
+                                                        "Values(" + iRSchId + "," + d.RateID + ",'" + d.Expression + "'," + d.ExpPer + ",'" + d.Add_Less_Flag + "'," +
+                                                        "" + d.SurPer + "," + d.EDPer + "," + d.ExpValue + "," + d.ExpPerValue + "," + d.SurValue + "," + d.EDValue + "," + d.Amount + "," + d.NetPer + "," + d.HEDPer + "," + d.HEDValue + "," + d.TaxablePer + "," + d.TaxableValue + ")";
+                                                cmd = new SqlCommand(sSql, conn, tran);
+                                                cmd.ExecuteNonQuery();
+                                                cmd.Dispose();
+                                            }
+                                        }
+                                        sSql = "Update dbo.FlatReceiptType Set NetAmount = " + dQNetAmt + " Where SchId = " + iRSchId;
+                                        cmd = new SqlCommand(sSql, conn, tran);
+                                        cmd.ExecuteNonQuery();
+                                        cmd.Dispose();
+                                    }
+
+                                    dTNetAmt = dTNetAmt + dQNetAmt;
+                                    dBalAmt = dBalAmt - dRAmt;
+                                    if (dBalAmt <= 0) { break; }
+                                }
+                            }
+
+                        }
+
+                        if (sSchType != "R")
+                        {
+                            sSql = "Update dbo.PaymentScheduleFlat Set SchPercent=" + dSchPercent + ", Amount= " + dAmt + ",NetAmount=" + dTNetAmt + "  Where PaymentSchId = " + iPaymentSchId;
+                            cmd = new SqlCommand(sSql, conn, tran);
+                            cmd.ExecuteNonQuery();
+                            cmd.Dispose();
+                        }
                     }
-
-                    //modified
-                    sSql = "Update dbo.PaymentScheduleFlat Set Amount= " + dAmt + ",NetAmount=" + dTNetAmt + "  Where PaymentSchId = " + iPaymentSchId;
-                    //sSql = "Update PaymentScheduleFlat Set Amount= " + dAmt + ",NetAmount=" + dQNetAmt + "  Where PaymentSchId = " + iPaymentSchId;
-
-                    cmd = new SqlCommand(sSql, conn, tran);
-                    cmd.ExecuteNonQuery();
-                    cmd.Dispose();
                 }
             }
             dt.Dispose();
-
 
             if (bAdvance == false)
             {
                 sSql = "Insert into dbo.PaymentScheduleFlat(FlatId,TemplateId,CostCentreId,SchType,Description,SchDescId,StageId,OtherCostId,SchDate,Amount,NetAmount,PreStageTypeId,SortOrder) " +
                         "Values(" + argFlatId + ",0," + iCCId + ",'A','Advance',0,0,0,NULL,0," + dAdvAmt + ",0,0)";
-                //sSql = "Insert Into dbo.PaymentScheduleFlat(FlatId,TemplateId,CostCentreId,SchType,Description,SchDescId,StageId,OtherCostId,Amount,NetAmount,PreStageTypeId,SortOrder) " +
-                //      "Values(" + argFlatId + ",0," + iCCId + ",'A','Advance',0,0,0,0," + dAdvAmt + ",0,0)";
                 cmd = new SqlCommand(sSql, conn, tran);
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();

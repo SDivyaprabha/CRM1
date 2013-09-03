@@ -2807,13 +2807,12 @@ namespace CRM
 
             string sStatus = "";
             sStatus = VGrid.Rows["Status"].Properties.Value.ToString();
-            //if (VGrid.Rows["Status"].Properties.Value.ToString() == "Sold") { sStatus = "Sold"; } else sStatus = "";
 
             TextEdit editor = (TextEdit)sender;
             GetGLValue();
-            int iTotCP = 0; decimal dRegValue;
             decimal dGLV = Convert.ToDecimal(VGrid.Rows["GuideLineValue"].Properties.Value);
-            dRegValue = dGLV * Registration * Convert.ToDecimal(VGrid.Rows["USLandArea"].Properties.Value) / 100;
+            decimal dRegValue = dGLV * Registration * Convert.ToDecimal(VGrid.Rows["USLandArea"].Properties.Value) / 100;
+            int iTotCP = 0; 
             if (VGrid.Rows["TotalCarPark"].Properties.Value.ToString() != "")
             {
                 iTotCP = Convert.ToInt32(VGrid.Rows["TotalCarPark"].Properties.Value);
@@ -2867,8 +2866,6 @@ namespace CRM
                                 }
                                 PopulatePaySchFlat();
                             }
-                            //PaymentScheduleBL.InsertFlatSchedule(Convert.ToInt32(tvFlat.FocusedNode["FlatId"]));
-                            //PopulatePaySchFlat();
                         }
 
                         dQualAmt = UnitDirBL.GetQualifierAmt(m_iFlatId, m_bPayTypewise);

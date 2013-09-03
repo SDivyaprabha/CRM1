@@ -41,14 +41,13 @@ namespace CRM
             DGVPay.DataSource = null;
             DGvTransPay.Columns.Clear();
 
-            //dt = PaymentScheduleBL.PaySchType();
             dt = UnitDirBL.PaySchType();
             DGVPay.DataSource = dt;
             DGvTransPay.PopulateColumns();
             DGvTransPay.Columns["TypeId"].Visible = false;
+            DGvTransPay.Columns["EMI"].Visible = false;
             DGvTransPay.Columns["RoundValue"].Visible = false;
             DGvTransPay.Columns["NoOfMonths"].Visible = false;
-            DGvTransPay.Columns["TypeName"].BestFit();
             dt.GetChanges();
         }
 

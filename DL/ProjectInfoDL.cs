@@ -169,16 +169,14 @@ namespace CRM.DL
         internal static DataTable PopulateProjInfo(ProjectInfoBO ProjInfoBO)
         {
             BsfGlobal.OpenCRMDB();
-            string ssql = "";
             DataTable dtProjInfo = null;
-            SqlDataAdapter sda;
-
             try
             {
-                ssql = String.Format("Select * from ProjectInfo Where CostCentreId={0}", ProjInfoBO.i_CostCentreId);
-                sda = new SqlDataAdapter(ssql, BsfGlobal.g_CRMDB);
+                string ssql = String.Format("Select * from ProjectInfo Where CostCentreId={0}", ProjInfoBO.i_CostCentreId);
+                SqlDataAdapter sda = new SqlDataAdapter(ssql, BsfGlobal.g_CRMDB);
                 dtProjInfo = new DataTable();
                 sda.Fill(dtProjInfo);
+                sda.Dispose();
             }
             catch (Exception ex)
             {

@@ -9876,8 +9876,11 @@ namespace CRM
 
                 if (grdPaymentSch.DataSource == null) return;
 
-                DataTable dt = new DataTable();
-                dt = grdPaymentSch.DataSource as DataTable;
+                DataTable dtGrid = new DataTable();
+                dtGrid = grdPaymentSch.DataSource as DataTable;
+                DataView dview = new DataView(dtGrid) { RowFilter = "SchType='S'" };
+                DataTable dt = dview.ToTable();
+                
                 for (int i = 0; i <= dNoOfMonths - 1; i++)
                 {
                     string sInstallment = "";

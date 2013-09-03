@@ -230,12 +230,17 @@ namespace CRM.DataLayer
                 {
                     if (argDescType == "E")
                     {
+                        string sSql = "Delete dbo.PaymentSchedule Where SchType='E' AND TypeId=" + argPayTypeId + " AND CostCentreId=" + argCCId + "";
+                        SqlCommand cmd = new SqlCommand(sSql, conn, tran);
+                        cmd.ExecuteNonQuery();
+                        cmd.Dispose();
+
                         for (int i = 0; i < argDt.Rows.Count; i++)
                         {
                             string sShName = argDt.Rows[i]["Description"].ToString();
 
-                            string sSql = "Delete dbo.SchDescription Where SchDescName='" + sShName + "' AND Type='" + argDescType + "'";
-                            SqlCommand cmd = new SqlCommand(sSql, conn, tran);
+                            sSql = "Delete dbo.SchDescription Where SchDescName='" + sShName + "' AND Type='" + argDescType + "'";
+                            cmd = new SqlCommand(sSql, conn, tran);
                             cmd.ExecuteNonQuery();
                             cmd.Dispose();
 
@@ -824,6 +829,8 @@ namespace CRM.DataLayer
             sdr.Close();
             cmd.Dispose();
 
+            DateTime deStartDate = DateTime.MinValue;
+            DateTime deEndDate = DateTime.MinValue;
             if (dt.Rows.Count > 0)
             {
                 iCCId = Convert.ToInt32(dt.Rows[0]["CostCentreId"].ToString());
@@ -833,7 +840,7 @@ namespace CRM.DataLayer
                 dBaseAmt = Convert.ToDecimal(dt.Rows[0]["BaseAmt"].ToString());
                 dAdvAmt = Convert.ToDecimal(dt.Rows[0]["AdvAmount"].ToString());
 
-                sSql = "Select LCBasedon From dbo.ProjectInfo Where CostCentreId= " + iCCId;
+                sSql = "Select LCBasedon, StartDate, EndDate From dbo.ProjectInfo Where CostCentreId= " + iCCId;
                 cmd = new SqlCommand(sSql, conn, tran);
                 sdr = cmd.ExecuteReader();
                 DataTable dtPI = new DataTable();
@@ -841,7 +848,13 @@ namespace CRM.DataLayer
                 sdr.Close();
                 cmd.Dispose();
 
-                if (dtPI.Rows.Count > 0) { bLCBon = Convert.ToBoolean(dtPI.Rows[0]["LCBasedon"]); }
+                if (dtPI.Rows.Count > 0)
+                {
+                    bLCBon = Convert.ToBoolean(dtPI.Rows[0]["LCBasedon"]);
+                    deStartDate = Convert.ToDateTime(CommFun.IsNullCheck(dtPI.Rows[0]["StartDate"], CommFun.datatypes.VarTypeDate));
+                    deEndDate = Convert.ToDateTime(CommFun.IsNullCheck(dtPI.Rows[0]["EndDate"], CommFun.datatypes.VarTypeDate));
+                }
+
                 if (bLCBon == false) { dLandAmt = Convert.ToDecimal(dt.Rows[0]["LandRate"].ToString()); }
                 else { dLandAmt = Convert.ToDecimal(dt.Rows[0]["USLandAmt"].ToString()); }
 
@@ -1038,7 +1051,7 @@ namespace CRM.DataLayer
             sdr.Close();
             cmd.Dispose();
 
-            sSql = "Select InitialAmount, NoOfMonths from dbo.BuyerDetail Where FlatId = " + argFlatId + " AND CostCentreId=" + iCCId + " ";
+            sSql = "Select InitialAmount, NoOfMonths, FinaliseDate from dbo.BuyerDetail Where FlatId = " + argFlatId + " AND CostCentreId=" + iCCId + " ";
             cmd = new SqlCommand(sSql, conn, tran);
             sdr = cmd.ExecuteReader();
             DataTable dtBuyerDetail = new DataTable();
@@ -1048,10 +1061,12 @@ namespace CRM.DataLayer
 
             decimal dEMIInitialAmount = 0;
             decimal dEMINoOfMonths = 0;
+            DateTime deFinaliseDate = DateTime.MinValue;
             if (dtBuyerDetail.Rows.Count > 0)
             {
                 dEMIInitialAmount = Convert.ToDecimal(CommFun.IsNullCheck(dtBuyerDetail.Rows[0]["InitialAmount"], CommFun.datatypes.vartypenumeric));
                 dEMINoOfMonths = Convert.ToDecimal(CommFun.IsNullCheck(dtBuyerDetail.Rows[0]["NoOfMonths"], CommFun.datatypes.vartypenumeric));
+                deFinaliseDate = Convert.ToDateTime(CommFun.IsNullCheck(dtBuyerDetail.Rows[0]["FinaliseDate"], CommFun.datatypes.VarTypeDate));
             }
             dtBuyerDetail.Dispose();
 
@@ -1083,15 +1098,26 @@ namespace CRM.DataLayer
                 m_dSchDate = Convert.ToDateTime(CommFun.IsNullCheck(dt.Rows[i]["SchDate"], CommFun.datatypes.VarTypeDate));
                 if (bEMI == true)
                 {
-                    if (m_dSchDate == DateTime.MinValue)
+                    if (m_dSchDate == DateTime.MinValue || deFinaliseDate == m_dSchDate)
                     {
                         dEMINoOfMonths = dEMIMasterNoOfMonths;
                     }
                     else
                     {
-                        int iTotalMonths = DateTime.Now.Month - m_dSchDate.Month;
-                        dEMINoOfMonths = dEMIMasterNoOfMonths - iTotalMonths;
-                        if (dEMINoOfMonths < 0) { dEMINoOfMonths = 0; }
+                        int iTotalMonths = 0;
+                        if (deFinaliseDate == DateTime.MinValue)
+                            iTotalMonths = DateTime.Now.Month - m_dSchDate.Month;
+                        else
+                            iTotalMonths = deFinaliseDate.Month - m_dSchDate.Month;
+                        if (iTotalMonths > 0)
+                        {
+                            dEMINoOfMonths = dEMIMasterNoOfMonths - iTotalMonths;
+                            if (dEMINoOfMonths < 0) { dEMINoOfMonths = 0; }
+                        }
+                        else
+                        {
+                            dEMINoOfMonths = 0;
+                        }
                     }
                 }
                 if (bEMI == true && sSchType == "E" && i > dEMINoOfMonths)
@@ -1919,6 +1945,8 @@ namespace CRM.DataLayer
             sdr.Close();
             cmd.Dispose();
 
+            DateTime deStartDate = DateTime.MinValue;
+            DateTime deEndDate = DateTime.MinValue;
             if (dt.Rows.Count > 0)
             {
                 iCCId = Convert.ToInt32(dt.Rows[0]["CostCentreId"].ToString());
@@ -1928,7 +1956,7 @@ namespace CRM.DataLayer
                 dBaseAmt = Convert.ToDecimal(dt.Rows[0]["BaseAmt"].ToString());
                 dAdvAmt = Convert.ToDecimal(dt.Rows[0]["AdvAmount"].ToString());
 
-                sSql = "Select LCBasedon From dbo.ProjectInfo Where CostCentreId= " + iCCId;
+                sSql = "Select LCBasedon, StartDate, EndDate From dbo.ProjectInfo Where CostCentreId= " + iCCId;
                 cmd = new SqlCommand(sSql, conn, tran);
                 sdr = cmd.ExecuteReader();
                 DataTable dtPI = new DataTable();
@@ -1936,9 +1964,17 @@ namespace CRM.DataLayer
                 sdr.Close();
                 cmd.Dispose();
 
-                if (dtPI.Rows.Count > 0) { bLCBon = Convert.ToBoolean(dtPI.Rows[0]["LCBasedon"]); }
-                if (bLCBon == false) { dLandAmt = Convert.ToDecimal(dt.Rows[0]["LandRate"].ToString()); }
-                else { dLandAmt = Convert.ToDecimal(dt.Rows[0]["USLandAmt"].ToString()); }
+                if (dtPI.Rows.Count > 0)
+                {
+                    bLCBon = Convert.ToBoolean(dtPI.Rows[0]["LCBasedon"]);
+                    deStartDate = Convert.ToDateTime(CommFun.IsNullCheck(dtPI.Rows[0]["StartDate"], CommFun.datatypes.VarTypeDate));
+                    deEndDate = Convert.ToDateTime(CommFun.IsNullCheck(dtPI.Rows[0]["EndDate"], CommFun.datatypes.VarTypeDate));
+                }
+
+                if (bLCBon == false)
+                    dLandAmt = Convert.ToDecimal(dt.Rows[0]["LandRate"].ToString());
+                else
+                    dLandAmt = Convert.ToDecimal(dt.Rows[0]["USLandAmt"].ToString());
             }
             dt.Dispose();
 
@@ -2178,17 +2214,29 @@ namespace CRM.DataLayer
                 else if (argType == "B")
                     m_dSchDate = BlockDate;
 
+                DateTime dePaySchDate = Convert.ToDateTime(CommFun.IsNullCheck(dt.Rows[i]["SchDate"], CommFun.datatypes.VarTypeDate));
                 if (bEMI == true)
                 {
-                    if (m_dSchDate == DateTime.MinValue)
+                    if (dePaySchDate == DateTime.MinValue || FinaliseDate == dePaySchDate)
                     {
                         dEMINoOfMonths = dEMIMasterNoOfMonths;
                     }
                     else
                     {
-                        int iTotalMonths = FinaliseDate.Month - m_dSchDate.Month;
-                        dEMINoOfMonths = dEMIMasterNoOfMonths - iTotalMonths;
-                        if (dEMINoOfMonths < 0) { dEMINoOfMonths = 0; }
+                        int iTotalMonths = 0;
+                        if (FinaliseDate == DateTime.MinValue)
+                            iTotalMonths = DateTime.Now.Month - dePaySchDate.Month;
+                        else
+                            iTotalMonths = FinaliseDate.Month - dePaySchDate.Month;
+                        if (iTotalMonths > 0)
+                        {
+                            dEMINoOfMonths = dEMIMasterNoOfMonths - iTotalMonths;
+                            if (dEMINoOfMonths < 0) { dEMINoOfMonths = 0; }
+                        }
+                        else
+                        {
+                            dEMINoOfMonths = 0;
+                        }
                     }
                 }
                 if (bEMI == true && sSchType == "E" && i > dEMINoOfMonths)
@@ -2988,8 +3036,6 @@ namespace CRM.DataLayer
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
 
-
-                //sSql = "Select FlatTypeId,CostCentreId,PayTypeId,BaseAmt,AdvAmount,USLandAmt from dbo.FlatDetails Where FlatId= " + argFlatId;//modified
                 sSql = "Select FlatTypeId,CostCentreId,PayTypeId,BaseAmt,AdvAmount,LandRate,Guidelinevalue,USLandAmt from dbo.FlatDetails Where FlatId= " + argFlatId;
                 cmd = new SqlCommand(sSql, conn, tran);
                 sdr = cmd.ExecuteReader();
@@ -2998,6 +3044,8 @@ namespace CRM.DataLayer
                 sdr.Close();
                 cmd.Dispose();
 
+                DateTime deStartDate = DateTime.MinValue;
+                DateTime deEndDate = DateTime.MinValue;
                 if (dt.Rows.Count > 0)
                 {
                     iCCId = Convert.ToInt32(dt.Rows[0]["CostCentreId"].ToString());
@@ -3006,14 +3054,21 @@ namespace CRM.DataLayer
                     dBaseAmt = Convert.ToDecimal(dt.Rows[0]["BaseAmt"].ToString());
                     dAdvAmt = Convert.ToDecimal(dt.Rows[0]["AdvAmount"].ToString());
 
-                    sSql = "Select LCBasedon From dbo.ProjectInfo Where CostCentreId= " + iCCId;
+                    sSql = "Select LCBasedon, StartDate, EndDate From dbo.ProjectInfo Where CostCentreId= " + iCCId;
                     cmd = new SqlCommand(sSql, conn, tran);
                     sdr = cmd.ExecuteReader();
                     DataTable dtPI = new DataTable();
                     dtPI.Load(sdr);
                     sdr.Close();
                     cmd.Dispose();
-                    if (dtPI.Rows.Count > 0) { bLCBon = Convert.ToBoolean(dtPI.Rows[0]["LCBasedon"]); }
+
+                    if (dtPI.Rows.Count > 0)
+                    {
+                        bLCBon = Convert.ToBoolean(dtPI.Rows[0]["LCBasedon"]);
+                        deStartDate = Convert.ToDateTime(CommFun.IsNullCheck(dtPI.Rows[0]["StartDate"], CommFun.datatypes.VarTypeDate));
+                        deEndDate = Convert.ToDateTime(CommFun.IsNullCheck(dtPI.Rows[0]["EndDate"], CommFun.datatypes.VarTypeDate));
+                    }
+
                     if (bLCBon == false) { dLandAmt = Convert.ToDecimal(dt.Rows[0]["LandRate"].ToString()); }
                     else { dLandAmt = Convert.ToDecimal(dt.Rows[0]["USLandAmt"].ToString()); }
                 }
@@ -3200,7 +3255,7 @@ namespace CRM.DataLayer
                 sdr.Close();
                 cmd.Dispose();
 
-                sSql = "Select InitialAmount, NoOfMonths from dbo.BuyerDetail Where FlatId = " + argFlatId + " AND CostCentreId=" + iCCId + " ";
+                sSql = "Select InitialAmount, NoOfMonths, FinaliseDate from dbo.BuyerDetail Where FlatId = " + argFlatId + " AND CostCentreId=" + iCCId + " ";
                 cmd = new SqlCommand(sSql, conn, tran);
                 sdr = cmd.ExecuteReader();
                 DataTable dtBuyerDetail = new DataTable();
@@ -3210,10 +3265,12 @@ namespace CRM.DataLayer
 
                 decimal dEMIInitialAmount = 0;
                 decimal dEMINoOfMonths = 0;
+                DateTime deFinaliseDate = DateTime.MinValue;
                 if (dtBuyerDetail.Rows.Count > 0)
                 {
                     dEMIInitialAmount = Convert.ToDecimal(CommFun.IsNullCheck(dtBuyerDetail.Rows[0]["InitialAmount"], CommFun.datatypes.vartypenumeric));
                     dEMINoOfMonths = Convert.ToDecimal(CommFun.IsNullCheck(dtBuyerDetail.Rows[0]["NoOfMonths"], CommFun.datatypes.vartypenumeric));
+                    deFinaliseDate = Convert.ToDateTime(CommFun.IsNullCheck(dtBuyerDetail.Rows[0]["FinaliseDate"], CommFun.datatypes.VarTypeDate));
                 }
                 dtBuyerDetail.Dispose();
 
@@ -3241,13 +3298,29 @@ namespace CRM.DataLayer
                     iOtherCostId = Convert.ToInt32(dt.Rows[i]["OtherCostId"].ToString());
                     dSchPercent = Convert.ToDecimal(dt.Rows[i]["SchPercent"].ToString());
                     sSchType = dt.Rows[i]["SchType"].ToString();
-
                     dSchDate = Convert.ToDateTime(CommFun.IsNullCheck(dt.Rows[i]["SchDate"], CommFun.datatypes.VarTypeDate));
                     if (bEMI == true)
                     {
-                        if (dSchDate == DateTime.MinValue)
+                        if (dSchDate == DateTime.MinValue || deFinaliseDate == dSchDate)
                         {
                             dEMINoOfMonths = dEMIMasterNoOfMonths;
+                        }
+                        else
+                        {
+                            int iTotalMonths = 0;
+                            if (deFinaliseDate == DateTime.MinValue)
+                                iTotalMonths = DateTime.Now.Month - dSchDate.Month;
+                            else
+                                iTotalMonths = deFinaliseDate.Month - dSchDate.Month;
+                            if (iTotalMonths > 0)
+                            {
+                                dEMINoOfMonths = dEMIMasterNoOfMonths - iTotalMonths;
+                                if (dEMINoOfMonths < 0) { dEMINoOfMonths = 0; }
+                            }
+                            else
+                            {
+                                dEMINoOfMonths = 0;
+                            }
                         }
                     }
                     if (bEMI == true && sSchType == "E" && i > dEMINoOfMonths)
@@ -4086,6 +4159,8 @@ namespace CRM.DataLayer
             sdr.Close();
             cmd.Dispose();
 
+            DateTime deStartDate = DateTime.MinValue;
+            DateTime deEndDate = DateTime.MinValue;
             if (dt.Rows.Count > 0)
             {
                 iCCId = Convert.ToInt32(dt.Rows[0]["CostCentreId"].ToString());
@@ -4094,14 +4169,21 @@ namespace CRM.DataLayer
                 dBaseAmt = Convert.ToDecimal(dt.Rows[0]["BaseAmt"].ToString());
                 dAdvAmt = Convert.ToDecimal(dt.Rows[0]["AdvAmount"].ToString());
 
-                sSql = "Select LCBasedon From dbo.ProjectInfo Where CostCentreId= " + iCCId;
+                sSql = "Select LCBasedon, StartDate, EndDate From dbo.ProjectInfo Where CostCentreId= " + iCCId;
                 cmd = new SqlCommand(sSql, conn, tran);
                 sdr = cmd.ExecuteReader();
                 DataTable dtPI = new DataTable();
                 dtPI.Load(sdr);
                 sdr.Close();
                 cmd.Dispose();
-                if (dtPI.Rows.Count > 0) { bLCBon = Convert.ToBoolean(dtPI.Rows[0]["LCBasedon"]); }
+
+                if (dtPI.Rows.Count > 0)
+                {
+                    bLCBon = Convert.ToBoolean(dtPI.Rows[0]["LCBasedon"]);
+                    deStartDate = Convert.ToDateTime(CommFun.IsNullCheck(dtPI.Rows[0]["StartDate"], CommFun.datatypes.VarTypeDate));
+                    deEndDate = Convert.ToDateTime(CommFun.IsNullCheck(dtPI.Rows[0]["EndDate"], CommFun.datatypes.VarTypeDate));
+                }
+
                 if (bLCBon == false) { dLandAmt = Convert.ToDecimal(dt.Rows[0]["LandRate"].ToString()); }
                 else { dLandAmt = Convert.ToDecimal(dt.Rows[0]["USLandAmt"].ToString()); }
             }
@@ -4288,7 +4370,7 @@ namespace CRM.DataLayer
             sdr.Close();
             cmd.Dispose();
 
-            sSql = "Select InitialAmount, NoOfMonths from dbo.BuyerDetail Where FlatId = " + argFlatId + " AND CostCentreId=" + iCCId + " ";
+            sSql = "Select InitialAmount, NoOfMonths, FinaliseDate from dbo.BuyerDetail Where FlatId = " + argFlatId + " AND CostCentreId=" + iCCId + " ";
             cmd = new SqlCommand(sSql, conn, tran);
             sdr = cmd.ExecuteReader();
             DataTable dtBuyerDetail = new DataTable();
@@ -4298,10 +4380,12 @@ namespace CRM.DataLayer
 
             decimal dEMIInitialAmount = 0;
             decimal dEMINoOfMonths = 0;
+            DateTime deFinaliseDate = DateTime.MinValue;
             if (dtBuyerDetail.Rows.Count > 0)
             {
                 dEMIInitialAmount = Convert.ToDecimal(CommFun.IsNullCheck(dtBuyerDetail.Rows[0]["InitialAmount"], CommFun.datatypes.vartypenumeric));
                 dEMINoOfMonths = Convert.ToDecimal(CommFun.IsNullCheck(dtBuyerDetail.Rows[0]["NoOfMonths"], CommFun.datatypes.vartypenumeric));
+                deFinaliseDate = Convert.ToDateTime(CommFun.IsNullCheck(dtBuyerDetail.Rows[0]["FinaliseDate"], CommFun.datatypes.VarTypeDate));
             }
             dtBuyerDetail.Dispose();
 
@@ -4335,13 +4419,32 @@ namespace CRM.DataLayer
                 else if (argsType == "B")
                     dSchDate = BlockDate;
 
+                DateTime dePaySchDate = Convert.ToDateTime(CommFun.IsNullCheck(dt.Rows[i]["SchDate"], CommFun.datatypes.VarTypeDate));
                 if (bEMI == true)
                 {
-                    if (dSchDate == DateTime.MinValue)
+                    if (dePaySchDate == DateTime.MinValue || deFinaliseDate == dePaySchDate)
                     {
                         dEMINoOfMonths = dEMIMasterNoOfMonths;
                     }
+                    else
+                    {
+                        int iTotalMonths = 0;
+                        if (deFinaliseDate == DateTime.MinValue)
+                            iTotalMonths = DateTime.Now.Month - dePaySchDate.Month;
+                        else
+                            iTotalMonths = deFinaliseDate.Month - dePaySchDate.Month;
+                        if (iTotalMonths > 0)
+                        {
+                            dEMINoOfMonths = dEMIMasterNoOfMonths - iTotalMonths;
+                            if (dEMINoOfMonths < 0) { dEMINoOfMonths = 0; }
+                        }
+                        else
+                        {
+                            dEMINoOfMonths = 0;
+                        }
+                    }
                 }
+
                 if (bEMI == true && sSchType == "E" && i > dEMINoOfMonths)
                 {
                     if (CommFun.IsNullCheck(dt.Rows[dt.Rows.Count - 1]["SchType"], CommFun.datatypes.vartypestring).ToString() == "R")

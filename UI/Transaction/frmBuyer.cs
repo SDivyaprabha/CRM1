@@ -1585,6 +1585,7 @@ namespace CRM
             decimal dEMIRoundOff = 0;
             for (int i = 0; i <= dt.Rows.Count - 1; i++)
             {
+                dNoOfMonths = Convert.ToDecimal(CommFun.IsNullCheck(txtNoOfMonths.Text, CommFun.datatypes.vartypenumeric));
                 DateTime dFinaliseDate = Convert.ToDateTime(CommFun.IsNullCheck(dateFinal.EditValue, CommFun.datatypes.VarTypeDate));
                 DateTime dSchDate = Convert.ToDateTime(CommFun.IsNullCheck(dt.Rows[i]["SchDate"], CommFun.datatypes.VarTypeDate));
                 if (dSchDate != DateTime.MinValue)
@@ -1604,11 +1605,13 @@ namespace CRM
                     {
                         int iTotalMonths = dFinaliseDate.Month - dStartDate.Month;
                         dNoOfMonths = dNoOfMonths - iTotalMonths;
+                        if (dNoOfMonths < 0) { dNoOfMonths = 0; }
                     }
                     else if (dSchDate == dEndDate)
                     {
                         int iTotalMonths = dFinaliseDate.Month - dEndDate.Month;
                         dNoOfMonths = dNoOfMonths - iTotalMonths;
+                        if (dNoOfMonths < 0) { dNoOfMonths = 0; }
                     }
                 }
 
@@ -1650,6 +1653,8 @@ namespace CRM
                     dtInstallment.Rows.Add(drow);
                 }
             }
+
+            txtNoOfMonths.Text = dNoOfMonths.ToString();
 
             drow = dtInstallment.NewRow();
             drow["Description"] = "Round Off";

@@ -491,11 +491,11 @@ namespace CRM.DataLayer
             try
             {
                 sSql = "SELECT RefNo,Arrear=(SELECT SUM(F.NetAmount-F.PaidAmount) Arrear " +
-                    "FROM dbo.MaintenanceSchTrans F  INNER JOIN dbo.MaintenanceDet M ON M.MaintenanceId=F.MaintenanceId WHERE M.FlatId=" + argFlatId + " AND M.MaintenanceId<" + argMaintanceId + "), " +
-                    "BillAmount=(SELECT SUM(F.NetAmount) BillAmount FROM dbo.MaintenanceSchTrans F  INNER JOIN dbo.MaintenanceDet M ON M.MaintenanceId=F.MaintenanceId WHERE M.FlatId=" + argFlatId + " AND M.MaintenanceId=" + argMaintanceId + ") , " +
-                    "FromDate=(SELECT min(FromDate) FROM MaintenanceSchTrans F  INNER JOIN dbo.MaintenanceDet M ON M.MaintenanceId=F.MaintenanceId WHERE M.FlatId=" + argFlatId + " AND M.MaintenanceId<" + argMaintanceId + "), " +
-                    "ToDate=(SELECT max(ToDate) FROM MaintenanceSchTrans F  INNER JOIN dbo.MaintenanceDet M ON M.MaintenanceId=F.MaintenanceId WHERE M.FlatId=" + argFlatId + " AND M.MaintenanceId=" + argMaintanceId + ") from Maintenancedet M " +
-                    "WHERE M.FlatId=" + argFlatId + " AND M.MaintenanceId=" + argMaintanceId;
+                       "FROM dbo.MaintenanceSchTrans F  INNER JOIN dbo.MaintenanceDet M ON M.MaintenanceId=F.MaintenanceId WHERE M.FlatId=" + argFlatId + " AND M.MaintenanceId<" + argMaintanceId + "), " +
+                       "BillAmount=(SELECT SUM(F.NetAmount) BillAmount FROM dbo.MaintenanceSchTrans F  INNER JOIN dbo.MaintenanceDet M ON M.MaintenanceId=F.MaintenanceId WHERE M.FlatId=" + argFlatId + " AND M.MaintenanceId=" + argMaintanceId + ") , " +
+                       "FromDate=(SELECT MIN(FromDate) FROM MaintenanceSchTrans F  INNER JOIN dbo.MaintenanceDet M ON M.MaintenanceId=F.MaintenanceId WHERE F.NetAmount<>F.PaidAmount AND M.FlatId=" + argFlatId + " AND M.MaintenanceId<" + argMaintanceId + "), " +
+                       "ToDate=(SELECT MAX(ToDate) FROM MaintenanceSchTrans F  INNER JOIN dbo.MaintenanceDet M ON M.MaintenanceId=F.MaintenanceId WHERE F.NetAmount<>F.PaidAmount AND M.FlatId=" + argFlatId + " AND M.MaintenanceId=" + argMaintanceId + ") from Maintenancedet M " +
+                       "WHERE M.FlatId=" + argFlatId + " AND M.MaintenanceId=" + argMaintanceId;
 
                 sda = new SqlDataAdapter(sSql, BsfGlobal.g_CRMDB);
                 dt = new DataTable();

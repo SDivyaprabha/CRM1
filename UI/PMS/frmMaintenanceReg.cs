@@ -482,6 +482,7 @@ namespace CRM
                 if (dArrear == 0)
                 {
                     dStartDate = Convert.ToDateTime(CommFun.IsNullCheck(DGvTransView.GetRowCellValue(DGvTransView.FocusedRowHandle, "StartDate"), CommFun.datatypes.VarTypeDate));
+                    dEndDate = Convert.ToDateTime(CommFun.IsNullCheck(DGvTransView.GetRowCellValue(DGvTransView.FocusedRowHandle, "EndDate"), CommFun.datatypes.VarTypeDate));
                     sMonth = dStartDate.Month;
                     sYear = dStartDate.Year;
                     sFifetDate = Convert.ToDateTime("15" + "/" + sMonth + "/" + sYear);
@@ -494,9 +495,10 @@ namespace CRM
                     sYear = dEndDate.Year;
                     sFifetDate = Convert.ToDateTime("15" + "/" + sMonth + "/" + sYear);
                 }
-                dEndDate = Convert.ToDateTime(CommFun.IsNullCheck(dt.Rows[0]["ToDate"], CommFun.datatypes.VarTypeDate));
+                //dEndDate = Convert.ToDateTime(CommFun.IsNullCheck(dt.Rows[0]["ToDate"], CommFun.datatypes.VarTypeDate));
 
             }
+
             decimal dTotalPayAmt = Convert.ToDecimal(dBillAmount + dArrear);
 
             objReport = new frmReport();

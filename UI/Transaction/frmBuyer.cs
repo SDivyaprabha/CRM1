@@ -228,9 +228,6 @@ namespace CRM
                                     RGPaymentOpt.SelectedIndex = 1;
                                 }
 
-                                txtInitialAmount.Text = Convert.ToDecimal(CommFun.IsNullCheck(dtRetn.Rows[0]["InitialAmount"], CommFun.datatypes.vartypenumeric)).ToString();
-                                txtNoOfMonths.Text = Convert.ToDecimal(CommFun.IsNullCheck(dtRetn.Rows[0]["NoOfMonths"], CommFun.datatypes.vartypenumeric)).ToString();
-                                if (Convert.ToDecimal(txtNoOfMonths.Text) > 0) { GenerateInstallment(); }
                                 cboBroker.EditValue = Convert.ToInt32(CommFun.IsNullCheck(dtRetn.Rows[0]["BrokerId"].ToString(), CommFun.datatypes.vartypenumeric));
                                 txtCommpercent.EditValue = Convert.ToDecimal(CommFun.IsNullCheck(dtRetn.Rows[0]["ComPer"].ToString(), CommFun.datatypes.vartypenumeric));
                                 txtCommAmt.EditValue = Convert.ToDecimal(CommFun.IsNullCheck(dtRetn.Rows[0]["ComAmount"].ToString(), CommFun.datatypes.vartypenumeric));
@@ -311,9 +308,7 @@ namespace CRM
                         {
                             RGPaymentOpt.SelectedIndex = 1;
                         }
-                        txtInitialAmount.Text = Convert.ToDecimal(CommFun.IsNullCheck(dtenq.Rows[0]["InitialAmount"], CommFun.datatypes.vartypenumeric)).ToString();
-                        txtNoOfMonths.Text = Convert.ToDecimal(CommFun.IsNullCheck(dtenq.Rows[0]["NoOfMonths"], CommFun.datatypes.vartypenumeric)).ToString();
-                        if (Convert.ToDecimal(txtNoOfMonths.Text) > 0) { GenerateInstallment(); }
+                        
                         cboBroker.EditValue = Convert.ToInt32(dtenq.Rows[0]["BrokerId"].ToString());
                         txtCommpercent.Text = dtenq.Rows[0]["ComPer"].ToString();
                         txtCommAmt.Text = dtenq.Rows[0]["ComAmount"].ToString();
@@ -333,8 +328,6 @@ namespace CRM
                     txtAdv.Enabled = false;
                     txtCommpercent.Enabled = false;
                     txtRate.Enabled = false;
-                    txtInitialAmount.Enabled = false;
-                    txtNoOfMonths.Enabled = false;
 
                     btnBroker.Enabled = false;
                     cboBroker.Enabled = false;
@@ -344,7 +337,6 @@ namespace CRM
                     cboPaymentSchedule.Enabled = false;
 
                     RGCustomerType.Enabled = false;
-                    //radioGroup2.Enabled = false;
                     RGStatus.Enabled = false;
 
                     dateFinal.Enabled = false;
@@ -1196,20 +1188,6 @@ namespace CRM
         private void cboPSch_EditValueChanged(object sender, EventArgs e)
         {
             m_iPayId = Convert.ToInt32(cboPaymentSchedule.EditValue);
-
-            txtInitialAmount.Text = 0.ToString();
-            txtNoOfMonths.Text = 0.ToString();
-            bool bEMI = Convert.ToBoolean(CommFun.IsNullCheck(cboPaymentSchedule.GetColumnValue("EMI"), CommFun.datatypes.varTypeBoolean));
-            if (bEMI == true)
-            {
-                txtInitialAmount.Enabled = true;
-                txtNoOfMonths.Enabled = true;
-            }
-            else
-            {
-                txtInitialAmount.Enabled = false;
-                txtNoOfMonths.Enabled = false;
-            }
         }
 
         private void txtCommpercent_EditValueChanged(object sender, EventArgs e)
@@ -1438,9 +1416,7 @@ namespace CRM
                     PlotId = m_iPlotId,
                     RegDate = Convert.ToDateTime(dEReg.EditValue),
                     FlatTypeId = m_iFlatTypeId,
-                    PlotTypeId = m_iPlotTypeId,
-                    InitialAmount = Convert.ToDecimal(CommFun.IsNullCheck(txtInitialAmount.Text, CommFun.datatypes.vartypenumeric)),
-                    NoOfMonths = Convert.ToDecimal(CommFun.IsNullCheck(txtNoOfMonths.Text, CommFun.datatypes.vartypenumeric))
+                    PlotTypeId = m_iPlotTypeId
                 });
                 dtRetn = CommFun.GenericListToDataTable(oBuyerDetBO);
 
@@ -1554,122 +1530,122 @@ namespace CRM
 
         private void GenerateInstallment()
         {
-            Cursor.Current = Cursors.WaitCursor;
+            //Cursor.Current = Cursors.WaitCursor;
 
-            int iPayTypeId = Convert.ToInt32(CommFun.IsNullCheck(cboPaymentSchedule.EditValue, CommFun.datatypes.vartypenumeric));
-            if (iPayTypeId == 0) { return; }
+            //int iPayTypeId = Convert.ToInt32(CommFun.IsNullCheck(cboPaymentSchedule.EditValue, CommFun.datatypes.vartypenumeric));
+            //if (iPayTypeId == 0) { return; }
 
-            decimal dInitialAmount = Convert.ToDecimal(CommFun.IsNullCheck(txtInitialAmount.Text, CommFun.datatypes.vartypenumeric));
-            decimal dGrossAmount = Convert.ToDecimal(CommFun.IsNullCheck(vGridControl1.Rows["GrossAmt"].Properties.Value, CommFun.datatypes.vartypenumeric));
-            decimal dRoundValue = Convert.ToDecimal(CommFun.IsNullCheck(cboPaymentSchedule.GetColumnValue("RoundValue"), CommFun.datatypes.vartypenumeric));
+            //decimal dInitialAmount = Convert.ToDecimal(CommFun.IsNullCheck(txtInitialAmount.Text, CommFun.datatypes.vartypenumeric));
+            //decimal dGrossAmount = Convert.ToDecimal(CommFun.IsNullCheck(vGridControl1.Rows["GrossAmt"].Properties.Value, CommFun.datatypes.vartypenumeric));
+            //decimal dRoundValue = Convert.ToDecimal(CommFun.IsNullCheck(cboPaymentSchedule.GetColumnValue("RoundValue"), CommFun.datatypes.vartypenumeric));
 
-            decimal dNoOfMonths = Convert.ToDecimal(CommFun.IsNullCheck(txtNoOfMonths.Text, CommFun.datatypes.vartypenumeric));
-            if (dNoOfMonths == 0) { gridControl1.DataSource = null; return; }
+            //decimal dNoOfMonths = Convert.ToDecimal(CommFun.IsNullCheck(txtNoOfMonths.Text, CommFun.datatypes.vartypenumeric));
+            //if (dNoOfMonths == 0) { gridControl1.DataSource = null; return; }
 
-            DataTable dtInstallment = new DataTable();
-            dtInstallment.Columns.Add("Description", typeof(string));
-            dtInstallment.Columns.Add("Amount", typeof(decimal));
+            //DataTable dtInstallment = new DataTable();
+            //dtInstallment.Columns.Add("Description", typeof(string));
+            //dtInstallment.Columns.Add("Amount", typeof(decimal));
 
-            DataRow drow = dtInstallment.NewRow();
-            drow["Description"] = "Initial Amount";
-            drow["Amount"] = dInitialAmount;
-            dtInstallment.Rows.Add(drow);
+            //DataRow drow = dtInstallment.NewRow();
+            //drow["Description"] = "Initial Amount";
+            //drow["Amount"] = dInitialAmount;
+            //dtInstallment.Rows.Add(drow);
 
-            DataTable dt = new DataTable();
-            dt = PaymentScheduleBL.GetEMISchedule(iCCId, iPayTypeId);
-            if (dt.Rows.Count == 0) return;
+            //DataTable dt = new DataTable();
+            //dt = PaymentScheduleBL.GetEMISchedule(iCCId, iPayTypeId);
+            //if (dt.Rows.Count == 0) return;
 
-            if (dNoOfMonths > dt.Rows.Count) { dNoOfMonths = dt.Rows.Count; txtNoOfMonths.Text = dNoOfMonths.ToString(); }
+            //if (dNoOfMonths > dt.Rows.Count) { dNoOfMonths = dt.Rows.Count; txtNoOfMonths.Text = dNoOfMonths.ToString(); }
 
-            decimal dGrossAmt = dGrossAmount - dInitialAmount;
-            decimal dEMIRoundOff = 0;
-            for (int i = 0; i <= dt.Rows.Count - 1; i++)
-            {
-                dNoOfMonths = Convert.ToDecimal(CommFun.IsNullCheck(txtNoOfMonths.Text, CommFun.datatypes.vartypenumeric));
-                DateTime dFinaliseDate = Convert.ToDateTime(CommFun.IsNullCheck(dateFinal.EditValue, CommFun.datatypes.VarTypeDate));
-                DateTime dSchDate = Convert.ToDateTime(CommFun.IsNullCheck(dt.Rows[i]["SchDate"], CommFun.datatypes.VarTypeDate));
-                if (dSchDate != DateTime.MinValue)
-                {
-                    CRM.BO.ProjectInfoBO projBO = new BO.ProjectInfoBO() { i_CostCentreId = iCCId };
-                    DataTable dtProject = new DataTable();
-                    dtProject = CRM.BL.ProjectInfoBL.PopulateProjInfo(projBO);
-                    DateTime dStartDate = DateTime.MinValue;
-                    DateTime dEndDate = DateTime.MinValue;
-                    if (dtProject.Rows.Count > 0)
-                    {
-                        dStartDate = Convert.ToDateTime(CommFun.IsNullCheck(dtProject.Rows[0]["StartDate"], CommFun.datatypes.VarTypeDate));
-                        dEndDate = Convert.ToDateTime(CommFun.IsNullCheck(dtProject.Rows[0]["EndDate"], CommFun.datatypes.VarTypeDate));
-                    }
+            //decimal dGrossAmt = dGrossAmount - dInitialAmount;
+            //decimal dEMIRoundOff = 0;
+            //for (int i = 0; i <= dt.Rows.Count - 1; i++)
+            //{
+            //    dNoOfMonths = Convert.ToDecimal(CommFun.IsNullCheck(txtNoOfMonths.Text, CommFun.datatypes.vartypenumeric));
+            //    DateTime dFinaliseDate = Convert.ToDateTime(CommFun.IsNullCheck(dateFinal.EditValue, CommFun.datatypes.VarTypeDate));
+            //    DateTime dSchDate = Convert.ToDateTime(CommFun.IsNullCheck(dt.Rows[i]["SchDate"], CommFun.datatypes.VarTypeDate));
+            //    if (dSchDate != DateTime.MinValue)
+            //    {
+            //        CRM.BO.ProjectInfoBO projBO = new BO.ProjectInfoBO() { i_CostCentreId = iCCId };
+            //        DataTable dtProject = new DataTable();
+            //        dtProject = CRM.BL.ProjectInfoBL.PopulateProjInfo(projBO);
+            //        DateTime dStartDate = DateTime.MinValue;
+            //        DateTime dEndDate = DateTime.MinValue;
+            //        if (dtProject.Rows.Count > 0)
+            //        {
+            //            dStartDate = Convert.ToDateTime(CommFun.IsNullCheck(dtProject.Rows[0]["StartDate"], CommFun.datatypes.VarTypeDate));
+            //            dEndDate = Convert.ToDateTime(CommFun.IsNullCheck(dtProject.Rows[0]["EndDate"], CommFun.datatypes.VarTypeDate));
+            //        }
 
-                    if (dSchDate == dStartDate)
-                    {
-                        int iTotalMonths = dFinaliseDate.Month - dStartDate.Month;
-                        dNoOfMonths = dNoOfMonths - iTotalMonths;
-                        if (dNoOfMonths < 0) { dNoOfMonths = 0; }
-                    }
-                    else if (dSchDate == dEndDate)
-                    {
-                        int iTotalMonths = dFinaliseDate.Month - dEndDate.Month;
-                        dNoOfMonths = dNoOfMonths - iTotalMonths;
-                        if (dNoOfMonths < 0) { dNoOfMonths = 0; }
-                    }
-                }
+            //        if (dSchDate == dStartDate)
+            //        {
+            //            int iTotalMonths = dFinaliseDate.Month - dStartDate.Month;
+            //            dNoOfMonths = dNoOfMonths - iTotalMonths;
+            //            if (dNoOfMonths < 0) { dNoOfMonths = 0; }
+            //        }
+            //        else if (dSchDate == dEndDate)
+            //        {
+            //            int iTotalMonths = dFinaliseDate.Month - dEndDate.Month;
+            //            dNoOfMonths = dNoOfMonths - iTotalMonths;
+            //            if (dNoOfMonths < 0) { dNoOfMonths = 0; }
+            //        }
+            //    }
 
-                decimal dPercentage = Math.Round(100 / dNoOfMonths, 3);
-                decimal dExcessPer = 100 - (dPercentage * dNoOfMonths);
-                decimal dFirstInsPer = dPercentage + dExcessPer;
+            //    decimal dPercentage = Math.Round(100 / dNoOfMonths, 3);
+            //    decimal dExcessPer = 100 - (dPercentage * dNoOfMonths);
+            //    decimal dFirstInsPer = dPercentage + dExcessPer;
 
-                if (i < dNoOfMonths)
-                {
-                    string sInstallment = "";
-                    if (i == 0)
-                        sInstallment = (i + 1) + "st Installment";
-                    else if (i == 1)
-                        sInstallment = (i + 1) + "nd Installment";
-                    else if (i == 2)
-                        sInstallment = (i + 1) + "rd Installment";
-                    else
-                        sInstallment = (i + 1) + "th Installment";
+            //    if (i < dNoOfMonths)
+            //    {
+            //        string sInstallment = "";
+            //        if (i == 0)
+            //            sInstallment = (i + 1) + "st Installment";
+            //        else if (i == 1)
+            //            sInstallment = (i + 1) + "nd Installment";
+            //        else if (i == 2)
+            //            sInstallment = (i + 1) + "rd Installment";
+            //        else
+            //            sInstallment = (i + 1) + "th Installment";
 
-                    decimal dAmount = 0;
-                    if (i == 0)
-                        dAmount = dGrossAmt * dFirstInsPer / 100;
-                    else
-                        dAmount = dGrossAmt * dPercentage / 100;
+            //        decimal dAmount = 0;
+            //        if (i == 0)
+            //            dAmount = dGrossAmt * dFirstInsPer / 100;
+            //        else
+            //            dAmount = dGrossAmt * dPercentage / 100;
 
-                    decimal dRoundOff = 0;
-                    decimal dRound = 0;
-                    if (dRoundValue > 0)
-                    {
-                        dRoundOff = Math.Truncate(dAmount / dRoundValue) * dRoundValue;
-                        dRound = dAmount - dRoundOff;
-                        dEMIRoundOff = dEMIRoundOff + dRound;
-                        dAmount = dRoundOff;
-                    }
+            //        decimal dRoundOff = 0;
+            //        decimal dRound = 0;
+            //        if (dRoundValue > 0)
+            //        {
+            //            dRoundOff = Math.Truncate(dAmount / dRoundValue) * dRoundValue;
+            //            dRound = dAmount - dRoundOff;
+            //            dEMIRoundOff = dEMIRoundOff + dRound;
+            //            dAmount = dRoundOff;
+            //        }
 
-                    drow = dtInstallment.NewRow();
-                    drow["Description"] = sInstallment;
-                    drow["Amount"] = dAmount;
-                    dtInstallment.Rows.Add(drow);
-                }
-            }
+            //        drow = dtInstallment.NewRow();
+            //        drow["Description"] = sInstallment;
+            //        drow["Amount"] = dAmount;
+            //        dtInstallment.Rows.Add(drow);
+            //    }
+            //}
 
-            txtNoOfMonths.Text = dNoOfMonths.ToString();
+            //txtNoOfMonths.Text = dNoOfMonths.ToString();
 
-            drow = dtInstallment.NewRow();
-            drow["Description"] = "Round Off";
-            drow["Amount"] = dEMIRoundOff;
-            dtInstallment.Rows.Add(drow);
+            //drow = dtInstallment.NewRow();
+            //drow["Description"] = "Round Off";
+            //drow["Amount"] = dEMIRoundOff;
+            //dtInstallment.Rows.Add(drow);
 
-            gridControl1.DataSource = dtInstallment;
-            gridView1.Columns["Amount"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            gridView1.Columns["Amount"].DisplayFormat.FormatString = BsfGlobal.g_sDigitFormat;
+            //gridControl1.DataSource = dtInstallment;
+            //gridView1.Columns["Amount"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            //gridView1.Columns["Amount"].DisplayFormat.FormatString = BsfGlobal.g_sDigitFormat;
 
-            gridView1.Columns["Amount"].SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Sum;
-            gridView1.Columns["Amount"].SummaryItem.DisplayFormat = BsfGlobal.g_sDigitFormatS;
-            gridView1.OptionsView.ShowFooter = true;
+            //gridView1.Columns["Amount"].SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Sum;
+            //gridView1.Columns["Amount"].SummaryItem.DisplayFormat = BsfGlobal.g_sDigitFormatS;
+            //gridView1.OptionsView.ShowFooter = true;
 
-            Cursor.Current = Cursors.Default;
+            //Cursor.Current = Cursors.Default;
         }
     }
 }

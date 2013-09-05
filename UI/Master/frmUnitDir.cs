@@ -8289,7 +8289,7 @@ namespace CRM
                     dt.Dispose();
                 }
             }
-            else if (sType == "O" && chkPaySchEMI.Checked == false)
+            else if (sType == "O")
             {
                 int iRow = grdPaymentSchView.RowCount;
                 frmOtherCost frms = new frmOtherCost();
@@ -8361,16 +8361,16 @@ namespace CRM
                 m_bPayTypewise = Convert.ToBoolean(row["Typewise"]);
                 txtPaymentSchRoundDigit.Text = Convert.ToDecimal(CommFun.IsNullCheck(row["RoundValue"], CommFun.datatypes.vartypenumeric)).ToString();
                 chkPaySchEMI.EditValue = Convert.ToBoolean(CommFun.IsNullCheck(row["EMI"], CommFun.datatypes.varTypeBoolean));                
-                txtPaySchNoOfMonths.Text = Convert.ToDecimal(CommFun.IsNullCheck(row["NoOfMonths"], CommFun.datatypes.vartypenumeric)).ToString();
+                txtPaySchNoOfInstallment.Text = Convert.ToDecimal(CommFun.IsNullCheck(row["NoOfMonths"], CommFun.datatypes.vartypenumeric)).ToString();
                 if (chkPaySchEMI.Checked == true)
                 {
                     chkPaySchEMI.Enabled = false;
-                    txtPaySchNoOfMonths.Enabled = true;
+                    txtPaySchNoOfInstallment.Enabled = true;
                 }
                 else
                 {
                     chkPaySchEMI.Enabled = true;
-                    txtPaySchNoOfMonths.Enabled = false;
+                    txtPaySchNoOfInstallment.Enabled = false;
                 }
             }
 
@@ -8412,7 +8412,7 @@ namespace CRM
 
                 decimal dRoundValue = Convert.ToDecimal(CommFun.IsNullCheck(txtPaymentSchRoundDigit.Text, CommFun.datatypes.vartypenumeric));
                 bool bEMI = Convert.ToBoolean(CommFun.IsNullCheck(chkPaySchEMI.Checked, CommFun.datatypes.varTypeBoolean));
-                decimal dNoOfMonths = Convert.ToDecimal(CommFun.IsNullCheck(txtPaySchNoOfMonths.Text, CommFun.datatypes.vartypenumeric));
+                decimal dNoOfMonths = Convert.ToDecimal(CommFun.IsNullCheck(txtPaySchNoOfInstallment.Text, CommFun.datatypes.vartypenumeric));
 
                 if (bEMI == true)
                 {
@@ -8423,7 +8423,7 @@ namespace CRM
                     {
                         if (dView.ToTable().Rows.Count == 0)
                         {
-                            MessageBox.Show("Set One Stage for EMI Schedule", "Payment Schedule", MessageBoxButtons.OK, MessageBoxIcon.Information); return;
+                            MessageBox.Show("Set Stage for EMI Schedule", "Payment Schedule", MessageBoxButtons.OK, MessageBoxIcon.Information); return;
                         }
                     }
                 }
@@ -8518,16 +8518,20 @@ namespace CRM
 
         private void grdViewPayS_ValidatingEditor(object sender, BaseContainerValidateEditorEventArgs e)
         {
+            bool bEMI = Convert.ToBoolean(CommFun.IsNullCheck(chkPaySchEMI.Checked, CommFun.datatypes.varTypeBoolean));
             decimal dPer = Convert.ToDecimal(CommFun.IsNullCheck(grdPaymentSchView.Columns["SchPercent"].SummaryText, CommFun.datatypes.vartypenumeric));
-            if (dPer == 0 || dPer == 100)
+            if (bEMI == false)
             {
-                cboPaySchType.Enabled = true;
-                btnPayExit.Enabled = true;
-            }
-            else
-            {
-                cboPaySchType.Enabled = false;
-                btnPayExit.Enabled = false;
+                if (dPer == 0 || dPer == 100)
+                {
+                    cboPaySchType.Enabled = true;
+                    btnPayExit.Enabled = true;
+                }
+                else
+                {
+                    cboPaySchType.Enabled = false;
+                    btnPayExit.Enabled = false;
+                }
             }
         }
 
@@ -9852,64 +9856,46 @@ namespace CRM
 
         private void chkPaySchEMI_CheckedChanged(object sender, EventArgs e)
         {
-            txtPaySchNoOfMonths.Text = 0.ToString();
+            cbPaymentSchFreq.SelectedIndex = -1;
+            txtPaySchNoOfInstallment.Text = 0.ToString();
+            DEPaymentSchStartDate.EditValue = null;
+            DEPaymentSchEndDate.EditValue = null;
 
-            txtPaySchNoOfMonths.Enabled = false;
+            cbPaymentSchFreq.Enabled = false;
+            txtPaySchNoOfInstallment.Enabled = false;
+            DEPaymentSchStartDate.Enabled = false;
+            DEPaymentSchEndDate.Enabled = false;
+
             if (chkPaySchEMI.Checked == true)
             {
-                txtPaySchNoOfMonths.Enabled = true;
+                cbPaymentSchFreq.Enabled = true;
             }
         }
 
-        private void txtPaySchNoOfMonths_KeyPress(object sender, KeyPressEventArgs e)
+        private void cbPaymentSchFreq_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Cursor.Current = Cursors.WaitCursor;
-            if ((Keys)e.KeyChar == Keys.Enter)
+            txtPaySchNoOfInstallment.Text = 0.ToString();
+            DEPaymentSchStartDate.EditValue = null;
+            DEPaymentSchEndDate.EditValue = null;
+
+            txtPaySchNoOfInstallment.Enabled = false;
+            DEPaymentSchStartDate.Enabled = false;
+            DEPaymentSchEndDate.Enabled = false;
+
+            if (cbPaymentSchFreq.SelectedIndex == -1) return;
+
+            if (cbPaymentSchFreq.SelectedIndex == 0)
             {
-                int iPayTypeId = Convert.ToInt32(CommFun.IsNullCheck(cboPaySchType.EditValue, CommFun.datatypes.vartypenumeric));
-                if (iPayTypeId == 0) { return; }
-                decimal dNoOfMonths = Convert.ToDecimal(CommFun.IsNullCheck(txtPaySchNoOfMonths.Text, CommFun.datatypes.vartypenumeric));
-                if (dNoOfMonths == 0)
-                    chkPaySchEMI.Enabled = true;
-                else
-                    chkPaySchEMI.Enabled = false;
-
-                if (grdPaymentSch.DataSource == null) return;
-
-                DataTable dtGrid = new DataTable();
-                dtGrid = grdPaymentSch.DataSource as DataTable;
-                DataView dview = new DataView(dtGrid) { RowFilter = "SchType='S'" };
-                DataTable dt = dview.ToTable();
-                
-                for (int i = 0; i <= dNoOfMonths - 1; i++)
-                {
-                    string sInstallment = "";
-                    if (i == 0)
-                        sInstallment = (i + 1) + "st Installment";
-                    else if (i == 1)
-                        sInstallment = (i + 1) + "nd Installment";
-                    else if (i == 2)
-                        sInstallment = (i + 1) + "rd Installment";
-                    else
-                        sInstallment = (i + 1) + "th Installment";
-
-                    DataRow drow = dt.NewRow();
-                    drow["TemplateId"] = 0;
-                    drow["Description"] = sInstallment;
-                    drow["SchType"] = "E";
-                    drow["SchDate"] = DBNull.Value;
-                    drow["FlatTypeId"] = CommFun.IsNullCheck(chkcboPayFlatType.EditValue, CommFun.datatypes.vartypestring).ToString();
-                    drow["BlockId"] = CommFun.IsNullCheck(chkcbPayBlock.EditValue, CommFun.datatypes.vartypestring).ToString();
-                    drow["SchPercent"] = 0;
-
-                    dt.Rows.Add(drow);
-                }
-
-                PaymentScheduleBL.InsertPayScheduleDes(dt, m_iCCId, iPayTypeId, 0, "E");
-
-                grdPaymentSch.DataSource = dt;
+                txtPaySchNoOfInstallment.Enabled = true;
+                DEPaymentSchStartDate.Enabled = false;
+                DEPaymentSchEndDate.Enabled = false;
             }
-            Cursor.Current = Cursors.Default;
+            else
+            {
+                txtPaySchNoOfInstallment.Enabled = false;
+                DEPaymentSchStartDate.Enabled = true;
+                DEPaymentSchEndDate.Enabled = true;
+            }
         }
     }
 }

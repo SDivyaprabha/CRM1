@@ -26,8 +26,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            DevExpress.XtraTreeList.StyleFormatConditions.StyleFormatCondition styleFormatCondition1 = new DevExpress.XtraTreeList.StyleFormatConditions.StyleFormatCondition();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmUnitDir));
+            DevExpress.XtraTreeList.StyleFormatConditions.StyleFormatCondition styleFormatCondition1 = new DevExpress.XtraTreeList.StyleFormatConditions.StyleFormatCondition();
             this.radUnit = new Telerik.WinControls.UI.Docking.RadDock();
             this.dwPaySch = new Telerik.WinControls.UI.Docking.DocumentWindow();
             this.radPanel4 = new Telerik.WinControls.UI.RadPanel();
@@ -35,7 +35,7 @@
             this.grdPaymentSchView = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.standaloneBarDockControl4 = new DevExpress.XtraBars.StandaloneBarDockControl();
             this.radPanel5 = new Telerik.WinControls.UI.RadPanel();
-            this.txtPaySchNoOfMonths = new DevExpress.XtraEditors.TextEdit();
+            this.txtPaySchNoOfInstallment = new DevExpress.XtraEditors.TextEdit();
             this.barManager1 = new DevExpress.XtraBars.BarManager(this.components);
             this.bar1 = new DevExpress.XtraBars.Bar();
             this.barStaticItem1 = new DevExpress.XtraBars.BarStaticItem();
@@ -271,6 +271,12 @@
             this.bar10 = new DevExpress.XtraBars.Bar();
             this.bar6 = new DevExpress.XtraBars.Bar();
             this.barButtonItem14 = new DevExpress.XtraBars.BarButtonItem();
+            this.labelControl9 = new DevExpress.XtraEditors.LabelControl();
+            this.cbPaymentSchFreq = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.labelControl10 = new DevExpress.XtraEditors.LabelControl();
+            this.DEPaymentSchStartDate = new DevExpress.XtraEditors.DateEdit();
+            this.labelControl11 = new DevExpress.XtraEditors.LabelControl();
+            this.DEPaymentSchEndDate = new DevExpress.XtraEditors.DateEdit();
             ((System.ComponentModel.ISupportInitialize)(this.radUnit)).BeginInit();
             this.radUnit.SuspendLayout();
             this.dwPaySch.SuspendLayout();
@@ -280,7 +286,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.grdPaymentSchView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radPanel5)).BeginInit();
             this.radPanel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtPaySchNoOfMonths.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPaySchNoOfInstallment.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboFT)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboBox1)).BeginInit();
@@ -382,11 +388,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.grdViewCheck)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEdit20)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEdit21)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbPaymentSchFreq.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DEPaymentSchStartDate.Properties.VistaTimeProperties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DEPaymentSchStartDate.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DEPaymentSchEndDate.Properties.VistaTimeProperties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DEPaymentSchEndDate.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // radUnit
             // 
-            this.radUnit.ActiveWindow = this.dwProjInfo;
+            this.radUnit.ActiveWindow = this.dwPaySch;
             this.radUnit.CausesValidation = false;
             this.radUnit.Controls.Add(this.documentContainer1);
             this.radUnit.Controls.Add(this.toolTabStrip1);
@@ -427,9 +438,9 @@
             this.radPanel4.Controls.Add(this.grdPaymentSch);
             this.radPanel4.Controls.Add(this.standaloneBarDockControl4);
             this.radPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radPanel4.Location = new System.Drawing.Point(0, 114);
+            this.radPanel4.Location = new System.Drawing.Point(0, 121);
             this.radPanel4.Name = "radPanel4";
-            this.radPanel4.Size = new System.Drawing.Size(680, 340);
+            this.radPanel4.Size = new System.Drawing.Size(680, 333);
             this.radPanel4.TabIndex = 5;
             // 
             // grdPaymentSch
@@ -440,7 +451,7 @@
             this.grdPaymentSch.LookAndFeel.UseDefaultLookAndFeel = false;
             this.grdPaymentSch.MainView = this.grdPaymentSchView;
             this.grdPaymentSch.Name = "grdPaymentSch";
-            this.grdPaymentSch.Size = new System.Drawing.Size(680, 314);
+            this.grdPaymentSch.Size = new System.Drawing.Size(680, 307);
             this.grdPaymentSch.TabIndex = 104;
             this.grdPaymentSch.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.grdPaymentSchView});
@@ -496,7 +507,13 @@
             // radPanel5
             // 
             this.radPanel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(241)))), ((int)(((byte)(254)))));
-            this.radPanel5.Controls.Add(this.txtPaySchNoOfMonths);
+            this.radPanel5.Controls.Add(this.DEPaymentSchEndDate);
+            this.radPanel5.Controls.Add(this.labelControl11);
+            this.radPanel5.Controls.Add(this.DEPaymentSchStartDate);
+            this.radPanel5.Controls.Add(this.labelControl10);
+            this.radPanel5.Controls.Add(this.cbPaymentSchFreq);
+            this.radPanel5.Controls.Add(this.labelControl9);
+            this.radPanel5.Controls.Add(this.txtPaySchNoOfInstallment);
             this.radPanel5.Controls.Add(this.labelControl8);
             this.radPanel5.Controls.Add(this.chkPaySchEMI);
             this.radPanel5.Controls.Add(this.txtPaymentSchRoundDigit);
@@ -511,30 +528,29 @@
             this.radPanel5.Dock = System.Windows.Forms.DockStyle.Top;
             this.radPanel5.Location = new System.Drawing.Point(0, 0);
             this.radPanel5.Name = "radPanel5";
-            this.radPanel5.Size = new System.Drawing.Size(680, 114);
+            this.radPanel5.Size = new System.Drawing.Size(680, 121);
             this.radPanel5.TabIndex = 6;
             // 
-            // txtPaySchNoOfMonths
+            // txtPaySchNoOfInstallment
             // 
-            this.txtPaySchNoOfMonths.EditValue = "0";
-            this.txtPaySchNoOfMonths.Enabled = false;
-            this.txtPaySchNoOfMonths.EnterMoveNextControl = true;
-            this.txtPaySchNoOfMonths.Location = new System.Drawing.Point(107, 87);
-            this.txtPaySchNoOfMonths.MenuManager = this.barManager1;
-            this.txtPaySchNoOfMonths.Name = "txtPaySchNoOfMonths";
-            this.txtPaySchNoOfMonths.Properties.Appearance.Options.UseTextOptions = true;
-            this.txtPaySchNoOfMonths.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.txtPaySchNoOfMonths.Properties.AppearanceDisabled.Options.UseTextOptions = true;
-            this.txtPaySchNoOfMonths.Properties.AppearanceDisabled.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.txtPaySchNoOfMonths.Properties.LookAndFeel.SkinName = "Money Twins";
-            this.txtPaySchNoOfMonths.Properties.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.txtPaySchNoOfMonths.Properties.Mask.EditMask = "n0";
-            this.txtPaySchNoOfMonths.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
-            this.txtPaySchNoOfMonths.Properties.Mask.UseMaskAsDisplayFormat = true;
-            this.txtPaySchNoOfMonths.Properties.ValidateOnEnterKey = true;
-            this.txtPaySchNoOfMonths.Size = new System.Drawing.Size(176, 20);
-            this.txtPaySchNoOfMonths.TabIndex = 13;
-            this.txtPaySchNoOfMonths.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPaySchNoOfMonths_KeyPress);
+            this.txtPaySchNoOfInstallment.EditValue = "0";
+            this.txtPaySchNoOfInstallment.Enabled = false;
+            this.txtPaySchNoOfInstallment.EnterMoveNextControl = true;
+            this.txtPaySchNoOfInstallment.Location = new System.Drawing.Point(393, 75);
+            this.txtPaySchNoOfInstallment.MenuManager = this.barManager1;
+            this.txtPaySchNoOfInstallment.Name = "txtPaySchNoOfInstallment";
+            this.txtPaySchNoOfInstallment.Properties.Appearance.Options.UseTextOptions = true;
+            this.txtPaySchNoOfInstallment.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            this.txtPaySchNoOfInstallment.Properties.AppearanceDisabled.Options.UseTextOptions = true;
+            this.txtPaySchNoOfInstallment.Properties.AppearanceDisabled.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            this.txtPaySchNoOfInstallment.Properties.LookAndFeel.SkinName = "Money Twins";
+            this.txtPaySchNoOfInstallment.Properties.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.txtPaySchNoOfInstallment.Properties.Mask.EditMask = "n0";
+            this.txtPaySchNoOfInstallment.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
+            this.txtPaySchNoOfInstallment.Properties.Mask.UseMaskAsDisplayFormat = true;
+            this.txtPaySchNoOfInstallment.Properties.ValidateOnEnterKey = true;
+            this.txtPaySchNoOfInstallment.Size = new System.Drawing.Size(159, 20);
+            this.txtPaySchNoOfInstallment.TabIndex = 13;
             // 
             // barManager1
             // 
@@ -2059,30 +2075,30 @@
             // 
             // labelControl8
             // 
-            this.labelControl8.Location = new System.Drawing.Point(13, 90);
+            this.labelControl8.Location = new System.Drawing.Point(299, 78);
             this.labelControl8.Name = "labelControl8";
-            this.labelControl8.Size = new System.Drawing.Size(69, 13);
+            this.labelControl8.Size = new System.Drawing.Size(92, 13);
             this.labelControl8.TabIndex = 12;
-            this.labelControl8.Text = "No Of Months ";
+            this.labelControl8.Text = "No Of Installments ";
             // 
             // chkPaySchEMI
             // 
             this.chkPaySchEMI.EnterMoveNextControl = true;
-            this.chkPaySchEMI.Location = new System.Drawing.Point(297, 61);
+            this.chkPaySchEMI.Location = new System.Drawing.Point(297, 54);
             this.chkPaySchEMI.MenuManager = this.barManager1;
             this.chkPaySchEMI.Name = "chkPaySchEMI";
             this.chkPaySchEMI.Properties.Caption = " EMI";
             this.chkPaySchEMI.Properties.LookAndFeel.SkinName = "Glass Oceans";
             this.chkPaySchEMI.Properties.LookAndFeel.UseDefaultLookAndFeel = false;
             this.chkPaySchEMI.Properties.NullStyle = DevExpress.XtraEditors.Controls.StyleIndeterminate.Unchecked;
-            this.chkPaySchEMI.Size = new System.Drawing.Size(75, 19);
+            this.chkPaySchEMI.Size = new System.Drawing.Size(59, 19);
             this.chkPaySchEMI.TabIndex = 11;
             this.chkPaySchEMI.CheckedChanged += new System.EventHandler(this.chkPaySchEMI_CheckedChanged);
             // 
             // txtPaymentSchRoundDigit
             // 
             this.txtPaymentSchRoundDigit.EditValue = "0";
-            this.txtPaymentSchRoundDigit.Location = new System.Drawing.Point(107, 61);
+            this.txtPaymentSchRoundDigit.Location = new System.Drawing.Point(107, 53);
             this.txtPaymentSchRoundDigit.MenuManager = this.barManager1;
             this.txtPaymentSchRoundDigit.Name = "txtPaymentSchRoundDigit";
             this.txtPaymentSchRoundDigit.Properties.Appearance.Options.UseTextOptions = true;
@@ -2100,7 +2116,7 @@
             // 
             // labelControl7
             // 
-            this.labelControl7.Location = new System.Drawing.Point(13, 64);
+            this.labelControl7.Location = new System.Drawing.Point(13, 56);
             this.labelControl7.Name = "labelControl7";
             this.labelControl7.Size = new System.Drawing.Size(61, 13);
             this.labelControl7.TabIndex = 9;
@@ -2108,7 +2124,7 @@
             // 
             // chkcbPayBlock
             // 
-            this.chkcbPayBlock.Location = new System.Drawing.Point(372, 35);
+            this.chkcbPayBlock.Location = new System.Drawing.Point(362, 31);
             this.chkcbPayBlock.MenuManager = this.barManager1;
             this.chkcbPayBlock.Name = "chkcbPayBlock";
             this.chkcbPayBlock.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -2116,13 +2132,13 @@
             this.chkcbPayBlock.Properties.LookAndFeel.SkinName = "Money Twins";
             this.chkcbPayBlock.Properties.LookAndFeel.UseDefaultLookAndFeel = false;
             this.chkcbPayBlock.Properties.NullText = "None";
-            this.chkcbPayBlock.Size = new System.Drawing.Size(180, 20);
+            this.chkcbPayBlock.Size = new System.Drawing.Size(190, 20);
             this.chkcbPayBlock.TabIndex = 7;
             this.chkcbPayBlock.EditValueChanged += new System.EventHandler(this.chkcbBlock_EditValueChanged);
             // 
             // labelControl6
             // 
-            this.labelControl6.Location = new System.Drawing.Point(299, 38);
+            this.labelControl6.Location = new System.Drawing.Point(299, 34);
             this.labelControl6.Name = "labelControl6";
             this.labelControl6.Size = new System.Drawing.Size(57, 13);
             this.labelControl6.TabIndex = 8;
@@ -2130,7 +2146,7 @@
             // 
             // labelControl14
             // 
-            this.labelControl14.Location = new System.Drawing.Point(13, 38);
+            this.labelControl14.Location = new System.Drawing.Point(13, 34);
             this.labelControl14.Name = "labelControl14";
             this.labelControl14.Size = new System.Drawing.Size(87, 13);
             this.labelControl14.TabIndex = 6;
@@ -2172,7 +2188,7 @@
             // 
             // chkcboPayFlatType
             // 
-            this.chkcboPayFlatType.Location = new System.Drawing.Point(107, 35);
+            this.chkcboPayFlatType.Location = new System.Drawing.Point(107, 31);
             this.chkcboPayFlatType.MenuManager = this.barManager1;
             this.chkcboPayFlatType.Name = "chkcboPayFlatType";
             this.chkcboPayFlatType.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -2218,7 +2234,7 @@
             // 
             // 
             this.documentTabStrip1.RootElement.MinSize = new System.Drawing.Size(25, 25);
-            this.documentTabStrip1.SelectedIndex = 0;
+            this.documentTabStrip1.SelectedIndex = 3;
             this.documentTabStrip1.Size = new System.Drawing.Size(692, 489);
             this.documentTabStrip1.TabIndex = 0;
             this.documentTabStrip1.TabStop = false;
@@ -3373,6 +3389,84 @@
             this.barButtonItem14.Id = 96;
             this.barButtonItem14.Name = "barButtonItem14";
             // 
+            // labelControl9
+            // 
+            this.labelControl9.Location = new System.Drawing.Point(13, 78);
+            this.labelControl9.Name = "labelControl9";
+            this.labelControl9.Size = new System.Drawing.Size(57, 13);
+            this.labelControl9.TabIndex = 14;
+            this.labelControl9.Text = "Frequency  ";
+            // 
+            // cbPaymentSchFreq
+            // 
+            this.cbPaymentSchFreq.EnterMoveNextControl = true;
+            this.cbPaymentSchFreq.Location = new System.Drawing.Point(107, 75);
+            this.cbPaymentSchFreq.MenuManager = this.barManager1;
+            this.cbPaymentSchFreq.Name = "cbPaymentSchFreq";
+            this.cbPaymentSchFreq.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cbPaymentSchFreq.Properties.Items.AddRange(new object[] {
+            "None",
+            "Monthly",
+            "Quarterly",
+            "Half Yearly",
+            "Yearly"});
+            this.cbPaymentSchFreq.Properties.LookAndFeel.SkinName = "Money Twins";
+            this.cbPaymentSchFreq.Properties.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.cbPaymentSchFreq.Size = new System.Drawing.Size(176, 20);
+            this.cbPaymentSchFreq.TabIndex = 15;
+            this.cbPaymentSchFreq.SelectedIndexChanged += new System.EventHandler(this.cbPaymentSchFreq_SelectedIndexChanged);
+            // 
+            // labelControl10
+            // 
+            this.labelControl10.Location = new System.Drawing.Point(13, 100);
+            this.labelControl10.Name = "labelControl10";
+            this.labelControl10.Size = new System.Drawing.Size(56, 13);
+            this.labelControl10.TabIndex = 16;
+            this.labelControl10.Text = "Start Date  ";
+            // 
+            // DEPaymentSchStartDate
+            // 
+            this.DEPaymentSchStartDate.EditValue = null;
+            this.DEPaymentSchStartDate.Enabled = false;
+            this.DEPaymentSchStartDate.EnterMoveNextControl = true;
+            this.DEPaymentSchStartDate.Location = new System.Drawing.Point(107, 97);
+            this.DEPaymentSchStartDate.MenuManager = this.barManager1;
+            this.DEPaymentSchStartDate.Name = "DEPaymentSchStartDate";
+            this.DEPaymentSchStartDate.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.DEPaymentSchStartDate.Properties.LookAndFeel.SkinName = "Money Twins";
+            this.DEPaymentSchStartDate.Properties.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.DEPaymentSchStartDate.Properties.VistaTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.DEPaymentSchStartDate.Size = new System.Drawing.Size(176, 20);
+            this.DEPaymentSchStartDate.TabIndex = 17;
+            // 
+            // labelControl11
+            // 
+            this.labelControl11.Location = new System.Drawing.Point(299, 100);
+            this.labelControl11.Name = "labelControl11";
+            this.labelControl11.Size = new System.Drawing.Size(50, 13);
+            this.labelControl11.TabIndex = 18;
+            this.labelControl11.Text = "End Date  ";
+            // 
+            // DEPaymentSchEndDate
+            // 
+            this.DEPaymentSchEndDate.EditValue = null;
+            this.DEPaymentSchEndDate.Enabled = false;
+            this.DEPaymentSchEndDate.EnterMoveNextControl = true;
+            this.DEPaymentSchEndDate.Location = new System.Drawing.Point(362, 97);
+            this.DEPaymentSchEndDate.MenuManager = this.barManager1;
+            this.DEPaymentSchEndDate.Name = "DEPaymentSchEndDate";
+            this.DEPaymentSchEndDate.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.DEPaymentSchEndDate.Properties.LookAndFeel.SkinName = "Money Twins";
+            this.DEPaymentSchEndDate.Properties.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.DEPaymentSchEndDate.Properties.VistaTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.DEPaymentSchEndDate.Size = new System.Drawing.Size(190, 20);
+            this.DEPaymentSchEndDate.TabIndex = 19;
+            // 
             // frmUnitDir
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3385,7 +3479,6 @@
             this.Controls.Add(this.barDockControlRight);
             this.Controls.Add(this.barDockControlBottom);
             this.Controls.Add(this.barDockControlTop);
-            this.KeyPreview = true;
             this.LookAndFeel.SkinName = "Blue";
             this.LookAndFeel.UseDefaultLookAndFeel = false;
             this.Name = "frmUnitDir";
@@ -3403,7 +3496,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.radPanel5)).EndInit();
             this.radPanel5.ResumeLayout(false);
             this.radPanel5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtPaySchNoOfMonths.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPaySchNoOfInstallment.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.barManager1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboFT)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboBox1)).EndInit();
@@ -3507,6 +3600,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.grdViewCheck)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEdit20)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEdit21)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbPaymentSchFreq.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DEPaymentSchStartDate.Properties.VistaTimeProperties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DEPaymentSchStartDate.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DEPaymentSchEndDate.Properties.VistaTimeProperties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DEPaymentSchEndDate.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -3754,7 +3852,13 @@
         private DevExpress.XtraEditors.TextEdit txtPaymentSchRoundDigit;
         private DevExpress.XtraEditors.LabelControl labelControl7;
         private DevExpress.XtraEditors.CheckEdit chkPaySchEMI;
-        private DevExpress.XtraEditors.TextEdit txtPaySchNoOfMonths;
+        private DevExpress.XtraEditors.TextEdit txtPaySchNoOfInstallment;
         private DevExpress.XtraEditors.LabelControl labelControl8;
+        private DevExpress.XtraEditors.ComboBoxEdit cbPaymentSchFreq;
+        private DevExpress.XtraEditors.LabelControl labelControl9;
+        private DevExpress.XtraEditors.DateEdit DEPaymentSchEndDate;
+        private DevExpress.XtraEditors.LabelControl labelControl11;
+        private DevExpress.XtraEditors.DateEdit DEPaymentSchStartDate;
+        private DevExpress.XtraEditors.LabelControl labelControl10;
     }
 }
